@@ -1,0 +1,146 @@
+---
+title: "SampleQC: Plotting observed QC metric distributions"
+author:
+- name: Will Macnair
+  affiliation: 
+  - &IMLS Institute for Molecular Life Sciences, University of Zurich, Switzerland
+  - Swiss Institute of Bioinformatics (SIB), University of Zurich, Switzerland
+date: '`r format(Sys.Date(), "%B %d, %Y")`'
+output:
+  workflowr::wflow_html:
+    code_folding: show
+    toc: true
+    toc_float: true
+---
+
+# Setup / definitions
+
+## Libraries
+
+```{r setup_knitr, include=FALSE}
+library('BiocStyle')
+knitr::opts_chunk$set( autodep=TRUE, cache=TRUE, dev='png' )
+# wflow_build(files='analysis/qc02_distns.Rmd', view=F, verbose=T, delete_cache=F)
+```
+
+```{r setup_libs, collapse=FALSE, message=FALSE, warning=FALSE, cache=FALSE}
+library('SampleQC')
+```
+
+## Inputs
+
+```{r setup_input}
+prep_dir    = 'output/qc01_prep_data'
+datasets    = c('Campbell', 'HGSOC', 'Macosko', 'Zeisel', 'Shekhar', 'Wang')
+```
+
+## Helper functions
+
+```{r setup_helpers, cache=FALSE}
+source('code/qc00_utils.R')
+source('code/qc02_distns.R')
+```
+
+## Outputs
+
+```{r setup_output}
+# where to save, what formats?
+save_dir  = 'output/qc02_distns'
+if (!dir.exists(save_dir))
+  dir.create(save_dir)
+
+# define file to check
+vars_all  = c('counts_k', 'feats_k', 'mito_pct', 
+  'log_counts', 'log_feats', 'logit_mito', 'log_mito_prop')
+qc_names  = c('log_counts', 'log_feats', 'logit_mito')
+
+# decide what to save as outputs
+formats   = c('.png', '.pdf')
+sel_biax  = c('Bipolar5', 'Bipolar6', 'sample19', 'sample41', 'UFast', 
+  'Zeisel')
+sel_marg  = c('arc1', 'Refed', 'r6', 'p1', 'Bipolar1', 'Bipolar2', 
+  'sample29', 'sample57')
+marg_f    = file.path(save_dir, 'selected_marginals')
+biax_f    = file.path(save_dir, 'selected_biaxials')
+```
+
+# Load inputs
+
+```{r load_hgsoc}
+datasets_dt = lapply(datasets, 
+  function(d) d %>% 
+    sprintf('%s/%s_qc_dt.txt.gz', prep_dir, .) %>%
+    fread %>%
+    .[, .(sample_id, cell_id, 
+      counts_k = total / 1e3, feats_k = detected / 1e3, 
+      mito_pct = subsets_mito_percent,
+      log_counts, log_feats, logit_mito, 
+      log_mito_prop = log10(subsets_mito_percent / 100))] %>%
+    .[, dataset := d]) %>% rbindlist
+```
+
+# Processing / calculations
+
+```{r calc_stats}
+qc_vals_dt  = datasets_dt %>% 
+  melt(id = c('dataset', 'sample_id', 'cell_id'), measure = vars_all, 
+    variable.name = 'qc_var', value.name = 'qc_val')
+```
+
+# Analysis
+
+## Plot biaxials of QC metrics{.tabset}
+
+```{r plot_biaxials, fig.height = 6, fig.width = 7, results = 'asis'}
+for (s in unique(datasets_dt$sample_id)) {
+  cat('### ', s, '\n')
+  print(plot_biaxials_one_sample(datasets_dt[sample_id == s], qc_names))
+  cat('\n\n')
+}
+```
+
+## Plot marginals of QC metrics{.tabset}
+
+```{r plot_marginals, fig.height = 8, fig.width = 7, results = 'asis'}
+for (d in unique(qc_vals_dt$dataset)) {
+  cat('### ', d, '\n')
+  print(plot_marginals(qc_vals_dt[dataset == d]))
+  cat('\n\n')
+}
+```
+
+# Outputs
+
+```{r save_marginals}
+# restrict to first 2 samples for each dataset
+sel_dt    = qc_vals_dt[sample_id %in% sel_marg] %>%
+  .[, .(dataset, sample_id)] %>% unique
+d_list    = unique(sel_dt$dataset) %>% sort
+qc_sel_dt = merge(qc_vals_dt, sel_dt, by = c('dataset', 'sample_id'))
+
+g_list  = lapply(d_list, function(d) {
+  g   = plot_marginals(qc_sel_dt[dataset == d]) + labs(subtitle = d) + 
+    theme_bw(base_size = 8) + theme(plot.margin = margin(0, 0, 0, 0, "cm"))
+  return(g)
+})
+g       = wrap_plots(g_list, ncol = 1, heights = table(sel_dt$dataset) + 0.2) + 
+  plot_annotation(tag_levels = 'A')
+for (f in formats)
+  ggsave(file = paste0(marg_f, f), g, h = 12, w = 8)
+```
+
+```{r save_biaxials}
+# pick some to demonstrate (just do grid of biaxials)
+g_list  = lapply(sel_biax, function(s) {
+  dt  = datasets_dt[sample_id == s]
+  d   = unique(dt$dataset)
+  g   = plot_biaxials_one_sample(datasets_dt[sample_id == s], qc_names) +
+    labs(subtitle = sprintf('%s: %s', d, s)) + 
+    theme(plot.margin = margin(0.5, 0.5, 0.5, 0.5, "cm"))
+  return(g)
+})
+g       = wrap_plots(g_list, ncol = 2) + 
+  plot_annotation(tag_levels = 'A')
+for (f in formats)
+  ggsave(file = paste0(biax_f, f), g, h = 12, w = 10)
+```

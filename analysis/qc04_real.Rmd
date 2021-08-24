@@ -1,0 +1,230 @@
+---
+title: "SampleQC: Generating plots for paper"
+author:
+- name: Will Macnair
+  affiliation: 
+  - &IMLS Institute for Molecular Life Sciences, University of Zurich, Switzerland
+  - Swiss Institute of Bioinformatics (SIB), University of Zurich, Switzerland
+date: '`r format(Sys.Date(), "%B %d, %Y")`'
+output:
+  workflowr::wflow_html:
+    code_folding: show
+    toc: true
+    toc_float: true
+    number_sections: false
+---
+
+# Setup / definitions
+
+## Libraries
+
+```{r setup_knitr, include=FALSE}
+library('BiocStyle')
+knitr::opts_chunk$set( autodep=TRUE, cache=TRUE, dev='png' )
+# wflow_build(files='analysis/qc04_real.Rmd', view=F, verbose=T, delete_cache=F)
+```
+
+```{r setup_libs, collapse=FALSE, message=FALSE, warning=FALSE, cache=FALSE}
+library('SampleQC')
+
+library('assertthat')
+library('ggplot2')
+library('patchwork')
+library('scales')
+library('stringr')
+library('forcats')
+library('data.table')
+library('magrittr')
+seed    = 20200725
+set.seed(seed)
+```
+
+## Inputs
+
+```{r setup_input}
+# where is snRNAseq file?
+qc_f        = 'data/snRNAseq/sn_qc_dt_anon_2021-07-25.txt.gz'
+qc_obj_f    = 'data/snRNAseq/sampleQC_obj_2021-07-25.rds'
+
+qc_names    = c('log_counts', 'logit_mito', 'splice_ratio')
+annots_disc = c('donor_id', 'condition', 'batch', 'source')
+annots_cont = c('med_splice')
+```
+
+## Helper functions
+
+```{r setup_helpers, cache=FALSE}
+source('code/qc03_sims.R')
+```
+
+## Outputs
+
+```{r setup_output}
+# where to save?
+save_dir  = 'output/qc04_real'
+if (!dir.exists(save_dir))
+  dir.create(save_dir)
+
+# annotations to save
+disc_ls         = c('group_id', 'batch', 'mito_cat', 'N_cat')
+cont_ls         = c('med_counts', 'med_splice')
+annot_ls        = c(disc_ls, cont_ls)
+
+# exclude clusters with above this splice_ratio
+splice_cut      = 3
+
+# what figs to save?
+formats         = c('png', 'pdf')
+outs_scater_f   = file.path(save_dir, 'outs_scater_bio.%s')
+outs_distns_f   = file.path(save_dir, 'outs_distns_bio.%s')
+kept_distns_f   = file.path(save_dir, 'kept_distns_bio.%s')
+maha_qqs_f      = file.path(save_dir, 'mahalanobis_qq_plot_bio.%s')
+```
+
+# Load inputs
+
+# Processing / calculations
+
+```{r load_qc}
+qc_dt       = qc_f %>% fread %>%
+  .[, med_splice := median(splice_ratio), by=sample_id] %>%
+  make_qc_dt(qc_names = qc_names)
+```
+
+```{r run_SampleQC}
+# K_list    = c(4, 4, 3, 2, 1, 3, 4, 4, 4)
+K_list    = c(3, 4, 1, 4, 2, 1, 3, 4)
+# K_list    = c(1, 1, 1, 1, 1, 1, 1, 1)
+if (file.exists(qc_obj_f)) {
+  qc_obj    = readRDS(qc_obj_f)
+} else {
+  # find sample groups
+  set.seed(seed)
+  qc_obj    = calc_pairwise_mmds(qc_dt, qc_names, 
+    annots_disc = annots_disc, annots_cont = annots_cont, 
+    n_cores = 16)
+  print(table(colData(qc_obj)$group_id))
+
+  # fit model
+  set.seed(seed)
+  qc_obj    = fit_sampleqc(qc_obj, K_list = K_list, mcd_alpha = 0.3)
+
+  # save outputs
+  make_sampleqc_report(qc_obj, save_dir, 'snRNAseq')
+
+  # specify outlier cluster
+  saveRDS(qc_obj, file = qc_obj_f)
+}
+```
+
+```{r calc_outliers_dt}
+# extract component means
+group_ids   = levels(colData(qc_obj)$group_id)
+beta_ks     = group_ids %>%
+  lapply(function(g) {
+    beta_k  = metadata(qc_obj)$fit_list[[g]]$beta_k
+    mu_0    = metadata(qc_obj)$fit_list[[g]]$mu_0
+    beta_k  = sweep(beta_k, 2, mu_0, '+')
+    assert_that( all(abs(colMeans(beta_k) - mu_0) < 1e-10) )
+    return(beta_k)
+  })
+
+# get clusters with positive splice ratio
+splice_idx    = qc_names == 'splice_ratio'
+exc_clusters  = lapply(beta_ks, 
+  function(beta_k_mat) which(beta_k_mat[, splice_idx] > splice_cut)
+  ) %>% setNames(group_ids)
+exc_clusters  = exc_clusters[ sapply(exc_clusters, function(x) length(x) > 0) ]
+
+# get outliers
+outliers_dt   = get_outliers(qc_obj, exc_clusters = exc_clusters)
+```
+
+```{r calc_scater_miqc}
+# calc scater outliers
+scater_dt = calc_scater_dt(qc_dt)
+set.seed(123)
+miqc_dt   = calc_miqc_dt(qc_dt)
+```
+
+# Analysis
+
+## Embeddings of samples{.tabset}
+
+```{r plot_embeddings_disc, fig.height = 9, fig.width = 8, results = 'asis', cache = FALSE}
+for (sel_embed in c('UMAP', 'MDS')) {
+  cat('### ', sel_embed, '\n')
+  g_list  = lapply(seq_along(annot_ls), function(ii) {
+    annot_i   = annot_ls[[ii]]
+    var_type  = ifelse(annot_i %in% disc_ls, 'discrete', 'continuous')
+    SampleQC:::.plot_one_embedding(qc_obj, annot_i, var_type, sel_embed) +
+      labs( title=LETTERS[[ii]] )
+    })
+  g       = wrap_plots(g_list, ncol=2)
+  print(g)
+  png_f   = sprintf('%s/real_qc_embed_disc_%s.png', save_dir, sel_embed)
+  ggsave(png_f, g, h=9, w=8)
+  cat('\n\n')
+}
+```
+
+## Plot `SampleQC` model fits and outliers over QC biaxials
+
+```{r plot_histograms_split, fig.height=6, fig.width=7, results='asis', eval = FALSE}
+group_list  = levels(qc_obj$group_id)
+for (g in group_list) {
+  cat('### ', g, '{.tabset}\n')
+  # which samples?
+  samples_g   = sort(colData(qc_obj)$sample_id[ colData(qc_obj)$group_id == g ])
+  # # just do a handful
+  # samples_g   = sample(samples_g, min(5, length(samples_g))) %>% sort
+  for (s in samples_g) {
+    cat('#### ', s, ' \n')
+    g_fit   = plot_fit_over_biaxials(qc_obj, s)
+    g_out   = plot_outliers(qc_obj, s)
+    g     = g_fit / g_out
+    print(g)
+    cat('\n\n')
+  }
+}
+```
+
+## Plot outliers
+
+```{r plot_outliers, fig.height = 8, fig.width = 10}
+# assemble plot
+s       = 'sample017'
+g_fit   = plot_fit_over_biaxials(qc_obj, s) + 
+  labs( title = 'A. SampleQC fits' )
+g_maha  = plot_maha_dists(qc_obj, s) + 
+  labs( title = 'B. Mahalanobis distances' )
+g_qc    = plot_outliers(qc_obj, s, outliers_dt) + 
+  labs( title = 'C. SampleQC outliers' )
+g_scat  = plot_outliers(qc_obj, s, scater_dt) + 
+  labs( title = 'D. scater outliers' )
+g_miqc  = plot_outliers(qc_obj, s, miqc_dt) + 
+  labs( title = 'E. miQC outliers' )
+g       = list(g_fit, g_maha, plot_spacer(), g_qc, g_scat, g_miqc) %>% 
+  wrap_plots(ncol = 2, byrow = FALSE)
+
+# save files
+for (f in formats)
+  ggsave(sprintf(outs_scater_f, f), g, h = 8, w = 10)
+
+# plot
+print(g)
+```
+
+## Plot Mahalanobis distances
+
+```{r plot_maha_qq, fig.height = 5, fig.width = 6}
+set.seed(seed)
+sel_samples   = qc_obj$sample_id %>% sample(6)
+mahas_dt      = calc_mahas_dt(qc_obj)
+
+# do plot
+g             = plot_maha_qqs(mahas_dt, sel_samples)
+for (f in formats)
+  ggsave(sprintf(maha_qqs_f, f, f), g, h = 5, w = 8)
+print(g)
+```

@@ -1,0 +1,314 @@
+---
+title: "SampleQC: Plots for paper based on simulations"
+author:
+- name: Will Macnair
+  affiliation: 
+  - &IMLS Institute for Molecular Life Sciences, University of Zurich, Switzerland
+  - Swiss Institute of Bioinformatics (SIB), University of Zurich, Switzerland
+date: '`r format(Sys.Date(), "%B %d, %Y")`'
+output:
+  workflowr::wflow_html:
+  code_folding: hide
+  toc: true
+  toc_float: true
+  number_sections: false
+---
+
+# Setup / definitions
+
+## Libraries
+
+```{r setup_knitr, include=FALSE}
+library('BiocStyle')
+knitr::opts_chunk$set( autodep=TRUE, cache=TRUE, dev='png' )
+# wflow_build(files='analysis/qc03_sims.Rmd', view=F, verbose=T, delete_cache=F)
+```
+
+```{r setup_libs, collapse=FALSE, message=FALSE, warning=FALSE, cache=FALSE}
+library('SampleQC')
+```
+
+## Inputs
+
+```{r setup_input}
+```
+
+## Helper functions
+
+```{r setup_helpers, cache=FALSE}
+source('code/qc03_sims.R')
+```
+
+## Outputs
+
+```{r setup_output}
+# where to save?
+save_dir    = 'output/qc03_sims'
+date_tag    = '2021-03-02'
+seed        = 20210302
+proj_name   = 'sims'
+figs_dir    = 'manuscript/figures'
+
+# what objects to save?
+sims_f      = sprintf('%s/sims_list_%s.rds', save_dir, date_tag)
+qc_ok_f     = sprintf('%s/qc_ok_obj_%s.rds', save_dir, date_tag)
+qc_out_f    = sprintf('%s/qc_out_obj_%s.rds', save_dir, date_tag)
+# qc_ok_f     = file.path(figs_dir, 'qc_ok_obj.rds')
+# qc_out_f    = file.path(figs_dir, 'qc_out_obj.rds')
+
+# what formats to save?
+formats     = c('png', 'pdf')
+
+# what figs to save?
+outs_ok_uni_f   = file.path(save_dir, 'outs_scater_sim_ok_unimodal.%s')
+outs_out_uni_f  = file.path(save_dir, 'outs_scater_sim_out_unimodal.%s')
+outs_ok_mult_f  = file.path(save_dir, 'outs_scater_sim_ok_multimodal.%s')
+outs_out_mult_f = file.path(save_dir, 'outs_scater_sim_out_multimodal.%s')
+comparisons_f1  = file.path(save_dir, 'comparisons_positive.%s')
+comparisons_f2  = file.path(save_dir, 'comparisons_negative.%s')
+comparisons_pr  = file.path(save_dir, 'comparisons_pr.%s')
+
+maha_qqs_f      = file.path(save_dir, 'mahalanobis_qq_plot_sim.%s')
+
+pr_by_sample_f  = file.path(save_dir, 'pr_curves_by_sample.%s')
+pr_overall_f    = file.path(save_dir, 'pr_curves_overall.%s')
+pr_modal_f      = file.path(save_dir, 'pr_curves_by_modality.%s')
+
+per_celltype_bias_abs = file.path(save_dir, 'per_celltype_bias_abs.%s')
+per_celltype_bias_p   = file.path(save_dir, 'per_celltype_bias_prop.%s')
+```
+
+# Load inputs
+
+# Processing / calculations
+
+```{r calc_sims}
+if (file.exists(sims_f)) {
+  sims_list   = readRDS(sims_f)
+} else {
+  set.seed(seed)
+  sims_list   = simulate_qcs( K=3 )
+  print(sims_list$expt_params$sel_ks)
+  saveRDS(sims_list, file = sims_f)
+}
+qc_ok     = make_qc_dt(sims_list$qc_ok) %>%
+  .[, true_group := factor(sims_list$groups) ]
+qc_out    = make_qc_dt(sims_list$qc_out) %>%
+  .[, true_group := factor(sims_list$groups) ]
+qc_names  = sims_list$expt_params$qc_names
+```
+
+```{r calc_SampleQC_ok}
+if (file.exists(qc_ok_f)) {
+  qc_ok_obj   = readRDS(qc_ok_f)
+} else {
+  set.seed(seed)
+  qc_ok_obj   = calc_pairwise_mmds(qc_ok, qc_names, 
+    annots_disc='true_group', n_times=20, n_cores = 16)
+  qc_ok_obj   = fit_sampleqc(qc_ok_obj, K_list = c(3, 3, 2, 2, 1))
+
+  make_sampleqc_report(qc_ok_obj, save_dir, paste0(proj_name, '_ok'))
+  saveRDS(qc_ok_obj, file=qc_ok_f)
+}
+```
+
+```{r calc_SampleQC_out}
+if (file.exists(qc_out_f)) {
+  qc_out_obj  = readRDS(qc_out_f)
+} else {
+  set.seed(seed)
+  qc_out_obj  = calc_pairwise_mmds(qc_out, qc_names, 
+    annots_disc = 'true_group', n_cores = 16)
+  qc_out_obj  = fit_sampleqc(qc_out_obj, K_list = c(3, 2, 2, 2, 1), mcd_alpha = 0.2)
+
+  make_sampleqc_report(qc_out_obj, save_dir, paste0(proj_name, '_out'))
+  saveRDS(qc_out_obj, file=qc_out_f)
+}
+```
+
+```{r calc_scater}
+# calc scater outliers
+scater_ok       = calc_scater_dt(qc_ok)
+scater_out      = calc_scater_dt(qc_out)
+```
+
+```{r calc_miQC}
+# calc scater outliers
+set.seed(seed)
+miqc_ok         = calc_miqc_dt(qc_ok)
+miqc_out        = calc_miqc_dt(qc_out)
+```
+
+```{r calc_true_outliers}
+true_outliers   = calc_true_outliers(sims_list)
+```
+
+```{r calc_perf_by_celltype}
+perf_by_celltype = calc_perf_by_celltype(qc_out_obj, scater_out, miqc_out, 
+  true_outliers)
+```
+
+```{r calc_pr_curves}
+# calc values per cell for scater and sampleqc
+scater_pr_dt    = calc_scater_pr_dt(qc_out)
+miqc_pr_dt      = calc_miqc_pr_dt(miqc_out)
+sampleqc_pr_dt  = calc_sampleqc_pr_dt(qc_out_obj)
+pr_by_sample    = calc_pr_by_sample(scater_pr_dt, miqc_pr_dt, 
+  sampleqc_pr_dt, true_outliers)
+pr_overall      = calc_pr_overall(scater_pr_dt, miqc_pr_dt, 
+  sampleqc_pr_dt, true_outliers)
+pr_by_modality  = calc_pr_by_modality(scater_pr_dt, miqc_pr_dt, 
+  sampleqc_pr_dt, true_outliers)
+
+default_cuts    = make_default_cuts(qc_out_obj)
+
+cuts_by_sample  = calc_cutpoints(pr_by_sample, default_cuts, by_what = 'sample_id')
+cuts_overall    = calc_cutpoints(pr_overall, default_cuts, by_what = 'overall')
+cuts_by_modal   = calc_cutpoints(pr_by_modality, default_cuts, by_what = 'modal')
+```
+
+# Analysis
+
+```{r what_is_the_truth}
+print(sims_list$expt_params$sel_ks)
+```
+
+```{r plot_vars, cache=FALSE}
+# define what to use and annotate
+group_list  = metadata(qc_out_obj)$group_list
+n_groups    = metadata(qc_out_obj)$n_groups
+```
+
+## MMD dissimilarity matrix
+
+Heatmap of all pairwise dissimilarities between samples (values close to 0 indicate similar samples; values of 1 and higher indicate extremely dissimilar samples).
+
+```{r plot_mmd_distns_heatmap, fig.height=6, fig.width=7}
+(plot_mmd_heatmap(qc_out_obj))
+```
+
+## Plot over UMAP embedding with annotations{.tabset}
+
+```{r plot_over_umap, fig.height=4, fig.width=5, results='asis'}
+plot_embeddings(qc_out_obj, "discrete", "UMAP")
+plot_embeddings(qc_out_obj, "continuous", "UMAP")
+```
+
+## Plot over MDS embedding with annotations{.tabset}
+
+```{r plot_over_mds, fig.height=4, fig.width=5, results='asis'}
+plot_embeddings(qc_out_obj, "discrete", "MDS")
+plot_embeddings(qc_out_obj, "continuous", "MDS")
+```
+
+## Plot `SampleQC` model fits and outliers over QC biaxials
+
+```{r plot_histograms_split, fig.height=6, fig.width=7, results='asis'}
+for (g in group_list) {
+  cat('### ', g, '{.tabset}\n')
+  # which samples?
+  samples_g   = sort(colData(qc_out_obj)$sample_id[ colData(qc_out_obj)$group_id == g ])
+  # # just do a handful
+  # samples_g   = sample(samples_g, min(5, length(samples_g))) %>% sort
+  for (s in samples_g) {
+    cat('#### ', s, ' \n')
+    g_fit   = plot_fit_over_biaxials(qc_out_obj, s)
+    g_out   = plot_outliers(qc_out_obj, s)
+    g     = g_fit / g_out
+    print(g)
+    cat('\n\n')
+  }
+}
+```
+
+## Plot outliers
+
+```{r plot_outliers_unimodal}
+s   = 'sample04'
+# with no outliers
+g   = plot_sampleqc_vs_others_over_biaxials(qc_ok_obj, 
+  true_outliers[, .(cell_id, sample_id, outlier = FALSE)], 
+  scater_ok, miqc_ok, s)
+for (f in formats)
+  ggsave(sprintf(outs_ok_uni_f, f, f), g, h = 8, w = 10)
+
+# with out outliers
+g   = plot_sampleqc_vs_others_over_biaxials(qc_out_obj, true_outliers, 
+  scater_out, miqc_out, s)
+for (f in formats)
+  ggsave(sprintf(outs_out_uni_f, f, f), g, h = 8, w = 10)
+```
+
+```{r plot_outliers_multimodal}
+s   = 'sample60'
+# with no outliers
+g   = plot_sampleqc_vs_others_over_biaxials(qc_ok_obj, 
+  true_outliers[, .(cell_id, sample_id, outlier = FALSE)], 
+  scater_ok, miqc_ok, s)
+for (f in formats)
+  ggsave(sprintf(outs_ok_mult_f, f, f), g, h = 8, w = 10)
+
+# with out outliers
+g   = plot_sampleqc_vs_others_over_biaxials(qc_out_obj, true_outliers, 
+  scater_out, miqc_out, s)
+for (f in formats)
+  ggsave(sprintf(outs_out_mult_f, f, f), g, h = 8, w = 10)
+```
+
+## Plot Mahalanobis distances
+
+```{r plot_maha_qq, fig.height = 5, fig.width = 6}
+set.seed(seed)
+sel_samples   = qc_out_obj$sample_id %>% sample(6)
+mahas_dt      = calc_mahas_dt(qc_out_obj)
+
+# do plot
+g             = plot_maha_qqs(mahas_dt, sel_samples)
+for (f in formats)
+  ggsave(sprintf(maha_qqs_f, f, f), g, h = 5, w = 8)
+print(g)
+```
+
+## PR curves for individual samples
+
+```{r plot_pr_indiv, fig.height=8, fig.width=9}
+# plot subsample of samples
+set.seed(seed)
+sel_samples   = pr_by_sample$sample_id %>% unique %>% sample(16)
+g = plot_pr_by_sample(pr_by_sample, cuts_by_sample, sel_samples)
+for (f in formats)
+  ggsave(sprintf(pr_by_sample_f, f, f), g, h=8, w=9)
+print(g)
+```
+
+```{r plot_pr_by_sample, fig.height = 5, fig.width = 6}
+g = plot_pr_overall(pr_by_sample, pr_overall, cuts_overall)
+for (f in formats)
+  ggsave(sprintf(pr_overall_f, f, f), g, h = 5, w = 5)
+print(g)
+```
+
+```{r plot_pr_by_modality, fig.height = 5, fig.width = 6}
+g = plot_pr_by_modality(pr_by_modality, cuts_by_modal)
+for (f in formats)
+  ggsave(sprintf(pr_modal_f, f, f), g, h = 6, w = 8)
+print(g)
+```
+
+```{r plot_lost_cells_abs, fig.height = 8, fig.width = 8}
+g_pr    = plot_pr_overall(pr_by_sample, pr_overall, cuts_overall, sel_samples) +
+  ggtitle('A. Precision-recall curves for identifying healthy cells')
+g_bars  = plot_bars_of_lost_cells_by_type(perf_by_celltype) +
+  ggtitle('B. Bias in identification of good cells')
+g       = g_pr / g_bars
+  # + plot_layout(heights = c(3, 2))
+for (f in formats)
+  ggsave(sprintf(per_celltype_bias_abs, f, f), g, h = 10, w = 8)
+```
+
+```{r plot_lost_cells_prop, fig.height = 8, fig.width = 8}
+g = plot_bars_of_lost_cells_by_type(perf_by_celltype, what = 'prop')
+print(g)
+for (f in formats)
+  ggsave(sprintf(per_celltype_bias_p, f, f), g, h=8, w=8)
+```

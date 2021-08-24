@@ -1,0 +1,26 @@
+---
+title: "SampleQC analysis project"
+author:
+- name: Will Macnair
+  affiliation: 
+  - &IMLS Institute for Molecular Life Sciences, University of Zurich, Switzerland
+  - Swiss Institute of Bioinformatics (SIB), University of Zurich, Switzerland
+date: '`r format(Sys.Date(), "%B %d, %Y")`'
+output:
+  workflowr::wflow_html:
+    code_folding: show
+    toc: true
+    toc_float: true
+---
+
+This project replicates the analysis in the manuscript "SampleQC: robust, multivariate, multi-sample, multi-celltype QC for single cell RNA-seq data", for the R package `SampleQC`.
+
+Analyses:
+
+- [Extracting QC metrics from publicly available datasets](qc01_prep_data.html)
+- [Plotting univariate and bivariate distributions of QC metrics in publicly available datasets](qc02_distns.html) (Figs S1, S2)
+- [Simulating QC metric data, fitting QC methods and plotting comparisons](qc03_sims.html) (Figs 2, 3, S3, S4, S5, S6)
+- [Fitting QC methods to large complex snRNAseq dataset](qc04_real.html) (Figs 4, 5, S8, S9)
+- [Applying `SampleQC` to CITE-seq data](qc05_citeseq.html) (Figs S10)
+- [Testing robustness of `SampleQC` to mis-specification of _k_](qc06_ks.html) (Figs S7)
+

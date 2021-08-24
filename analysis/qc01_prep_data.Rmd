@@ -1,0 +1,162 @@
+---
+title: "SampleQC: Importing datasets"
+author:
+- name: Will Macnair
+  affiliation: 
+  - &IMLS Institute for Molecular Life Sciences, University of Zurich, Switzerland
+  - Swiss Institute of Bioinformatics (SIB), University of Zurich, Switzerland
+date: '`r format(Sys.Date(), "%B %d, %Y")`'
+output:
+  workflowr::wflow_html:
+    code_folding: show
+    toc: true
+    toc_float: true
+---
+
+# Setup / definitions
+
+## Libraries
+
+
+```{r setup, include = FALSE}
+library('BiocStyle')
+knitr::opts_chunk$set(autodep = TRUE, cache = TRUE)
+# wflow_build(files='analysis/qc01_prep_data.Rmd', view=F, delete_cache=F, verbose=T)
+```
+
+```{r setup_libs, collapse=FALSE, message=FALSE, warning=FALSE, cache=FALSE}
+library('SampleQC')
+```
+
+## Inputs
+
+```{r setup_input}
+data_dir  = 'data/miqc/'
+```
+
+## Helper functions
+
+```{r setup_helpers, cache=FALSE}
+source('code/qc00_utils.R')
+source('code/qc01_prep_data.R')
+```
+
+## Outputs
+
+```{r setup_output}
+# where to save, what formats?
+save_dir  = 'output/qc01_prep_data'
+if (!dir.exists(save_dir))
+  dir.create(save_dir)
+
+# define groupings of sces
+hgsoc_fs      = c('16030X2', '16030X3', '16030X4')
+hgsoc_qc_f    = file.path(save_dir, 'HGSOC_qc_dt.txt.gz')
+campbell_f    = c('Campbell')
+campbell_qc_f = file.path(save_dir, 'Campbell_qc_dt.txt.gz')
+macosko_f     = c('Macosko')
+macosko_qc_f  = file.path(save_dir, 'Macosko_qc_dt.txt.gz')
+shekhar_f     = c('Shekhar')
+shekhar_qc_f  = file.path(save_dir, 'Shekhar_qc_dt.txt.gz')
+wang_f        = c('Wang')
+wang_qc_f     = file.path(save_dir, 'Wang_qc_dt.txt.gz')
+zeisel_f      = c('Zeisel')
+zeisel_qc_f   = file.path(save_dir, 'Zeisel_qc_dt.txt.gz')
+```
+
+# Load inputs
+
+```{r load_campbell}
+campbell_qc_dt = campbell_f %>%
+  sprintf('%s/%s.rds', data_dir, .) %>%
+  readRDS %>% 
+  colData %>% as.data.frame %>%
+  as.data.table %>% 
+  .[, .(sample_id = group, cell_id = ID, barcode = str_extract(ID, '[^_]+$'),
+    batches, sex, Diet, FvF,
+    total, detected, subsets_mito_percent,
+    log_counts = log10(total), log_feats = log10(detected),
+    logit_mito = qlogis((subsets_mito_sum + 1)/(total + 2))
+    )]
+fwrite(campbell_qc_dt, file = campbell_qc_f)
+```
+
+```{r load_hgsoc}
+hgsoc_qc_dt = lapply(hgsoc_fs, function(f) 
+  sprintf('%s/%s.rds', data_dir, f) %>%
+    readRDS %>% 
+    colData %>% as.data.frame %>%
+    as.data.table(keep.rownames = 'barcode') %>% 
+    .[, sample_id := f]) %>% 
+  rbindlist %>%
+  .[, .(sample_id, cell_id = paste0(sample_id, ':', barcode), 
+    total, detected, subsets_mito_percent,
+    log_counts = log10(total), log_feats = log10(detected),
+    logit_mito = qlogis((subsets_mito_sum + 1)/(total + 2))
+    )]
+fwrite(hgsoc_qc_dt, file = hgsoc_qc_f)
+```
+
+```{r load_macosko}
+macosko_qc_dt = macosko_f %>%
+  sprintf('%s/%s.rds', data_dir, .) %>%
+  readRDS %>% 
+  colData %>% as.data.frame %>%
+  as.data.table(keep.rownames = 'cell_id') %>% 
+  .[, .(sample_id = str_extract(cell_id, '^[^_]+'), 
+    cell_id, barcode = str_extract(cell_id, '[^_]+$'),
+    total, detected, subsets_mito_percent,
+    log_counts = log10(total), log_feats = log10(detected),
+    logit_mito = qlogis((subsets_mito_sum + 1)/(total + 2))
+    )]
+fwrite(macosko_qc_dt, file = macosko_qc_f)
+```
+
+```{r load_zeisel}
+zeisel_qc_dt  = zeisel_f %>%
+  sprintf('%s/%s.rds', data_dir, .) %>%
+  readRDS %>% 
+  colData %>% as.data.frame %>%
+  as.data.table() %>% 
+  .[, .(sample_id = 'Zeisel', 
+    cell_id, tissue, group = group.., well, sex, age,
+    total, detected, subsets_mito_percent,
+    log_counts = log10(total), log_feats = log10(detected),
+    logit_mito = qlogis((subsets_mito_sum + 1)/(total + 2))
+    )]
+fwrite(zeisel_qc_dt, file = zeisel_qc_f)
+```
+
+```{r load_shekhar}
+shekhar_qc_dt = shekhar_f %>%
+  sprintf('%s/%s.rds', data_dir, .) %>%
+  readRDS %>% 
+  colData %>% as.data.frame %>% as.data.table %>%
+  .[, .(sample_id = str_extract(NAME, '^[^_]+'), 
+    cell_id = NAME, cluster = CLUSTER, subcluster = SUB.CLUSTER,
+    total, detected, subsets_mito_percent,
+    log_counts = log10(total), log_feats = log10(detected),
+    logit_mito = qlogis((subsets_mito_sum + 1)/(total + 2))
+    )]
+fwrite(shekhar_qc_dt, file = shekhar_qc_f)
+```
+
+```{r load_wang}
+wang_qc_dt = wang_f %>%
+  sprintf('%s/%s.rds', data_dir, .) %>%
+  readRDS %>% 
+  colData %>% as.data.frame %>% 
+  as.data.table(keep.rownames = 'cell_id') %>%
+  .[, .(sample_id = paste0('sample', str_extract(cell_id, '^[0-9]+')), 
+    cell_id,
+    total, detected, subsets_mito_percent,
+    log_counts = log10(total), log_feats = log10(detected),
+    logit_mito = qlogis((subsets_mito_sum + 1)/(total + 2))
+    )]
+fwrite(wang_qc_dt, file = wang_qc_f)
+```
+
+# Analysis
+
+# Outputs
+

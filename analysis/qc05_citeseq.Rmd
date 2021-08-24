@@ -1,0 +1,147 @@
+---
+title: "SampleQC: Analysis of CITE-seq data"
+author:
+- name: Will Macnair
+  affiliation: 
+  - &IMLS Institute for Molecular Life Sciences, University of Zurich, Switzerland
+  - Swiss Institute of Bioinformatics (SIB), University of Zurich, Switzerland
+date: '`r format(Sys.Date(), "%B %d, %Y")`'
+output:
+  workflowr::wflow_html:
+  code_folding: show
+  toc: true
+  toc_float: true
+  number_sections: false
+---
+
+# Setup / definitions
+
+## Libraries
+
+```{r setup_knitr, include=FALSE}
+library('BiocStyle')
+knitr::opts_chunk$set( autodep=TRUE, cache=TRUE, cache.lazy=FALSE, dev='png' )
+# wflow_build(files='analysis/qc05_citeseq.Rmd', view=F, verbose=T, delete_cache=F)
+```
+
+```{r setup_libs, collapse=FALSE, message=FALSE, warning=FALSE, cache=FALSE}
+set.seed(20210104)
+```
+
+## Inputs
+
+```{r setup_input}
+```
+
+## Helper functions
+
+```{r setup_helpers, cache=FALSE}
+library('SampleQC')
+source('code/qc05_citeseq.R')
+```
+
+## Outputs
+
+```{r setup_output}
+# where to save?
+save_dir  = 'output/qc05_citeseq'
+if (!dir.exists(save_dir))
+  dir.create(save_dir)
+qc_f          = file.path(save_dir, 'citeseq_qc_obj.rds')
+cite_fits_f   = file.path(save_dir, 'cite_seq_qc_metric_grid.png')
+```
+
+# Load inputs
+
+# Processing / calculations
+
+```{r load_qc}
+sce       = KotliarovPBMCData()
+```
+
+```{r calc_qc_metrics}
+qc_dt     = get_qc_from_cite(sce) %>%
+  setnames(
+    c('log_counts_rna', 'log_feats_rna'),
+    c('log_counts', 'log_feats')
+    ) %>%
+  make_qc_dt
+```
+
+```{r calc_qc_metrics_seurat, eval=FALSE}
+obj_list  = list(
+  negative  = neg_obj,
+  lupus     = test_obj
+  )
+qc_dt     = names(obj_list) %>%
+  lapply(function(n) get_qc_from_cite(obj_list[[n]], n)) %>%
+  rbindlist %>%
+  .[, sample_id := paste0(experiment, '_', tenx_lane) ]
+```
+
+```{r calc_qc_obj}
+qc_names    = c('log_counts', 'log_feats', 'logit_mito', 'log_counts_adt', 'log_feats_adt')
+
+if (file.exists(qc_f)) {
+  qc_obj    = readRDS(qc_f)
+} else {
+  # define QC metrics to use
+  annots_disc = c('batch', 'tenx_lane')
+  qc_obj      = calc_pairwise_mmds(qc_dt, qc_names, 
+    annots_disc = annots_disc, annots_cont = NULL, n_cores = 4)
+  print(table(colData(qc_obj)$group_id))
+
+  qc_obj      = fit_sampleqc(qc_obj, K_all=2)
+  saveRDS(qc_obj, file=qc_f)  
+}
+```
+
+# Analysis
+
+## Plot QC metrics by group{.tabset}
+
+```{r plot_histograms_split, fig.height=6, fig.width=12, results='asis'}
+group_list  = metadata(qc_obj)$group_list
+for (g in group_list) {
+  cat('## ', g, '{.tabset}\n')
+  # which samples?
+  samples_g   = sort(colData(qc_obj)$sample_id[ colData(qc_obj)$group_id == g ])
+  for (s in samples_g) {
+    cat('### ', s, ' \n')
+    g_fit       = plot_fit_over_biaxials(qc_obj, s)
+    g_out       = plot_outliers(qc_obj, s)
+    g           = g_fit / g_out
+    print(g)
+    cat('\n\n')
+  }
+}
+```
+
+## Plot pairs of QC metrics{.tabset}
+
+```{r plot_qc_pairs_by_sample, fig.height=10, fig.width=12, results='asis'}
+sample_list = unique(qc_dt$sample_id)
+for (s in sample_list) {
+  cat('### ', s, '\n')
+  dt    = qc_dt[ sample_id == s ] %>% 
+    melt.data.table(measure=qc_names, value.name='qc_val', variable.name='qc_var') %>%
+    .[, qc_var := factor(qc_var, levels=qc_names)]
+  dt    = merge(
+    dt[, .(cell_id, qc_x=qc_var, val_x=qc_val)],
+    dt[, .(cell_id, qc_y=qc_var, val_y=qc_val)],
+    by='cell_id', allow.cartesian=TRUE
+    ) %>% .[ as.integer(qc_x) > as.integer(qc_y) ]
+  g = ggplot(dt) + aes( x=val_x, y=val_y ) +
+    geom_bin2d() + scale_fill_distiller( palette='RdBu', trans='log10' ) +
+    facet_grid( qc_y ~ qc_x, scales='free' ) + theme_bw()
+  print(g)
+  cat('\n\n')
+}
+```
+
+```{r save_qc_pairs_by_sample}
+sel_s   = 'batch2_H1B2ln2'
+g       = plot_fit_over_biaxials_grid(qc_obj, sel_s, qc_names=NULL, alpha_cut=0.01)
+ggsave(file = cite_fits_f, g, h=10, w=12)
+```
+

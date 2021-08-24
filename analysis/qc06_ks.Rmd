@@ -1,0 +1,159 @@
+---
+title: "SampleQC: How robust is SampleQC to misspecification of k?"
+author:
+- name: Will Macnair
+  affiliation: 
+  - &IMLS Institute for Molecular Life Sciences, University of Zurich, Switzerland
+  - Swiss Institute of Bioinformatics (SIB), University of Zurich, Switzerland
+date: '`r format(Sys.Date(), "%B %d, %Y")`'
+output:
+  workflowr::wflow_html:
+  code_folding: hide
+  toc: true
+  toc_float: true
+  number_sections: false
+---
+
+# Setup / definitions
+
+## Libraries
+
+```{r setup_knitr, include=FALSE}
+library('BiocStyle')
+knitr::opts_chunk$set( autodep=TRUE, cache=TRUE, dev='png' )
+# wflow_build(files='analysis/qc06_ks.Rmd', view=F, verbose=T, delete_cache=F)
+```
+
+```{r setup_libs, collapse=FALSE, message=FALSE, warning=FALSE, cache=FALSE}
+library('SampleQC')
+
+library('ggplot2')
+library('patchwork')
+library('scales')
+library('stringr')
+library('forcats')
+library('data.table')
+library('magrittr')
+```
+
+## Inputs
+
+```{r setup_input}
+```
+
+## Helper functions
+
+```{r setup_helpers, cache=FALSE}
+source('code/qc03_sims.R')
+source('code/qc06_ks.R')
+```
+
+## Outputs
+
+```{r setup_output}
+# where to save, what formats?
+save_dir    = 'output/qc06_ks'
+if (!dir.exists(save_dir))
+  dir.create(save_dir)
+date_tag    = '2021-03-03'
+seed        = 20210303
+formats     = c('png', 'pdf')
+
+# objects to save
+K_sims      = c(1, 2, 3)
+K_fits      = c(1, 2, 3, 4)
+K_grid      = expand.grid(
+  k_sim   = K_sims, 
+  k_fit   = K_fits
+  )
+sims_f      = sprintf('%s/sims_list_%s.rds', save_dir, date_tag)
+fits_f      = sprintf('%s/fits_list_%s.rds', save_dir, date_tag)
+
+# figs to save
+k_vs_k_f    = file.path(save_dir, 'k_mismatches.%s')
+```
+
+# Load inputs
+
+# Processing / calculations
+
+```{r calc_sims}
+if (file.exists(sims_f)) {
+  sims_list   = readRDS(sims_f)
+} else {
+  set.seed(seed)
+  sims_list = lapply(K_sims, function(k) {
+    sel_ks  = matrix(rep(TRUE, k), nrow = 1)
+    simulate_qcs(K = k, n_groups = 1, n_cells = 2e4, sel_ks = sel_ks)
+  }) %>% setNames(paste0('K_', K_sims))
+  print(lapply(sims_list, function(s) s$expt_params$sel_ks))
+  saveRDS(sims_list, file = sims_f)
+}
+qc_dt_list  = lapply(sims_list, function(s) {
+  make_qc_dt(s$qc_out) %>%
+  .[, true_group := factor(s$groups) ]
+})
+qc_names  = sims_list[[1]]$expt_params$qc_names
+```
+
+```{r calc_SampleQC}
+if (file.exists(fits_f)) {
+  fit_list  = readRDS(fits_f)
+} else {
+  fit_list = lapply(seq.int(nrow(K_grid)), function(i) {
+    # get params
+    k_sim     = K_grid$k_sim[[i]]
+    k_fit     = K_grid$k_fit[[i]]
+
+    # get data
+    qc_dt     = qc_dt_list[[k_sim]]
+
+    # fit SampleQC
+    set.seed(seed)
+    tryCatch({
+      qc_obj    = calc_pairwise_mmds(qc_dt, qc_names, n_cores = 8)
+      qc_obj    = fit_sampleqc(qc_obj, K_all = k_fit, mcd_alpha = 0.2)
+      proj_name = paste0('K_', k_sim, '-', 'k_', k_fit)
+      make_sampleqc_report(qc_obj, save_dir, proj_name)
+      qc_obj
+
+    }, error = function(cond) return(NULL) )
+  })
+  saveRDS(fit_list, file = fits_f)
+}
+```
+
+```{r calc_pr_curves}
+truth_dt    = lapply(names(sims_list), 
+  function(n) calc_true_outliers(sims_list[[n]]) %>% .[, k_sim := as.integer(n)]) %>% 
+  rbindlist
+fit_vals_dt = lapply(seq.int(nrow(K_grid)), 
+  function(i) {
+    # get params
+    k_sim   = K_grid$k_sim[[i]]
+    k_fit   = K_grid$k_fit[[i]]
+
+    # get object
+    fit_obj = fit_list[[i]]
+    if (is.null(fit_obj))
+      return(NULL)
+
+    # get stats
+    calc_sampleqc_pr_dt(fit_obj) %>% 
+      .[, k_sim := k_sim] %>% 
+      .[, k_fit := k_fit]
+  }) %>% rbindlist
+default_cuts    = make_default_cuts(fit_list[[2]])
+pr_by_sim       = calc_pr_by_sim(truth_dt, fit_vals_dt)
+```
+
+# Analysis
+
+```{r plot_K_vs_k, fig.height = 10, fig.width = 8}
+set.seed(seed)
+g = plot_sample_fits(fit_list, K_grid, pr_by_sim)
+for (f in formats)
+  ggsave(sprintf(k_vs_k_f, f), g, h = 10, w = 8)
+print(g)
+```
+

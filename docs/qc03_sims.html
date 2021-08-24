@@ -1,0 +1,1296 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+<meta name="date" content="2021-08-24" />
+
+<title>SampleQC: Plots for paper based on simulations</title>
+
+<script src="site_libs/header-attrs-2.10/header-attrs.js"></script>
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<link rel="icon" href="https://github.com/workflowr/workflowr-assets/raw/master/img/reproducible.png">
+<!-- Add a small amount of space between sections. -->
+<style type="text/css">
+div.section {
+  padding-top: 12px;
+}
+</style>
+
+
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.tab('show');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">SampleQC_proj</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="about.html">About</a>
+</li>
+<li>
+  <a href="license.html">License</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">SampleQC: Plots for paper based on simulations</h1>
+<h4 class="author">Will Macnair</h4>
+<address class="author_afil">
+Institute for Molecular Life Sciences, University of Zurich, SwitzerlandSwiss Institute of Bioinformatics (SIB), University of Zurich, Switzerland<br><h4 class="date">August 24, 2021</h4>
+
+</div>
+
+
+<p>
+<button type="button" class="btn btn-default btn-workflowr btn-workflowr-report" data-toggle="collapse" data-target="#workflowr-report">
+<span class="glyphicon glyphicon-list" aria-hidden="true"></span> workflowr <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span>
+</button>
+</p>
+<div id="workflowr-report" class="collapse">
+<ul class="nav nav-tabs">
+<li class="active">
+<a data-toggle="tab" href="#summary">Summary</a>
+</li>
+<li>
+<a data-toggle="tab" href="#checks"> Checks <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> </a>
+</li>
+<li>
+<a data-toggle="tab" href="#versions">Past versions</a>
+</li>
+</ul>
+<div class="tab-content">
+<div id="summary" class="tab-pane fade in active">
+<p>
+<strong>Last updated:</strong> 2021-08-24
+</p>
+<p>
+<strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 5 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 2
+</p>
+<p>
+<strong>Knit directory:</strong> <code>SampleQC_analysis/</code> <span class="glyphicon glyphicon-question-sign" aria-hidden="true" title="This is the local directory in which the code in this file was executed."> </span>
+</p>
+<p>
+This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis was created with <a
+  href="https://github.com/jdblischak/workflowr">workflowr</a> (version 1.6.2). The <em>Checks</em> tab describes the reproducibility checks that were applied when the results were created. The <em>Past versions</em> tab lists the development history.
+</p>
+<hr>
+</div>
+<div id="checks" class="tab-pane fade">
+<div id="workflowr-checks" class="panel-group">
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguncommittedchanges"> <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> <strong>R Markdown file:</strong> uncommitted changes </a>
+</p>
+</div>
+<div id="strongRMarkdownfilestronguncommittedchanges" class="panel-collapse collapse">
+<div class="panel-body">
+<p>The R Markdown file has unstaged changes. To know which version of the R Markdown file created these results, you’ll want to first commit it to the Git repo. If you’re still working on the analysis, you can ignore this warning. When you’re finished, you can run <code>wflow_publish</code> to commit the R Markdown file and build the HTML.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongEnvironmentstrongobjectspresent"> <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> <strong>Environment:</strong> objects present </a>
+</p>
+</div>
+<div id="strongEnvironmentstrongobjectspresent" class="panel-collapse collapse">
+<div class="panel-body">
+<p>
+The global environment had objects present when the code in the R Markdown file was run. These objects can affect the analysis in your R Markdown file in unknown ways. For reproduciblity it’s best to always run the code in an empty environment. Use <code>wflow_publish</code> or <code>wflow_build</code> to ensure that the code is always run in an empty environment.
+</p>
+<p>
+The following objects were defined in the global environment when these results were created:
+</p>
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th style="text-align:left;">
+Name
+</th>
+<th style="text-align:left;">
+Class
+</th>
+<th style="text-align:left;">
+Size
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+q
+</td>
+<td style="text-align:left;">
+function
+</td>
+<td style="text-align:left;">
+1008 bytes
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSeedstrongcodesetseed20210311code"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Seed:</strong> <code>set.seed(20210311)</code> </a>
+</p>
+</div>
+<div id="strongSeedstrongcodesetseed20210311code" class="panel-collapse collapse">
+<div class="panel-body">
+<p>The command <code>set.seed(20210311)</code> was run prior to running the code in the R Markdown file. Setting a seed ensures that any results that rely on randomness, e.g. subsampling or permutations, are reproducible.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSessioninformationstrongrecorded"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Session information:</strong> recorded </a>
+</p>
+</div>
+<div id="strongSessioninformationstrongrecorded" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! Recording the operating system, R version, and package versions is critical for reproducibility.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongCachestrongnone"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Cache:</strong> none </a>
+</p>
+</div>
+<div id="strongCachestrongnone" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Nice! There were no cached chunks for this analysis, so you can be confident that you successfully produced the results during this run.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongFilepathsstrongrelative"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>File paths:</strong> relative </a>
+</p>
+</div>
+<div id="strongFilepathsstrongrelative" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! Using relative paths to the files within your workflowr project makes it easier to run your code on other machines.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomwmacnairSampleQCanalysistree0192172cb2a1bf18ec01ce2f3527b3c82a3da80btargetblank0192172a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/wmacnair/SampleQC_analysis/tree/0192172cb2a1bf18ec01ce2f3527b3c82a3da80b" target="_blank">0192172</a> </a>
+</p>
+</div>
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomwmacnairSampleQCanalysistree0192172cb2a1bf18ec01ce2f3527b3c82a3da80btargetblank0192172a" class="panel-collapse collapse">
+<div class="panel-body">
+<p>
+Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
+</p>
+<p>
+The results in this page were generated with repository version <a href="https://github.com/wmacnair/SampleQC_analysis/tree/0192172cb2a1bf18ec01ce2f3527b3c82a3da80b" target="_blank">0192172</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+</p>
+<p>
+Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
+</p>
+<pre><code>
+Ignored files:
+    Ignored:    .Rprofile
+    Ignored:    analysis/qc01_prep_data_cache/
+    Ignored:    analysis/qc02_distns_cache/
+    Ignored:    data/miqc/
+    Ignored:    output/qc07_comparisons/
+
+Untracked files:
+    Untracked:  _workflowr.yml
+    Untracked:  analysis/.qc03_sims.Rmd.swp
+    Untracked:  analysis/.qc04_real.Rmd.swp
+    Untracked:  analysis/.qc05_citeseq.Rmd.swp
+    Untracked:  analysis/.qc06_ks.Rmd.swp
+    Untracked:  analysis/.qc07_comparisons.Rmd.swp
+    Untracked:  analysis/figure/
+    Untracked:  code/.qc03_sims.R.swp
+    Untracked:  output/qc03_sims/mahalanobis_qq_plot_sim.pdf
+    Untracked:  output/qc03_sims/mahalanobis_qq_plot_sim.png
+
+Unstaged changes:
+    Modified:   analysis/qc01_prep_data.Rmd
+    Modified:   analysis/qc02_distns.Rmd
+    Modified:   analysis/qc03_sims.Rmd
+    Modified:   code/qc03_sims.R
+    Modified:   output/qc01_prep_data/Campbell_qc_dt.txt.gz
+    Modified:   output/qc01_prep_data/HGSOC_qc_dt.txt.gz
+    Modified:   output/qc01_prep_data/Macosko_qc_dt.txt.gz
+    Modified:   output/qc01_prep_data/Shekhar_qc_dt.txt.gz
+    Modified:   output/qc01_prep_data/Wang_qc_dt.txt.gz
+    Modified:   output/qc01_prep_data/Zeisel_qc_dt.txt.gz
+    Modified:   output/qc02_distns/selected_biaxials.pdf
+    Modified:   output/qc02_distns/selected_biaxials.png
+    Modified:   output/qc02_distns/selected_marginals.pdf
+    Modified:   output/qc02_distns/selected_marginals.png
+    Modified:   output/qc03_sims/outs_scater_sim_ok_multimodal.pdf
+    Modified:   output/qc03_sims/outs_scater_sim_ok_multimodal.png
+    Modified:   output/qc03_sims/outs_scater_sim_ok_unimodal.pdf
+    Modified:   output/qc03_sims/outs_scater_sim_ok_unimodal.png
+    Modified:   output/qc03_sims/outs_scater_sim_out_multimodal.pdf
+    Modified:   output/qc03_sims/outs_scater_sim_out_multimodal.png
+    Modified:   output/qc03_sims/outs_scater_sim_out_unimodal.pdf
+    Modified:   output/qc03_sims/outs_scater_sim_out_unimodal.png
+    Modified:   output/qc03_sims/pr_curves_by_modality.pdf
+    Modified:   output/qc03_sims/pr_curves_by_modality.png
+    Modified:   output/qc03_sims/pr_curves_by_sample.pdf
+    Modified:   output/qc03_sims/pr_curves_by_sample.png
+    Modified:   output/qc03_sims/pr_curves_overall.pdf
+    Modified:   output/qc03_sims/pr_curves_overall.png
+
+</code></pre>
+<p>
+Note that any generated files, e.g. HTML, png, CSS, etc., are not included in this status report because it is ok for generated content to have uncommitted changes.
+</p>
+</div>
+</div>
+</div>
+</div>
+<hr>
+</div>
+<div id="versions" class="tab-pane fade">
+
+<p>
+These are the previous versions of the repository in which changes were made to the R Markdown (<code>analysis/qc03_sims.Rmd</code>) and HTML (<code>docs/qc03_sims.html</code>) files. If you’ve configured a remote Git repository (see <code>?wflow_git_remote</code>), click on the hyperlinks in the table below to view the files as they were in that past version.
+</p>
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+File
+</th>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+<th>
+Message
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/wmacnair/SampleQC_analysis/blob/0192172cb2a1bf18ec01ce2f3527b3c82a3da80b/analysis/qc03_sims.Rmd" target="_blank">0192172</a>
+</td>
+<td>
+wmacnair
+</td>
+<td>
+2021-08-24
+</td>
+<td>
+Add .gitignore, plus index.Rmd
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/wmacnair/SampleQC_analysis/blob/86834a17ef4cf47ae44e2be6a49b75fd445c5855/analysis/qc03_sims.Rmd" target="_blank">86834a1</a>
+</td>
+<td>
+wmacnair
+</td>
+<td>
+2021-08-10
+</td>
+<td>
+First commit of everything
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<hr>
+</div>
+</div>
+</div>
+<div id="setup-definitions" class="section level1">
+<h1>Setup / definitions</h1>
+<div id="libraries" class="section level2">
+<h2>Libraries</h2>
+<pre class="r"><code>library(&#39;SampleQC&#39;)</code></pre>
+</div>
+<div id="inputs" class="section level2">
+<h2>Inputs</h2>
+</div>
+<div id="helper-functions" class="section level2">
+<h2>Helper functions</h2>
+<pre class="r"><code>source(&#39;code/qc03_sims.R&#39;)</code></pre>
+</div>
+<div id="outputs" class="section level2">
+<h2>Outputs</h2>
+<pre class="r"><code># where to save?
+save_dir    = &#39;output/qc03_sims&#39;
+date_tag    = &#39;2021-03-02&#39;
+seed        = 20210302
+proj_name   = &#39;sims&#39;
+figs_dir    = &#39;manuscript/figures&#39;
+
+# what objects to save?
+sims_f      = sprintf(&#39;%s/sims_list_%s.rds&#39;, save_dir, date_tag)
+qc_ok_f     = sprintf(&#39;%s/qc_ok_obj_%s.rds&#39;, save_dir, date_tag)
+qc_out_f    = sprintf(&#39;%s/qc_out_obj_%s.rds&#39;, save_dir, date_tag)
+# qc_ok_f     = file.path(figs_dir, &#39;qc_ok_obj.rds&#39;)
+# qc_out_f    = file.path(figs_dir, &#39;qc_out_obj.rds&#39;)
+
+# what formats to save?
+formats     = c(&#39;png&#39;, &#39;pdf&#39;)
+
+# what figs to save?
+outs_ok_uni_f   = file.path(save_dir, &#39;outs_scater_sim_ok_unimodal.%s&#39;)
+outs_out_uni_f  = file.path(save_dir, &#39;outs_scater_sim_out_unimodal.%s&#39;)
+outs_ok_mult_f  = file.path(save_dir, &#39;outs_scater_sim_ok_multimodal.%s&#39;)
+outs_out_mult_f = file.path(save_dir, &#39;outs_scater_sim_out_multimodal.%s&#39;)
+comparisons_f1  = file.path(save_dir, &#39;comparisons_positive.%s&#39;)
+comparisons_f2  = file.path(save_dir, &#39;comparisons_negative.%s&#39;)
+comparisons_pr  = file.path(save_dir, &#39;comparisons_pr.%s&#39;)
+
+maha_qqs_f      = file.path(save_dir, &#39;mahalanobis_qq_plot_sim.%s&#39;)
+
+pr_by_sample_f  = file.path(save_dir, &#39;pr_curves_by_sample.%s&#39;)
+pr_overall_f    = file.path(save_dir, &#39;pr_curves_overall.%s&#39;)
+pr_modal_f      = file.path(save_dir, &#39;pr_curves_by_modality.%s&#39;)
+
+per_celltype_bias_abs = file.path(save_dir, &#39;per_celltype_bias_abs.%s&#39;)
+per_celltype_bias_p   = file.path(save_dir, &#39;per_celltype_bias_prop.%s&#39;)</code></pre>
+</div>
+</div>
+<div id="load-inputs" class="section level1">
+<h1>Load inputs</h1>
+</div>
+<div id="processing-calculations" class="section level1">
+<h1>Processing / calculations</h1>
+<pre class="r"><code>if (file.exists(sims_f)) {
+  sims_list   = readRDS(sims_f)
+} else {
+  set.seed(seed)
+  sims_list   = simulate_qcs( K=3 )
+  print(sims_list$expt_params$sel_ks)
+  saveRDS(sims_list, file = sims_f)
+}
+qc_ok     = make_qc_dt(sims_list$qc_ok) %&gt;%
+  .[, true_group := factor(sims_list$groups) ]
+qc_out    = make_qc_dt(sims_list$qc_out) %&gt;%
+  .[, true_group := factor(sims_list$groups) ]
+qc_names  = sims_list$expt_params$qc_names</code></pre>
+<pre class="r"><code>if (file.exists(qc_ok_f)) {
+  qc_ok_obj   = readRDS(qc_ok_f)
+} else {
+  set.seed(seed)
+  qc_ok_obj   = calc_pairwise_mmds(qc_ok, qc_names, 
+    annots_disc=&#39;true_group&#39;, n_times=20, n_cores = 16)
+  qc_ok_obj   = fit_sampleqc(qc_ok_obj, K_list = c(3, 3, 2, 2, 1))
+
+  make_sampleqc_report(qc_ok_obj, save_dir, paste0(proj_name, &#39;_ok&#39;))
+  saveRDS(qc_ok_obj, file=qc_ok_f)
+}</code></pre>
+<pre class="r"><code>if (file.exists(qc_out_f)) {
+  qc_out_obj  = readRDS(qc_out_f)
+} else {
+  set.seed(seed)
+  qc_out_obj  = calc_pairwise_mmds(qc_out, qc_names, 
+    annots_disc = &#39;true_group&#39;, n_cores = 16)
+  qc_out_obj  = fit_sampleqc(qc_out_obj, K_list = c(3, 2, 2, 2, 1), mcd_alpha = 0.2)
+
+  make_sampleqc_report(qc_out_obj, save_dir, paste0(proj_name, &#39;_out&#39;))
+  saveRDS(qc_out_obj, file=qc_out_f)
+}</code></pre>
+<pre class="r"><code># calc scater outliers
+scater_ok       = calc_scater_dt(qc_ok)
+scater_out      = calc_scater_dt(qc_out)</code></pre>
+<pre class="r"><code># calc scater outliers
+set.seed(seed)
+miqc_ok         = calc_miqc_dt(qc_ok)
+miqc_out        = calc_miqc_dt(qc_out)</code></pre>
+<pre class="r"><code>true_outliers   = calc_true_outliers(sims_list)</code></pre>
+<pre class="r"><code>perf_by_celltype = calc_perf_by_celltype(qc_out_obj, scater_out, miqc_out, 
+  true_outliers)</code></pre>
+<pre class="r"><code># calc values per cell for scater and sampleqc
+scater_pr_dt    = calc_scater_pr_dt(qc_out)
+miqc_pr_dt      = calc_miqc_pr_dt(miqc_out)
+sampleqc_pr_dt  = calc_sampleqc_pr_dt(qc_out_obj)
+pr_by_sample    = calc_pr_by_sample(scater_pr_dt, miqc_pr_dt, 
+  sampleqc_pr_dt, true_outliers)
+pr_overall      = calc_pr_overall(scater_pr_dt, miqc_pr_dt, 
+  sampleqc_pr_dt, true_outliers)
+pr_by_modality  = calc_pr_by_modality(scater_pr_dt, miqc_pr_dt, 
+  sampleqc_pr_dt, true_outliers)
+
+default_cuts    = make_default_cuts(qc_out_obj)
+
+cuts_by_sample  = calc_cutpoints(pr_by_sample, default_cuts, by_what = &#39;sample_id&#39;)
+cuts_overall    = calc_cutpoints(pr_overall, default_cuts, by_what = &#39;overall&#39;)
+cuts_by_modal   = calc_cutpoints(pr_by_modality, default_cuts, by_what = &#39;modal&#39;)</code></pre>
+</div>
+<div id="analysis" class="section level1">
+<h1>Analysis</h1>
+<pre class="r"><code>print(sims_list$expt_params$sel_ks)</code></pre>
+<pre><code>     [,1]  [,2]  [,3]
+[1,] TRUE FALSE FALSE
+[2,] TRUE  TRUE FALSE
+[3,] TRUE  TRUE  TRUE
+[4,] TRUE FALSE  TRUE</code></pre>
+<pre class="r"><code># define what to use and annotate
+group_list  = metadata(qc_out_obj)$group_list
+n_groups    = metadata(qc_out_obj)$n_groups</code></pre>
+<div id="mmd-dissimilarity-matrix" class="section level2">
+<h2>MMD dissimilarity matrix</h2>
+<p>Heatmap of all pairwise dissimilarities between samples (values close to 0 indicate similar samples; values of 1 and higher indicate extremely dissimilar samples).</p>
+<pre class="r"><code>(plot_mmd_heatmap(qc_out_obj))</code></pre>
+<p><img src="figure/qc03_sims.Rmd/plot_mmd_distns_heatmap-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="plot-over-umap-embedding-with-annotations" class="section level2 tabset">
+<h2 class="tabset">Plot over UMAP embedding with annotations</h2>
+<pre class="r"><code>plot_embeddings(qc_out_obj, &quot;discrete&quot;, &quot;UMAP&quot;)</code></pre>
+<div id="group_id" class="section level3">
+<h3>group_id</h3>
+<p><img src="figure/qc03_sims.Rmd/plot_over_umap-1.png" width="480" style="display: block; margin: auto;" /></p>
+</div>
+<div id="true_group" class="section level3">
+<h3>true_group</h3>
+<p><img src="figure/qc03_sims.Rmd/plot_over_umap-2.png" width="480" style="display: block; margin: auto;" /></p>
+</div>
+<div id="n_cat" class="section level3">
+<h3>N_cat</h3>
+<p><img src="figure/qc03_sims.Rmd/plot_over_umap-3.png" width="480" style="display: block; margin: auto;" /></p>
+</div>
+<div id="mito_cat" class="section level3">
+<h3>mito_cat</h3>
+<p><img src="figure/qc03_sims.Rmd/plot_over_umap-4.png" width="480" style="display: block; margin: auto;" /></p>
+</div>
+<div id="counts_cat" class="section level3">
+<h3>counts_cat</h3>
+<p><img src="figure/qc03_sims.Rmd/plot_over_umap-5.png" width="480" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>plot_embeddings(qc_out_obj, &quot;continuous&quot;, &quot;UMAP&quot;)</code></pre>
+</div>
+<div id="log_n" class="section level3">
+<h3>log_N</h3>
+<p><img src="figure/qc03_sims.Rmd/plot_over_umap-6.png" width="480" style="display: block; margin: auto;" /></p>
+</div>
+<div id="med_mito" class="section level3">
+<h3>med_mito</h3>
+<p><img src="figure/qc03_sims.Rmd/plot_over_umap-7.png" width="480" style="display: block; margin: auto;" /></p>
+</div>
+<div id="med_counts" class="section level3">
+<h3>med_counts</h3>
+<p><img src="figure/qc03_sims.Rmd/plot_over_umap-8.png" width="480" style="display: block; margin: auto;" /></p>
+</div>
+</div>
+<div id="plot-over-mds-embedding-with-annotations" class="section level2 tabset">
+<h2 class="tabset">Plot over MDS embedding with annotations</h2>
+<pre class="r"><code>plot_embeddings(qc_out_obj, &quot;discrete&quot;, &quot;MDS&quot;)</code></pre>
+<div id="group_id-1" class="section level3">
+<h3>group_id</h3>
+<p><img src="figure/qc03_sims.Rmd/plot_over_mds-1.png" width="480" style="display: block; margin: auto;" /></p>
+</div>
+<div id="true_group-1" class="section level3">
+<h3>true_group</h3>
+<p><img src="figure/qc03_sims.Rmd/plot_over_mds-2.png" width="480" style="display: block; margin: auto;" /></p>
+</div>
+<div id="n_cat-1" class="section level3">
+<h3>N_cat</h3>
+<p><img src="figure/qc03_sims.Rmd/plot_over_mds-3.png" width="480" style="display: block; margin: auto;" /></p>
+</div>
+<div id="mito_cat-1" class="section level3">
+<h3>mito_cat</h3>
+<p><img src="figure/qc03_sims.Rmd/plot_over_mds-4.png" width="480" style="display: block; margin: auto;" /></p>
+</div>
+<div id="counts_cat-1" class="section level3">
+<h3>counts_cat</h3>
+<p><img src="figure/qc03_sims.Rmd/plot_over_mds-5.png" width="480" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>plot_embeddings(qc_out_obj, &quot;continuous&quot;, &quot;MDS&quot;)</code></pre>
+</div>
+<div id="log_n-1" class="section level3">
+<h3>log_N</h3>
+<p><img src="figure/qc03_sims.Rmd/plot_over_mds-6.png" width="480" style="display: block; margin: auto;" /></p>
+</div>
+<div id="med_mito-1" class="section level3">
+<h3>med_mito</h3>
+<p><img src="figure/qc03_sims.Rmd/plot_over_mds-7.png" width="480" style="display: block; margin: auto;" /></p>
+</div>
+<div id="med_counts-1" class="section level3">
+<h3>med_counts</h3>
+<p><img src="figure/qc03_sims.Rmd/plot_over_mds-8.png" width="480" style="display: block; margin: auto;" /></p>
+</div>
+</div>
+<div id="plot-sampleqc-model-fits-and-outliers-over-qc-biaxials" class="section level2">
+<h2>Plot <code>SampleQC</code> model fits and outliers over QC biaxials</h2>
+<pre class="r"><code>for (g in group_list) {
+  cat(&#39;### &#39;, g, &#39;{.tabset}\n&#39;)
+  # which samples?
+  samples_g   = sort(colData(qc_out_obj)$sample_id[ colData(qc_out_obj)$group_id == g ])
+  # # just do a handful
+  # samples_g   = sample(samples_g, min(5, length(samples_g))) %&gt;% sort
+  for (s in samples_g) {
+    cat(&#39;#### &#39;, s, &#39; \n&#39;)
+    g_fit   = plot_fit_over_biaxials(qc_out_obj, s)
+    g_out   = plot_outliers(qc_out_obj, s)
+    g     = g_fit / g_out
+    print(g)
+    cat(&#39;\n\n&#39;)
+  }
+}</code></pre>
+<div id="sg1" class="section level3 tabset">
+<h3 class="tabset">SG1</h3>
+<div id="sample31" class="section level4">
+<h4>sample31</h4>
+<p><img src="figure/qc03_sims.Rmd/plot_histograms_split-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="sample32" class="section level4">
+<h4>sample32</h4>
+<p><img src="figure/qc03_sims.Rmd/plot_histograms_split-2.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="sample33" class="section level4">
+<h4>sample33</h4>
+<p><img src="figure/qc03_sims.Rmd/plot_histograms_split-3.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="sample34" class="section level4">
+<h4>sample34</h4>
+<p><img src="figure/qc03_sims.Rmd/plot_histograms_split-4.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="sample35" class="section level4">
+<h4>sample35</h4>
+<p><img src="figure/qc03_sims.Rmd/plot_histograms_split-5.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="sample36" class="section level4">
+<h4>sample36</h4>
+<p><img src="figure/qc03_sims.Rmd/plot_histograms_split-6.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="sample37" class="section level4">
+<h4>sample37</h4>
+<p><img src="figure/qc03_sims.Rmd/plot_histograms_split-7.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="sample38" class="section level4">
+<h4>sample38</h4>
+<p><img src="figure/qc03_sims.Rmd/plot_histograms_split-8.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="sample39" class="section level4">
+<h4>sample39</h4>
+<p><img src="figure/qc03_sims.Rmd/plot_histograms_split-9.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="sample40" class="section level4">
+<h4>sample40</h4>
+<p><img src="figure/qc03_sims.Rmd/plot_histograms_split-10.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="sample41" class="section level4">
+<h4>sample41</h4>
+<p><img src="figure/qc03_sims.Rmd/plot_histograms_split-11.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="sample42" class="section level4">
+<h4>sample42</h4>
+<p><img src="figure/qc03_sims.Rmd/plot_histograms_split-12.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="sample43" class="section level4">
+<h4>sample43</h4>
+<p><img src="figure/qc03_sims.Rmd/plot_histograms_split-13.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="sample44" class="section level4">
+<h4>sample44</h4>
+<p><img src="figure/qc03_sims.Rmd/plot_histograms_split-14.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="sample45" class="section level4">
+<h4>sample45</h4>
+<p><img src="figure/qc03_sims.Rmd/plot_histograms_split-15.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="sample46" class="section level4">
+<h4>sample46</h4>
+<p><img src="figure/qc03_sims.Rmd/plot_histograms_split-16.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="sample47" class="section level4">
+<h4>sample47</h4>
+<p><img src="figure/qc03_sims.Rmd/plot_histograms_split-17.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="sample48" class="section level4">
+<h4>sample48</h4>
+<p><img src="figure/qc03_sims.Rmd/plot_histograms_split-18.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="sample49" class="section level4">
+<h4>sample49</h4>
+<p><img src="figure/qc03_sims.Rmd/plot_histograms_split-19.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="sample51" class="section level4">
+<h4>sample51</h4>
+<p><img src="figure/qc03_sims.Rmd/plot_histograms_split-20.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="sample52" class="section level4">
+<h4>sample52</h4>
+<p><img src="figure/qc03_sims.Rmd/plot_histograms_split-21.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="sample53" class="section level4">
+<h4>sample53</h4>
+<p><img src="figure/qc03_sims.Rmd/plot_histograms_split-22.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+</div>
+<div id="sg2" class="section level3 tabset">
+<h3 class="tabset">SG2</h3>
+<div id="sample50" class="section level4">
+<h4>sample50</h4>
+<p><img src="figure/qc03_sims.Rmd/plot_histograms_split-23.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="sample54" class="section level4">
+<h4>sample54</h4>
+<p><img src="figure/qc03_sims.Rmd/plot_histograms_split-24.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="sample55" class="section level4">
+<h4>sample55</h4>
+<p><img src="figure/qc03_sims.Rmd/plot_histograms_split-25.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="sample56" class="section level4">
+<h4>sample56</h4>
+<p><img src="figure/qc03_sims.Rmd/plot_histograms_split-26.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="sample57" class="section level4">
+<h4>sample57</h4>
+<p><img src="figure/qc03_sims.Rmd/plot_histograms_split-27.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="sample58" class="section level4">
+<h4>sample58</h4>
+<p><img src="figure/qc03_sims.Rmd/plot_histograms_split-28.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="sample59" class="section level4">
+<h4>sample59</h4>
+<p><img src="figure/qc03_sims.Rmd/plot_histograms_split-29.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="sample60" class="section level4">
+<h4>sample60</h4>
+<p><img src="figure/qc03_sims.Rmd/plot_histograms_split-30.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="sample61" class="section level4">
+<h4>sample61</h4>
+<p><img src="figure/qc03_sims.Rmd/plot_histograms_split-31.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="sample62" class="section level4">
+<h4>sample62</h4>
+<p><img src="figure/qc03_sims.Rmd/plot_histograms_split-32.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="sample63" class="section level4">
+<h4>sample63</h4>
+<p><img src="figure/qc03_sims.Rmd/plot_histograms_split-33.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="sample64" class="section level4">
+<h4>sample64</h4>
+<p><img src="figure/qc03_sims.Rmd/plot_histograms_split-34.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+</div>
+<div id="sg3" class="section level3 tabset">
+<h3 class="tabset">SG3</h3>
+<div id="sample10" class="section level4">
+<h4>sample10</h4>
+<p><img src="figure/qc03_sims.Rmd/plot_histograms_split-35.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="sample11" class="section level4">
+<h4>sample11</h4>
+<p><img src="figure/qc03_sims.Rmd/plot_histograms_split-36.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="sample12" class="section level4">
+<h4>sample12</h4>
+<p><img src="figure/qc03_sims.Rmd/plot_histograms_split-37.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="sample13" class="section level4">
+<h4>sample13</h4>
+<p><img src="figure/qc03_sims.Rmd/plot_histograms_split-38.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="sample14" class="section level4">
+<h4>sample14</h4>
+<p><img src="figure/qc03_sims.Rmd/plot_histograms_split-39.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="sample15" class="section level4">
+<h4>sample15</h4>
+<p><img src="figure/qc03_sims.Rmd/plot_histograms_split-40.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="sample19" class="section level4">
+<h4>sample19</h4>
+<p><img src="figure/qc03_sims.Rmd/plot_histograms_split-41.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="sample20" class="section level4">
+<h4>sample20</h4>
+<p><img src="figure/qc03_sims.Rmd/plot_histograms_split-42.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="sample21" class="section level4">
+<h4>sample21</h4>
+<p><img src="figure/qc03_sims.Rmd/plot_histograms_split-43.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="sample22" class="section level4">
+<h4>sample22</h4>
+<p><img src="figure/qc03_sims.Rmd/plot_histograms_split-44.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="sample24" class="section level4">
+<h4>sample24</h4>
+<p><img src="figure/qc03_sims.Rmd/plot_histograms_split-45.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+</div>
+<div id="sg4" class="section level3 tabset">
+<h3 class="tabset">SG4</h3>
+<div id="sample16" class="section level4">
+<h4>sample16</h4>
+<p><img src="figure/qc03_sims.Rmd/plot_histograms_split-46.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="sample17" class="section level4">
+<h4>sample17</h4>
+<p><img src="figure/qc03_sims.Rmd/plot_histograms_split-47.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="sample18" class="section level4">
+<h4>sample18</h4>
+<p><img src="figure/qc03_sims.Rmd/plot_histograms_split-48.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="sample23" class="section level4">
+<h4>sample23</h4>
+<p><img src="figure/qc03_sims.Rmd/plot_histograms_split-49.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="sample25" class="section level4">
+<h4>sample25</h4>
+<p><img src="figure/qc03_sims.Rmd/plot_histograms_split-50.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="sample26" class="section level4">
+<h4>sample26</h4>
+<p><img src="figure/qc03_sims.Rmd/plot_histograms_split-51.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="sample27" class="section level4">
+<h4>sample27</h4>
+<p><img src="figure/qc03_sims.Rmd/plot_histograms_split-52.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="sample28" class="section level4">
+<h4>sample28</h4>
+<p><img src="figure/qc03_sims.Rmd/plot_histograms_split-53.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="sample29" class="section level4">
+<h4>sample29</h4>
+<p><img src="figure/qc03_sims.Rmd/plot_histograms_split-54.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="sample30" class="section level4">
+<h4>sample30</h4>
+<p><img src="figure/qc03_sims.Rmd/plot_histograms_split-55.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+</div>
+<div id="sg5" class="section level3 tabset">
+<h3 class="tabset">SG5</h3>
+<div id="sample01" class="section level4">
+<h4>sample01</h4>
+<p><img src="figure/qc03_sims.Rmd/plot_histograms_split-56.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="sample02" class="section level4">
+<h4>sample02</h4>
+<p><img src="figure/qc03_sims.Rmd/plot_histograms_split-57.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="sample03" class="section level4">
+<h4>sample03</h4>
+<p><img src="figure/qc03_sims.Rmd/plot_histograms_split-58.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="sample04" class="section level4">
+<h4>sample04</h4>
+<p><img src="figure/qc03_sims.Rmd/plot_histograms_split-59.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="sample05" class="section level4">
+<h4>sample05</h4>
+<p><img src="figure/qc03_sims.Rmd/plot_histograms_split-60.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="sample06" class="section level4">
+<h4>sample06</h4>
+<p><img src="figure/qc03_sims.Rmd/plot_histograms_split-61.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="sample07" class="section level4">
+<h4>sample07</h4>
+<p><img src="figure/qc03_sims.Rmd/plot_histograms_split-62.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="sample08" class="section level4">
+<h4>sample08</h4>
+<p><img src="figure/qc03_sims.Rmd/plot_histograms_split-63.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="sample09" class="section level4">
+<h4>sample09</h4>
+<p><img src="figure/qc03_sims.Rmd/plot_histograms_split-64.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+</div>
+</div>
+<div id="plot-outliers" class="section level2">
+<h2>Plot outliers</h2>
+<pre class="r"><code>s   = &#39;sample04&#39;
+# with no outliers
+g   = plot_sampleqc_vs_others_over_biaxials(qc_ok_obj, 
+  true_outliers[, .(cell_id, sample_id, outlier = FALSE)], 
+  scater_ok, miqc_ok, s)
+for (f in formats)
+  ggsave(sprintf(outs_ok_uni_f, f, f), g, h = 8, w = 10)
+
+# with out outliers
+g   = plot_sampleqc_vs_others_over_biaxials(qc_out_obj, true_outliers, 
+  scater_out, miqc_out, s)
+for (f in formats)
+  ggsave(sprintf(outs_out_uni_f, f, f), g, h = 8, w = 10)</code></pre>
+<pre class="r"><code>s   = &#39;sample60&#39;
+# with no outliers
+g   = plot_sampleqc_vs_others_over_biaxials(qc_ok_obj, 
+  true_outliers[, .(cell_id, sample_id, outlier = FALSE)], 
+  scater_ok, miqc_ok, s)
+for (f in formats)
+  ggsave(sprintf(outs_ok_mult_f, f, f), g, h = 8, w = 10)
+
+# with out outliers
+g   = plot_sampleqc_vs_others_over_biaxials(qc_out_obj, true_outliers, 
+  scater_out, miqc_out, s)
+for (f in formats)
+  ggsave(sprintf(outs_out_mult_f, f, f), g, h = 8, w = 10)</code></pre>
+</div>
+<div id="plot-mahalanobis-distances" class="section level2">
+<h2>Plot Mahalanobis distances</h2>
+<pre class="r"><code>set.seed(seed)
+sel_samples   = qc_out_obj$sample_id %&gt;% sample(6)
+mahas_dt      = calc_mahas_dt(qc_out_obj)
+
+# do plot
+g             = plot_maha_qqs(mahas_dt, sel_samples)
+for (f in formats)
+  ggsave(sprintf(maha_qqs_f, f, f), g, h = 5, w = 8)
+print(g)</code></pre>
+<p><img src="figure/qc03_sims.Rmd/plot_maha_qq-1.png" width="576" style="display: block; margin: auto;" /></p>
+</div>
+<div id="pr-curves-for-individual-samples" class="section level2">
+<h2>PR curves for individual samples</h2>
+<pre class="r"><code># plot subsample of samples
+set.seed(seed)
+sel_samples   = pr_by_sample$sample_id %&gt;% unique %&gt;% sample(16)
+g = plot_pr_by_sample(pr_by_sample, cuts_by_sample, sel_samples)
+for (f in formats)
+  ggsave(sprintf(pr_by_sample_f, f, f), g, h=8, w=9)
+print(g)</code></pre>
+<p><img src="figure/qc03_sims.Rmd/plot_pr_indiv-1.png" width="864" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>g = plot_pr_overall(pr_by_sample, pr_overall, cuts_overall)
+for (f in formats)
+  ggsave(sprintf(pr_overall_f, f, f), g, h = 5, w = 5)
+print(g)</code></pre>
+<p><img src="figure/qc03_sims.Rmd/plot_pr_by_sample-1.png" width="576" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>g = plot_pr_by_modality(pr_by_modality, cuts_by_modal)
+for (f in formats)
+  ggsave(sprintf(pr_modal_f, f, f), g, h = 6, w = 8)
+print(g)</code></pre>
+<p><img src="figure/qc03_sims.Rmd/plot_pr_by_modality-1.png" width="576" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>g_pr    = plot_pr_overall(pr_by_sample, pr_overall, cuts_overall, sel_samples) +
+  ggtitle(&#39;A. Precision-recall curves for identifying healthy cells&#39;)
+g_bars  = plot_bars_of_lost_cells_by_type(perf_by_celltype) +
+  ggtitle(&#39;B. Bias in identification of good cells&#39;)
+g       = g_pr / g_bars
+  # + plot_layout(heights = c(3, 2))
+for (f in formats)
+  ggsave(sprintf(per_celltype_bias_abs, f, f), g, h = 10, w = 8)</code></pre>
+<pre class="r"><code>g = plot_bars_of_lost_cells_by_type(perf_by_celltype, what = &#39;prop&#39;)
+print(g)</code></pre>
+<pre><code>Warning: Removed 16 rows containing missing values (geom_col).</code></pre>
+<p><img src="figure/qc03_sims.Rmd/plot_lost_cells_prop-1.png" width="768" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>for (f in formats)
+  ggsave(sprintf(per_celltype_bias_p, f, f), g, h=8, w=8)</code></pre>
+<pre><code>Warning: Removed 16 rows containing missing values (geom_col).
+
+Warning: Removed 16 rows containing missing values (geom_col).</code></pre>
+<br>
+<p>
+<button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
+<span class="glyphicon glyphicon-wrench" aria-hidden="true"></span> Session information
+</button>
+</p>
+<div id="workflowr-sessioninfo" class="collapse">
+<pre class="r"><code>sessionInfo()</code></pre>
+<pre><code>R version 4.0.0 (2020-04-24)
+Platform: x86_64-pc-linux-gnu (64-bit)
+Running under: Ubuntu 18.04.5 LTS
+
+Matrix products: default
+BLAS:   /usr/local/R/R-4.0.0/lib/libRblas.so
+LAPACK: /usr/local/R/R-4.0.0/lib/libRlapack.so
+
+locale:
+ [1] LC_CTYPE=C                 LC_NUMERIC=C              
+ [3] LC_TIME=en_CA.UTF-8        LC_COLLATE=en_CA.UTF-8    
+ [5] LC_MONETARY=en_CA.UTF-8    LC_MESSAGES=en_CA.UTF-8   
+ [7] LC_PAPER=en_CA.UTF-8       LC_NAME=C                 
+ [9] LC_ADDRESS=C               LC_TELEPHONE=C            
+[11] LC_MEASUREMENT=en_CA.UTF-8 LC_IDENTIFICATION=C       
+
+attached base packages:
+[1] parallel  stats4    stats     graphics  grDevices utils     datasets 
+[8] methods   base     
+
+other attached packages:
+ [1] flexmix_2.3-17              lattice_0.20-41            
+ [3] scater_1.18.3               SingleCellExperiment_1.12.0
+ [5] SummarizedExperiment_1.20.0 Biobase_2.50.0             
+ [7] GenomicRanges_1.42.0        GenomeInfoDb_1.26.2        
+ [9] IRanges_2.24.1              S4Vectors_0.28.1           
+[11] BiocGenerics_0.36.0         MatrixGenerics_1.2.1       
+[13] matrixStats_0.60.0          viridis_0.5.1              
+[15] viridisLite_0.4.0           stringr_1.4.0              
+[17] scales_1.1.1                patchwork_1.1.1            
+[19] magrittr_2.0.1              RColorBrewer_1.1-2         
+[21] ggplot2_3.3.5               assertthat_0.2.1           
+[23] forcats_0.5.1               data.table_1.14.0          
+[25] SampleQC_0.6.1              BiocStyle_2.18.1           
+[27] colorout_1.2-2              BiocManager_1.30.10        
+[29] workflowr_1.6.2            
+
+loaded via a namespace (and not attached):
+ [1] segmented_1.3-4           bitops_1.0-6             
+ [3] fs_1.5.0                  rprojroot_2.0.2          
+ [5] tools_4.0.0               irlba_2.3.3              
+ [7] utf8_1.2.2                R6_2.5.0                 
+ [9] vipor_0.4.5               uwot_0.1.10              
+[11] DBI_1.1.1                 colorspace_2.0-2         
+[13] nnet_7.3-14               withr_2.4.2              
+[15] tidyselect_1.1.0          gridExtra_2.3            
+[17] compiler_4.0.0            git2r_0.28.0             
+[19] BiocNeighbors_1.8.2       DelayedArray_0.16.2      
+[21] labeling_0.4.2            mvtnorm_1.1-2            
+[23] mvnfast_0.2.7             digest_0.6.27            
+[25] mixtools_1.2.0            rmarkdown_2.10           
+[27] XVector_0.30.0            pkgconfig_2.0.3          
+[29] htmltools_0.5.1.1         sparseMatrixStats_1.2.0  
+[31] highr_0.9                 rlang_0.4.11             
+[33] DelayedMatrixStats_1.12.2 farver_2.1.0             
+[35] generics_0.1.0            mclust_5.4.7             
+[37] BiocParallel_1.24.1       gtools_3.9.2             
+[39] dplyr_1.0.3               BiocSingular_1.6.0       
+[41] RCurl_1.98-1.2            modeltools_0.2-23        
+[43] GenomeInfoDbData_1.2.4    scuttle_1.0.4            
+[45] Matrix_1.3-2              ggbeeswarm_0.6.0         
+[47] Rcpp_1.0.7                munsell_0.5.0            
+[49] fansi_0.5.0               lifecycle_1.0.0          
+[51] stringi_1.7.3             whisker_0.4              
+[53] yaml_2.2.1                MASS_7.3-53              
+[55] zlibbioc_1.36.0           grid_4.0.0               
+[57] promises_1.1.1            crayon_1.4.1             
+[59] beachmat_2.6.4            splines_4.0.0            
+[61] knitr_1.33                pillar_1.6.2             
+[63] igraph_1.2.6              codetools_0.2-18         
+[65] glue_1.4.2                evaluate_0.14            
+[67] vctrs_0.3.8               httpuv_1.5.5             
+[69] gtable_0.3.0              purrr_0.3.4              
+[71] kernlab_0.9-29            xfun_0.25                
+[73] rsvd_1.0.3                later_1.1.0.1            
+[75] survival_3.2-7            tibble_3.1.3             
+[77] beeswarm_0.2.3            ellipsis_0.3.2           </code></pre>
+</div>
+</div>
+</div>
+
+
+<!-- Adjust MathJax settings so that all math formulae are shown using
+TeX fonts only; see
+http://docs.mathjax.org/en/latest/configuration.html.  This will make
+the presentation more consistent at the cost of the webpage sometimes
+taking slightly longer to load. Note that this only works because the
+footer is added to webpages before the MathJax javascript. -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    "HTML-CSS": { availableFonts: ["TeX"] }
+  });
+</script>
+
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
