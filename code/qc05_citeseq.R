@@ -57,7 +57,7 @@ plot_fit_over_biaxials_grid <- function(qc_obj, sel_sample,
   qc_names=NULL, alpha_cut=0.01) {
   # can we do this?
   assert_that(
-    .check_is_qc_obj(qc_obj) == 'fit',
+    SampleQC:::.check_is_qc_obj(qc_obj) == 'fit',
     msg='SampleQC model must be fit (via `fit_sampleqc`) before calling
     this function')
 
@@ -85,7 +85,7 @@ plot_fit_over_biaxials_grid <- function(qc_obj, sel_sample,
     function(ii) 
       lapply(setdiff(seq_along(qc_names), ii),
         function(jj)
-        .calc_ellipses_dt(
+        SampleQC:::.calc_ellipses_dt(
           qc_obj, sel_sample, ii, jj,
           'dummy', alpha=alpha_cut
           ) %>% .[, var_y := qc_names[[ii]] ] %>%

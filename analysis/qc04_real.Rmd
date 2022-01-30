@@ -26,17 +26,6 @@ knitr::opts_chunk$set( autodep=TRUE, cache=TRUE, dev='png' )
 
 ```{r setup_libs, collapse=FALSE, message=FALSE, warning=FALSE, cache=FALSE}
 library('SampleQC')
-
-library('assertthat')
-library('ggplot2')
-library('patchwork')
-library('scales')
-library('stringr')
-library('forcats')
-library('data.table')
-library('magrittr')
-seed    = 20200725
-set.seed(seed)
 ```
 
 ## Inputs
@@ -79,6 +68,9 @@ outs_scater_f   = file.path(save_dir, 'outs_scater_bio.%s')
 outs_distns_f   = file.path(save_dir, 'outs_distns_bio.%s')
 kept_distns_f   = file.path(save_dir, 'kept_distns_bio.%s')
 maha_qqs_f      = file.path(save_dir, 'mahalanobis_qq_plot_bio.%s')
+
+seed            = 20200725
+set.seed(seed)
 ```
 
 # Load inputs

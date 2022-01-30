@@ -25,16 +25,7 @@ knitr::opts_chunk$set( autodep=TRUE, cache=TRUE, dev='png' )
 ```
 
 ```{r setup_libs, collapse=FALSE, message=FALSE, warning=FALSE, cache=FALSE}
-# library('SampleQC')
-devtools::load_all('~/work/packages/SampleQC'); warning('replace load_all w library')
-
-library('ggplot2')
-library('patchwork')
-library('scales')
-library('stringr')
-library('forcats')
-library('data.table')
-library('magrittr')
+library('SampleQC')
 ```
 
 ## Inputs
