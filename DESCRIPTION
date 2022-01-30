@@ -1,0 +1,43 @@
+Package: SampleQC_paper_analyses
+Title: Companion data and analysis package to SampleQC
+Version: 0.0.2
+Authors@R: 
+    person(given = "Will",
+           family = "Macnair",
+           email = "will.macnair@roche.com",
+           role = c("aut", "cre"),
+           comment = c(ORCID = "0000-0001-6357-0834"))
+Description: `SampleQC` is an R package for robust multivariate, multi-
+    celltype, multi-sample quality control for single cell RNA-seq. Unimodal
+    approaches to QC, such as `scater`, may preferentially remove healthy cells 
+    from celltypes with extreme QC statistics, introducing bias. `SampleQC` 
+    removes this bias by fitting a Gaussian mixture model. The fit is done 
+    across multiple celltypes simultaneously, and using robust estimators
+    allows it to find the distributions in the (expected) presence of outliers.
+License: MIT + file LICENSE
+Encoding: UTF-8
+LazyData: true
+Imports: 
+    assertthat,
+    BiocStyle,
+    data.table,
+    DropletUtils,
+    flexmix,
+    forcats,
+    ggplot2,
+    magrittr,
+    Matrix,
+    patchwork,
+    RColorBrewer,
+    SampleQC,
+    scales,
+    scater,
+    scran,
+    scRNAseq,
+    Seurat,
+    SingleCellExperiment,
+    stringr,
+    viridis
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.1.2
+VignetteBuilder: knitr

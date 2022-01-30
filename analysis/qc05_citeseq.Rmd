@@ -43,12 +43,16 @@ source('code/qc05_citeseq.R')
 ## Outputs
 
 ```{r setup_output}
-# where to save?
+# where, what to save?
 save_dir  = 'output/qc05_citeseq'
 if (!dir.exists(save_dir))
   dir.create(save_dir)
 qc_f          = file.path(save_dir, 'citeseq_qc_obj.rds')
 cite_fits_f   = file.path(save_dir, 'cite_seq_qc_metric_grid.png')
+
+# define which metrics to use
+qc_names      = c('log_counts', 'log_feats', 'logit_mito', 
+  'log_counts_adt', 'log_feats_adt')
 ```
 
 # Load inputs
@@ -65,23 +69,10 @@ qc_dt     = get_qc_from_cite(sce) %>%
     c('log_counts_rna', 'log_feats_rna'),
     c('log_counts', 'log_feats')
     ) %>%
-  make_qc_dt
-```
-
-```{r calc_qc_metrics_seurat, eval=FALSE}
-obj_list  = list(
-  negative  = neg_obj,
-  lupus     = test_obj
-  )
-qc_dt     = names(obj_list) %>%
-  lapply(function(n) get_qc_from_cite(obj_list[[n]], n)) %>%
-  rbindlist %>%
-  .[, sample_id := paste0(experiment, '_', tenx_lane) ]
+  make_qc_dt(qc_names = qc_names)
 ```
 
 ```{r calc_qc_obj}
-qc_names    = c('log_counts', 'log_feats', 'logit_mito', 'log_counts_adt', 'log_feats_adt')
-
 if (file.exists(qc_f)) {
   qc_obj    = readRDS(qc_f)
 } else {

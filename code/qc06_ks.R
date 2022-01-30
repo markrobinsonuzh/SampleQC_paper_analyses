@@ -49,7 +49,7 @@ plot_sample_fits <- function(fit_list, K_grid, pr_by_sim) {
       sel_sample  = sample(rownames(qc_obj), 1)
       g = plot_fit_over_biaxials(qc_obj, sel_sample) +
         scale_fill_distiller(palette = 'RdBu', trans = 'log10',
-          limits = c(1, 100), guide = FALSE) +
+          limits = c(1, 100), guide = 'none') +
         labs(subtitle = title_str, x = NULL, y = NULL)
     })
   })

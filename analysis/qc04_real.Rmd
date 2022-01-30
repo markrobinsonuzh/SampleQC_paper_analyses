@@ -86,9 +86,12 @@ maha_qqs_f      = file.path(save_dir, 'mahalanobis_qq_plot_bio.%s')
 # Processing / calculations
 
 ```{r load_qc}
-qc_dt       = qc_f %>% fread %>%
-  .[, med_splice := median(splice_ratio), by=sample_id] %>%
-  make_qc_dt(qc_names = qc_names)
+# original QC variables
+qc_all      = qc_f %>% fread %>%
+  .[, mito_prop := plogis(logit_mito) ]
+# variables selected for SampleQC, plus annotations
+qc_dt       = make_qc_dt(qc_all, qc_names = qc_names) %>%
+  .[, med_splice := median(splice_ratio), by=sample_id]
 ```
 
 ```{r run_SampleQC}
@@ -142,9 +145,9 @@ outliers_dt   = get_outliers(qc_obj, exc_clusters = exc_clusters)
 
 ```{r calc_scater_miqc}
 # calc scater outliers
-scater_dt = calc_scater_dt(qc_dt)
+scater_dt = calc_scater_dt(qc_all)
 set.seed(123)
-miqc_dt   = calc_miqc_dt(qc_dt)
+miqc_dt   = calc_miqc_dt(qc_all)
 ```
 
 # Analysis
@@ -169,6 +172,8 @@ for (sel_embed in c('UMAP', 'MDS')) {
 ```
 
 ## Plot `SampleQC` model fits and outliers over QC biaxials
+
+This takes a while to render, so for speed I've set `eval = FALSE` - feel free to remove that call.
 
 ```{r plot_histograms_split, fig.height=6, fig.width=7, results='asis', eval = FALSE}
 group_list  = levels(qc_obj$group_id)
@@ -225,6 +230,6 @@ mahas_dt      = calc_mahas_dt(qc_obj)
 # do plot
 g             = plot_maha_qqs(mahas_dt, sel_samples)
 for (f in formats)
-  ggsave(sprintf(maha_qqs_f, f, f), g, h = 5, w = 8)
+  ggsave(sprintf(maha_qqs_f, f), g, h = 5, w = 8)
 print(g)
 ```

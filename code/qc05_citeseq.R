@@ -1,7 +1,6 @@
 
 suppressPackageStartupMessages({
-  pkg_dir   = '/home/will/work/packages/SampleQC'
-  devtools::load_all(pkg_dir)
+  library('SampleQC')
 
   library('ggplot2')
   library('patchwork')
