@@ -10,12 +10,12 @@
 
 
 
-<meta name="date" content="2021-08-24" />
+<meta name="date" content="2022-02-05" />
 
 <title>SampleQC: Plotting observed QC metric distributions</title>
 
-<script src="site_libs/header-attrs-2.10/header-attrs.js"></script>
-<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<script src="site_libs/header-attrs-2.11/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
@@ -38,7 +38,7 @@
 <link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
 
-<link rel="icon" href="https://github.com/workflowr/workflowr-assets/raw/master/img/reproducible.png">
+<link rel="icon" href="https://github.com/workflowr/workflowr-assets/raw/main/img/reproducible.png">
 <!-- Add a small amount of space between sections. -->
 <style type="text/css">
 div.section {
@@ -361,17 +361,22 @@ div.tocify {
 
 
 
-<h1 class="title toc-ignore">SampleQC: Plotting observed QC metric distributions</h1>
+<h1 class="title toc-ignore">SampleQC: Plotting observed QC metric
+distributions</h1>
 <h4 class="author">Will Macnair</h4>
 <address class="author_afil">
-Institute for Molecular Life Sciences, University of Zurich, SwitzerlandSwiss Institute of Bioinformatics (SIB), University of Zurich, Switzerland<br><h4 class="date">August 24, 2021</h4>
+Institute for Molecular Life Sciences, University of Zurich,
+SwitzerlandSwiss Institute of Bioinformatics (SIB), University of
+Zurich, Switzerland<br><h4 class="date">February 05, 2022</h4>
 
 </div>
 
 
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-report" data-toggle="collapse" data-target="#workflowr-report">
-<span class="glyphicon glyphicon-list" aria-hidden="true"></span> workflowr <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span>
+<span class="glyphicon glyphicon-list" aria-hidden="true"></span>
+workflowr <span class="glyphicon glyphicon-exclamation-sign text-danger"
+aria-hidden="true"></span>
 </button>
 </p>
 <div id="workflowr-report" class="collapse">
@@ -380,7 +385,9 @@ Institute for Molecular Life Sciences, University of Zurich, SwitzerlandSwiss In
 <a data-toggle="tab" href="#summary">Summary</a>
 </li>
 <li>
-<a data-toggle="tab" href="#checks"> Checks <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> </a>
+<a data-toggle="tab" href="#checks"> Checks <span
+class="glyphicon glyphicon-exclamation-sign text-danger"
+aria-hidden="true"></span> </a>
 </li>
 <li>
 <a data-toggle="tab" href="#versions">Past versions</a>
@@ -389,17 +396,27 @@ Institute for Molecular Life Sciences, University of Zurich, SwitzerlandSwiss In
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2021-08-24
+<strong>Last updated:</strong> 2022-02-05
 </p>
 <p>
-<strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 5 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 2
+<strong>Checks:</strong> <span
+class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 6
+<span class="glyphicon glyphicon-exclamation-sign text-danger"
+aria-hidden="true"></span> 1
 </p>
 <p>
-<strong>Knit directory:</strong> <code>SampleQC_analysis/</code> <span class="glyphicon glyphicon-question-sign" aria-hidden="true" title="This is the local directory in which the code in this file was executed."> </span>
+<strong>Knit directory:</strong> <code>SampleQC_paper_analyses/</code>
+<span class="glyphicon glyphicon-question-sign" aria-hidden="true"
+title="This is the local directory in which the code in this file was executed.">
+</span>
 </p>
 <p>
-This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis was created with <a
-  href="https://github.com/jdblischak/workflowr">workflowr</a> (version 1.6.2). The <em>Checks</em> tab describes the reproducibility checks that were applied when the results were created. The <em>Past versions</em> tab lists the development history.
+This reproducible <a href="https://rmarkdown.rstudio.com">R Markdown</a>
+analysis was created with <a
+  href="https://github.com/workflowr/workflowr">workflowr</a> (version
+1.7.0). The <em>Checks</em> tab describes the reproducibility checks
+that were applied when the results were created. The <em>Past
+versions</em> tab lists the development history.
 </p>
 <hr>
 </div>
@@ -408,28 +425,44 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguncommittedchanges"> <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> <strong>R Markdown file:</strong> uncommitted changes </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguptodate">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>R Markdown file:</strong> up-to-date
+</a>
 </p>
 </div>
-<div id="strongRMarkdownfilestronguncommittedchanges" class="panel-collapse collapse">
+<div id="strongRMarkdownfilestronguptodate"
+class="panel-collapse collapse">
 <div class="panel-body">
-<p>The R Markdown file has unstaged changes. To know which version of the R Markdown file created these results, you’ll want to first commit it to the Git repo. If you’re still working on the analysis, you can ignore this warning. When you’re finished, you can run <code>wflow_publish</code> to commit the R Markdown file and build the HTML.</p>
+<p>Great! Since the R Markdown file has been committed to the Git
+repository, you know the exact version of the code that produced these
+results.</p>
 </div>
 </div>
 </div>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongEnvironmentstrongobjectspresent"> <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> <strong>Environment:</strong> objects present </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongEnvironmentstrongobjectspresent">
+<span class="glyphicon glyphicon-exclamation-sign text-danger"
+aria-hidden="true"></span> <strong>Environment:</strong> objects present
+</a>
 </p>
 </div>
-<div id="strongEnvironmentstrongobjectspresent" class="panel-collapse collapse">
+<div id="strongEnvironmentstrongobjectspresent"
+class="panel-collapse collapse">
 <div class="panel-body">
 <p>
-The global environment had objects present when the code in the R Markdown file was run. These objects can affect the analysis in your R Markdown file in unknown ways. For reproduciblity it’s best to always run the code in an empty environment. Use <code>wflow_publish</code> or <code>wflow_build</code> to ensure that the code is always run in an empty environment.
+The global environment had objects present when the code in the R
+Markdown file was run. These objects can affect the analysis in your R
+Markdown file in unknown ways. For reproduciblity it’s best to always
+run the code in an empty environment. Use <code>wflow_publish</code> or
+<code>wflow_build</code> to ensure that the code is always run in an
+empty environment.
 </p>
 <p>
-The following objects were defined in the global environment when these results were created:
+The following objects were defined in the global environment when these
+results were created:
 </p>
 <table class="table table-condensed table-hover">
 <thead>
@@ -465,97 +498,123 @@ function
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSeedstrongcodesetseed20210311code"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Seed:</strong> <code>set.seed(20210311)</code> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSeedstrongcodesetseed20210311code">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Seed:</strong>
+<code>set.seed(20210311)</code> </a>
 </p>
 </div>
-<div id="strongSeedstrongcodesetseed20210311code" class="panel-collapse collapse">
+<div id="strongSeedstrongcodesetseed20210311code"
+class="panel-collapse collapse">
 <div class="panel-body">
-<p>The command <code>set.seed(20210311)</code> was run prior to running the code in the R Markdown file. Setting a seed ensures that any results that rely on randomness, e.g. subsampling or permutations, are reproducible.</p>
+<p>The command <code>set.seed(20210311)</code> was run prior to running
+the code in the R Markdown file. Setting a seed ensures that any results
+that rely on randomness, e.g. subsampling or permutations, are
+reproducible.</p>
 </div>
 </div>
 </div>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSessioninformationstrongrecorded"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Session information:</strong> recorded </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSessioninformationstrongrecorded">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Session information:</strong>
+recorded </a>
 </p>
 </div>
-<div id="strongSessioninformationstrongrecorded" class="panel-collapse collapse">
+<div id="strongSessioninformationstrongrecorded"
+class="panel-collapse collapse">
 <div class="panel-body">
-<p>Great job! Recording the operating system, R version, and package versions is critical for reproducibility.</p>
+<p>Great job! Recording the operating system, R version, and package
+versions is critical for reproducibility.</p>
 </div>
 </div>
 </div>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongCachestrongnone"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Cache:</strong> none </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongCachestrongnone">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Cache:</strong> none </a>
 </p>
 </div>
 <div id="strongCachestrongnone" class="panel-collapse collapse">
 <div class="panel-body">
-<p>Nice! There were no cached chunks for this analysis, so you can be confident that you successfully produced the results during this run.</p>
+<p>Nice! There were no cached chunks for this analysis, so you can be
+confident that you successfully produced the results during this
+run.</p>
 </div>
 </div>
 </div>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongFilepathsstrongrelative"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>File paths:</strong> relative </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongFilepathsstrongrelative">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>File paths:</strong> relative </a>
 </p>
 </div>
 <div id="strongFilepathsstrongrelative" class="panel-collapse collapse">
 <div class="panel-body">
-<p>Great job! Using relative paths to the files within your workflowr project makes it easier to run your code on other machines.</p>
+<p>Great job! Using relative paths to the files within your workflowr
+project makes it easier to run your code on other machines.</p>
 </div>
 </div>
 </div>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomwmacnairSampleQCanalysistree0192172cb2a1bf18ec01ce2f3527b3c82a3da80btargetblank0192172a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/wmacnair/SampleQC_analysis/tree/0192172cb2a1bf18ec01ce2f3527b3c82a3da80b" target="_blank">0192172</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomwmacnairSampleQCpaperanalysestree5bbeff5be2762fb87ffa7f28da59b33e1f9982dctargetblank5bbeff5a">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Repository version:</strong>
+<a href="https://github.com/wmacnair/SampleQC_paper_analyses/tree/5bbeff5be2762fb87ffa7f28da59b33e1f9982dc" target="_blank">5bbeff5</a>
+</a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomwmacnairSampleQCanalysistree0192172cb2a1bf18ec01ce2f3527b3c82a3da80btargetblank0192172a" class="panel-collapse collapse">
+<div
+id="strongRepositoryversionstrongahrefhttpsgithubcomwmacnairSampleQCpaperanalysestree5bbeff5be2762fb87ffa7f28da59b33e1f9982dctargetblank5bbeff5a"
+class="panel-collapse collapse">
 <div class="panel-body">
 <p>
-Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
+Great! You are using Git for version control. Tracking code development
+and connecting the code version to the results is critical for
+reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/wmacnair/SampleQC_analysis/tree/0192172cb2a1bf18ec01ce2f3527b3c82a3da80b" target="_blank">0192172</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version
+<a href="https://github.com/wmacnair/SampleQC_paper_analyses/tree/5bbeff5be2762fb87ffa7f28da59b33e1f9982dc" target="_blank">5bbeff5</a>.
+See the <em>Past versions</em> tab to see a history of the changes made
+to the R Markdown and HTML files.
 </p>
 <p>
-Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
+Note that you need to be careful to ensure that all relevant files for
+the analysis have been committed to Git prior to generating the results
+(you can use <code>wflow_publish</code> or
+<code>wflow_git_commit</code>). workflowr only checks the R Markdown
+file, but you know if there are other scripts or data files that it
+depends on. Below is the status of the Git repository when the results
+were generated:
 </p>
 <pre><code>
 Ignored files:
     Ignored:    .Rprofile
-    Ignored:    analysis/qc01_prep_data_cache/
-    Ignored:    data/miqc/
-    Ignored:    output/qc07_comparisons/
 
 Untracked files:
-    Untracked:  _workflowr.yml
-    Untracked:  analysis/.qc02_distns.Rmd.swp
-    Untracked:  analysis/.qc03_sims.Rmd.swp
-    Untracked:  analysis/.qc04_real.Rmd.swp
-    Untracked:  analysis/.qc05_citeseq.Rmd.swp
-    Untracked:  analysis/.qc06_ks.Rmd.swp
-    Untracked:  analysis/.qc07_comparisons.Rmd.swp
+    Untracked:  analysis/figure/
 
 Unstaged changes:
-    Modified:   analysis/qc01_prep_data.Rmd
-    Modified:   analysis/qc02_distns.Rmd
-    Modified:   output/qc01_prep_data/Campbell_qc_dt.txt.gz
-    Modified:   output/qc01_prep_data/HGSOC_qc_dt.txt.gz
-    Modified:   output/qc01_prep_data/Macosko_qc_dt.txt.gz
-    Modified:   output/qc01_prep_data/Shekhar_qc_dt.txt.gz
-    Modified:   output/qc01_prep_data/Wang_qc_dt.txt.gz
-    Modified:   output/qc01_prep_data/Zeisel_qc_dt.txt.gz
+    Modified:   code/qc02_distns.R
+    Modified:   output/qc02_distns/selected_biaxials.pdf
+    Modified:   output/qc02_distns/selected_biaxials.png
+    Modified:   output/qc02_distns/selected_marginals.pdf
+    Modified:   output/qc02_distns/selected_marginals.png
 
 </code></pre>
 <p>
-Note that any generated files, e.g. HTML, png, CSS, etc., are not included in this status report because it is ok for generated content to have uncommitted changes.
+Note that any generated files, e.g. HTML, png, CSS, etc., are not
+included in this status report because it is ok for generated content to
+have uncommitted changes.
 </p>
 </div>
 </div>
@@ -566,7 +625,12 @@ Note that any generated files, e.g. HTML, png, CSS, etc., are not included in t
 <div id="versions" class="tab-pane fade">
 
 <p>
-These are the previous versions of the repository in which changes were made to the R Markdown (<code>analysis/qc02_distns.Rmd</code>) and HTML (<code>docs/qc02_distns.html</code>) files. If you’ve configured a remote Git repository (see <code>?wflow_git_remote</code>), click on the hyperlinks in the table below to view the files as they were in that past version.
+These are the previous versions of the repository in which changes were
+made to the R Markdown (<code>analysis/qc02_distns.Rmd</code>) and HTML
+(<code>docs/qc02_distns.html</code>) files. If you’ve configured a
+remote Git repository (see <code>?wflow_git_remote</code>), click on the
+hyperlinks in the table below to view the files as they were in that
+past version.
 </p>
 <div class="table-responsive">
 <table class="table table-condensed table-hover">
@@ -595,16 +659,33 @@ Message
 Rmd
 </td>
 <td>
-<a href="https://github.com/wmacnair/SampleQC_analysis/blob/86834a17ef4cf47ae44e2be6a49b75fd445c5855/analysis/qc02_distns.Rmd" target="_blank">86834a1</a>
+<a href="https://github.com/wmacnair/SampleQC_paper_analyses/blob/257196d4be637a09fd2980d03e250721bffbf3bd/analysis/qc02_distns.Rmd" target="_blank">257196d</a>
 </td>
 <td>
-wmacnair
+markrobinsonuzh
 </td>
 <td>
-2021-08-10
+2021-08-24
 </td>
 <td>
-First commit of everything
+burn down first, then commit
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/wmacnair/SampleQC_paper_analyses/257196d4be637a09fd2980d03e250721bffbf3bd/docs/qc02_distns.html" target="_blank">257196d</a>
+</td>
+<td>
+markrobinsonuzh
+</td>
+<td>
+2021-08-24
+</td>
+<td>
+burn down first, then commit
 </td>
 </tr>
 </tbody>
@@ -683,154 +764,1560 @@ biax_f    = file.path(save_dir, &#39;selected_biaxials&#39;)</code></pre>
 <div id="arc1" class="section level3">
 <h3>arc1</h3>
 <p><img src="figure/qc02_distns.Rmd/plot_biaxials-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-plot_biaxials-1">
+Past versions of plot_biaxials-1.png
+</button>
+</p>
+<div id="fig-plot_biaxials-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/wmacnair/SampleQC_paper_analyses/blob/257196d4be637a09fd2980d03e250721bffbf3bd/docs/figure/qc02_distns.Rmd/plot_biaxials-1.png" target="_blank">257196d</a>
+</td>
+<td>
+markrobinsonuzh
+</td>
+<td>
+2021-08-24
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </div>
 <div id="arc2" class="section level3">
 <h3>arc2</h3>
 <p><img src="figure/qc02_distns.Rmd/plot_biaxials-2.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-plot_biaxials-2">
+Past versions of plot_biaxials-2.png
+</button>
+</p>
+<div id="fig-plot_biaxials-2" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/wmacnair/SampleQC_paper_analyses/blob/257196d4be637a09fd2980d03e250721bffbf3bd/docs/figure/qc02_distns.Rmd/plot_biaxials-2.png" target="_blank">257196d</a>
+</td>
+<td>
+markrobinsonuzh
+</td>
+<td>
+2021-08-24
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </div>
 <div id="arc3" class="section level3">
 <h3>arc3</h3>
 <p><img src="figure/qc02_distns.Rmd/plot_biaxials-3.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-plot_biaxials-3">
+Past versions of plot_biaxials-3.png
+</button>
+</p>
+<div id="fig-plot_biaxials-3" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/wmacnair/SampleQC_paper_analyses/blob/257196d4be637a09fd2980d03e250721bffbf3bd/docs/figure/qc02_distns.Rmd/plot_biaxials-3.png" target="_blank">257196d</a>
+</td>
+<td>
+markrobinsonuzh
+</td>
+<td>
+2021-08-24
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </div>
 <div id="ch10" class="section level3">
 <h3>Ch10</h3>
 <p><img src="figure/qc02_distns.Rmd/plot_biaxials-4.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-plot_biaxials-4">
+Past versions of plot_biaxials-4.png
+</button>
+</p>
+<div id="fig-plot_biaxials-4" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/wmacnair/SampleQC_paper_analyses/blob/257196d4be637a09fd2980d03e250721bffbf3bd/docs/figure/qc02_distns.Rmd/plot_biaxials-4.png" target="_blank">257196d</a>
+</td>
+<td>
+markrobinsonuzh
+</td>
+<td>
+2021-08-24
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </div>
 <div id="hfd" class="section level3">
 <h3>HFD</h3>
 <p><img src="figure/qc02_distns.Rmd/plot_biaxials-5.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-plot_biaxials-5">
+Past versions of plot_biaxials-5.png
+</button>
+</p>
+<div id="fig-plot_biaxials-5" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/wmacnair/SampleQC_paper_analyses/blob/257196d4be637a09fd2980d03e250721bffbf3bd/docs/figure/qc02_distns.Rmd/plot_biaxials-5.png" target="_blank">257196d</a>
+</td>
+<td>
+markrobinsonuzh
+</td>
+<td>
+2021-08-24
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </div>
 <div id="ufast" class="section level3">
 <h3>UFast</h3>
 <p><img src="figure/qc02_distns.Rmd/plot_biaxials-6.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-plot_biaxials-6">
+Past versions of plot_biaxials-6.png
+</button>
+</p>
+<div id="fig-plot_biaxials-6" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/wmacnair/SampleQC_paper_analyses/blob/257196d4be637a09fd2980d03e250721bffbf3bd/docs/figure/qc02_distns.Rmd/plot_biaxials-6.png" target="_blank">257196d</a>
+</td>
+<td>
+markrobinsonuzh
+</td>
+<td>
+2021-08-24
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </div>
 <div id="refed" class="section level3">
 <h3>Refed</h3>
 <p><img src="figure/qc02_distns.Rmd/plot_biaxials-7.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-plot_biaxials-7">
+Past versions of plot_biaxials-7.png
+</button>
+</p>
+<div id="fig-plot_biaxials-7" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/wmacnair/SampleQC_paper_analyses/blob/257196d4be637a09fd2980d03e250721bffbf3bd/docs/figure/qc02_distns.Rmd/plot_biaxials-7.png" target="_blank">257196d</a>
+</td>
+<td>
+markrobinsonuzh
+</td>
+<td>
+2021-08-24
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </div>
 <div id="ffast" class="section level3">
 <h3>FFast</h3>
 <p><img src="figure/qc02_distns.Rmd/plot_biaxials-8.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-plot_biaxials-8">
+Past versions of plot_biaxials-8.png
+</button>
+</p>
+<div id="fig-plot_biaxials-8" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/wmacnair/SampleQC_paper_analyses/blob/257196d4be637a09fd2980d03e250721bffbf3bd/docs/figure/qc02_distns.Rmd/plot_biaxials-8.png" target="_blank">257196d</a>
+</td>
+<td>
+markrobinsonuzh
+</td>
+<td>
+2021-08-24
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </div>
 <div id="ffed" class="section level3">
 <h3>FFed</h3>
 <p><img src="figure/qc02_distns.Rmd/plot_biaxials-9.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-plot_biaxials-9">
+Past versions of plot_biaxials-9.png
+</button>
+</p>
+<div id="fig-plot_biaxials-9" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/wmacnair/SampleQC_paper_analyses/blob/257196d4be637a09fd2980d03e250721bffbf3bd/docs/figure/qc02_distns.Rmd/plot_biaxials-9.png" target="_blank">257196d</a>
+</td>
+<td>
+markrobinsonuzh
+</td>
+<td>
+2021-08-24
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </div>
 <div id="mfast" class="section level3">
 <h3>MFast</h3>
 <p><img src="figure/qc02_distns.Rmd/plot_biaxials-10.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-plot_biaxials-10">
+Past versions of plot_biaxials-10.png
+</button>
+</p>
+<div id="fig-plot_biaxials-10" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/wmacnair/SampleQC_paper_analyses/blob/257196d4be637a09fd2980d03e250721bffbf3bd/docs/figure/qc02_distns.Rmd/plot_biaxials-10.png" target="_blank">257196d</a>
+</td>
+<td>
+markrobinsonuzh
+</td>
+<td>
+2021-08-24
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </div>
 <div id="mfed" class="section level3">
 <h3>MFed</h3>
 <p><img src="figure/qc02_distns.Rmd/plot_biaxials-11.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-plot_biaxials-11">
+Past versions of plot_biaxials-11.png
+</button>
+</p>
+<div id="fig-plot_biaxials-11" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/wmacnair/SampleQC_paper_analyses/blob/257196d4be637a09fd2980d03e250721bffbf3bd/docs/figure/qc02_distns.Rmd/plot_biaxials-11.png" target="_blank">257196d</a>
+</td>
+<td>
+markrobinsonuzh
+</td>
+<td>
+2021-08-24
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </div>
 <div id="x2" class="section level3">
 <h3>16030X2</h3>
 <p><img src="figure/qc02_distns.Rmd/plot_biaxials-12.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-plot_biaxials-12">
+Past versions of plot_biaxials-12.png
+</button>
+</p>
+<div id="fig-plot_biaxials-12" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/wmacnair/SampleQC_paper_analyses/blob/257196d4be637a09fd2980d03e250721bffbf3bd/docs/figure/qc02_distns.Rmd/plot_biaxials-12.png" target="_blank">257196d</a>
+</td>
+<td>
+markrobinsonuzh
+</td>
+<td>
+2021-08-24
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </div>
 <div id="x3" class="section level3">
 <h3>16030X3</h3>
 <p><img src="figure/qc02_distns.Rmd/plot_biaxials-13.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-plot_biaxials-13">
+Past versions of plot_biaxials-13.png
+</button>
+</p>
+<div id="fig-plot_biaxials-13" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/wmacnair/SampleQC_paper_analyses/blob/257196d4be637a09fd2980d03e250721bffbf3bd/docs/figure/qc02_distns.Rmd/plot_biaxials-13.png" target="_blank">257196d</a>
+</td>
+<td>
+markrobinsonuzh
+</td>
+<td>
+2021-08-24
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </div>
 <div id="x4" class="section level3">
 <h3>16030X4</h3>
 <p><img src="figure/qc02_distns.Rmd/plot_biaxials-14.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-plot_biaxials-14">
+Past versions of plot_biaxials-14.png
+</button>
+</p>
+<div id="fig-plot_biaxials-14" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/wmacnair/SampleQC_paper_analyses/blob/257196d4be637a09fd2980d03e250721bffbf3bd/docs/figure/qc02_distns.Rmd/plot_biaxials-14.png" target="_blank">257196d</a>
+</td>
+<td>
+markrobinsonuzh
+</td>
+<td>
+2021-08-24
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </div>
 <div id="r1" class="section level3">
 <h3>r1</h3>
 <p><img src="figure/qc02_distns.Rmd/plot_biaxials-15.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-plot_biaxials-15">
+Past versions of plot_biaxials-15.png
+</button>
+</p>
+<div id="fig-plot_biaxials-15" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/wmacnair/SampleQC_paper_analyses/blob/257196d4be637a09fd2980d03e250721bffbf3bd/docs/figure/qc02_distns.Rmd/plot_biaxials-15.png" target="_blank">257196d</a>
+</td>
+<td>
+markrobinsonuzh
+</td>
+<td>
+2021-08-24
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </div>
 <div id="r2" class="section level3">
 <h3>r2</h3>
 <p><img src="figure/qc02_distns.Rmd/plot_biaxials-16.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-plot_biaxials-16">
+Past versions of plot_biaxials-16.png
+</button>
+</p>
+<div id="fig-plot_biaxials-16" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/wmacnair/SampleQC_paper_analyses/blob/257196d4be637a09fd2980d03e250721bffbf3bd/docs/figure/qc02_distns.Rmd/plot_biaxials-16.png" target="_blank">257196d</a>
+</td>
+<td>
+markrobinsonuzh
+</td>
+<td>
+2021-08-24
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </div>
 <div id="r3" class="section level3">
 <h3>r3</h3>
 <p><img src="figure/qc02_distns.Rmd/plot_biaxials-17.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-plot_biaxials-17">
+Past versions of plot_biaxials-17.png
+</button>
+</p>
+<div id="fig-plot_biaxials-17" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/wmacnair/SampleQC_paper_analyses/blob/257196d4be637a09fd2980d03e250721bffbf3bd/docs/figure/qc02_distns.Rmd/plot_biaxials-17.png" target="_blank">257196d</a>
+</td>
+<td>
+markrobinsonuzh
+</td>
+<td>
+2021-08-24
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </div>
 <div id="r4" class="section level3">
 <h3>r4</h3>
 <p><img src="figure/qc02_distns.Rmd/plot_biaxials-18.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-plot_biaxials-18">
+Past versions of plot_biaxials-18.png
+</button>
+</p>
+<div id="fig-plot_biaxials-18" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/wmacnair/SampleQC_paper_analyses/blob/257196d4be637a09fd2980d03e250721bffbf3bd/docs/figure/qc02_distns.Rmd/plot_biaxials-18.png" target="_blank">257196d</a>
+</td>
+<td>
+markrobinsonuzh
+</td>
+<td>
+2021-08-24
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </div>
 <div id="r5" class="section level3">
 <h3>r5</h3>
 <p><img src="figure/qc02_distns.Rmd/plot_biaxials-19.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-plot_biaxials-19">
+Past versions of plot_biaxials-19.png
+</button>
+</p>
+<div id="fig-plot_biaxials-19" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/wmacnair/SampleQC_paper_analyses/blob/257196d4be637a09fd2980d03e250721bffbf3bd/docs/figure/qc02_distns.Rmd/plot_biaxials-19.png" target="_blank">257196d</a>
+</td>
+<td>
+markrobinsonuzh
+</td>
+<td>
+2021-08-24
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </div>
 <div id="r6" class="section level3">
 <h3>r6</h3>
 <p><img src="figure/qc02_distns.Rmd/plot_biaxials-20.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-plot_biaxials-20">
+Past versions of plot_biaxials-20.png
+</button>
+</p>
+<div id="fig-plot_biaxials-20" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/wmacnair/SampleQC_paper_analyses/blob/257196d4be637a09fd2980d03e250721bffbf3bd/docs/figure/qc02_distns.Rmd/plot_biaxials-20.png" target="_blank">257196d</a>
+</td>
+<td>
+markrobinsonuzh
+</td>
+<td>
+2021-08-24
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </div>
 <div id="p1" class="section level3">
 <h3>p1</h3>
 <p><img src="figure/qc02_distns.Rmd/plot_biaxials-21.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-plot_biaxials-21">
+Past versions of plot_biaxials-21.png
+</button>
+</p>
+<div id="fig-plot_biaxials-21" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/wmacnair/SampleQC_paper_analyses/blob/257196d4be637a09fd2980d03e250721bffbf3bd/docs/figure/qc02_distns.Rmd/plot_biaxials-21.png" target="_blank">257196d</a>
+</td>
+<td>
+markrobinsonuzh
+</td>
+<td>
+2021-08-24
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </div>
 <div id="zeisel" class="section level3">
 <h3>Zeisel</h3>
 <p><img src="figure/qc02_distns.Rmd/plot_biaxials-22.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-plot_biaxials-22">
+Past versions of plot_biaxials-22.png
+</button>
+</p>
+<div id="fig-plot_biaxials-22" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/wmacnair/SampleQC_paper_analyses/blob/257196d4be637a09fd2980d03e250721bffbf3bd/docs/figure/qc02_distns.Rmd/plot_biaxials-22.png" target="_blank">257196d</a>
+</td>
+<td>
+markrobinsonuzh
+</td>
+<td>
+2021-08-24
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </div>
 <div id="bipolar1" class="section level3">
 <h3>Bipolar1</h3>
 <p><img src="figure/qc02_distns.Rmd/plot_biaxials-23.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-plot_biaxials-23">
+Past versions of plot_biaxials-23.png
+</button>
+</p>
+<div id="fig-plot_biaxials-23" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/wmacnair/SampleQC_paper_analyses/blob/257196d4be637a09fd2980d03e250721bffbf3bd/docs/figure/qc02_distns.Rmd/plot_biaxials-23.png" target="_blank">257196d</a>
+</td>
+<td>
+markrobinsonuzh
+</td>
+<td>
+2021-08-24
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </div>
 <div id="bipolar2" class="section level3">
 <h3>Bipolar2</h3>
 <p><img src="figure/qc02_distns.Rmd/plot_biaxials-24.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-plot_biaxials-24">
+Past versions of plot_biaxials-24.png
+</button>
+</p>
+<div id="fig-plot_biaxials-24" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/wmacnair/SampleQC_paper_analyses/blob/257196d4be637a09fd2980d03e250721bffbf3bd/docs/figure/qc02_distns.Rmd/plot_biaxials-24.png" target="_blank">257196d</a>
+</td>
+<td>
+markrobinsonuzh
+</td>
+<td>
+2021-08-24
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </div>
 <div id="bipolar3" class="section level3">
 <h3>Bipolar3</h3>
 <p><img src="figure/qc02_distns.Rmd/plot_biaxials-25.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-plot_biaxials-25">
+Past versions of plot_biaxials-25.png
+</button>
+</p>
+<div id="fig-plot_biaxials-25" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/wmacnair/SampleQC_paper_analyses/blob/257196d4be637a09fd2980d03e250721bffbf3bd/docs/figure/qc02_distns.Rmd/plot_biaxials-25.png" target="_blank">257196d</a>
+</td>
+<td>
+markrobinsonuzh
+</td>
+<td>
+2021-08-24
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </div>
 <div id="bipolar4" class="section level3">
 <h3>Bipolar4</h3>
 <p><img src="figure/qc02_distns.Rmd/plot_biaxials-26.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-plot_biaxials-26">
+Past versions of plot_biaxials-26.png
+</button>
+</p>
+<div id="fig-plot_biaxials-26" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/wmacnair/SampleQC_paper_analyses/blob/257196d4be637a09fd2980d03e250721bffbf3bd/docs/figure/qc02_distns.Rmd/plot_biaxials-26.png" target="_blank">257196d</a>
+</td>
+<td>
+markrobinsonuzh
+</td>
+<td>
+2021-08-24
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </div>
 <div id="bipolar5" class="section level3">
 <h3>Bipolar5</h3>
 <p><img src="figure/qc02_distns.Rmd/plot_biaxials-27.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-plot_biaxials-27">
+Past versions of plot_biaxials-27.png
+</button>
+</p>
+<div id="fig-plot_biaxials-27" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/wmacnair/SampleQC_paper_analyses/blob/257196d4be637a09fd2980d03e250721bffbf3bd/docs/figure/qc02_distns.Rmd/plot_biaxials-27.png" target="_blank">257196d</a>
+</td>
+<td>
+markrobinsonuzh
+</td>
+<td>
+2021-08-24
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </div>
 <div id="bipolar6" class="section level3">
 <h3>Bipolar6</h3>
 <p><img src="figure/qc02_distns.Rmd/plot_biaxials-28.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-plot_biaxials-28">
+Past versions of plot_biaxials-28.png
+</button>
+</p>
+<div id="fig-plot_biaxials-28" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/wmacnair/SampleQC_paper_analyses/blob/257196d4be637a09fd2980d03e250721bffbf3bd/docs/figure/qc02_distns.Rmd/plot_biaxials-28.png" target="_blank">257196d</a>
+</td>
+<td>
+markrobinsonuzh
+</td>
+<td>
+2021-08-24
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </div>
 <div id="sample14" class="section level3">
 <h3>sample14</h3>
 <p><img src="figure/qc02_distns.Rmd/plot_biaxials-29.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-plot_biaxials-29">
+Past versions of plot_biaxials-29.png
+</button>
+</p>
+<div id="fig-plot_biaxials-29" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/wmacnair/SampleQC_paper_analyses/blob/257196d4be637a09fd2980d03e250721bffbf3bd/docs/figure/qc02_distns.Rmd/plot_biaxials-29.png" target="_blank">257196d</a>
+</td>
+<td>
+markrobinsonuzh
+</td>
+<td>
+2021-08-24
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </div>
 <div id="sample19" class="section level3">
 <h3>sample19</h3>
 <p><img src="figure/qc02_distns.Rmd/plot_biaxials-30.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-plot_biaxials-30">
+Past versions of plot_biaxials-30.png
+</button>
+</p>
+<div id="fig-plot_biaxials-30" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/wmacnair/SampleQC_paper_analyses/blob/257196d4be637a09fd2980d03e250721bffbf3bd/docs/figure/qc02_distns.Rmd/plot_biaxials-30.png" target="_blank">257196d</a>
+</td>
+<td>
+markrobinsonuzh
+</td>
+<td>
+2021-08-24
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </div>
 <div id="sample20" class="section level3">
 <h3>sample20</h3>
 <p><img src="figure/qc02_distns.Rmd/plot_biaxials-31.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-plot_biaxials-31">
+Past versions of plot_biaxials-31.png
+</button>
+</p>
+<div id="fig-plot_biaxials-31" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/wmacnair/SampleQC_paper_analyses/blob/257196d4be637a09fd2980d03e250721bffbf3bd/docs/figure/qc02_distns.Rmd/plot_biaxials-31.png" target="_blank">257196d</a>
+</td>
+<td>
+markrobinsonuzh
+</td>
+<td>
+2021-08-24
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </div>
 <div id="sample29" class="section level3">
 <h3>sample29</h3>
 <p><img src="figure/qc02_distns.Rmd/plot_biaxials-32.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-plot_biaxials-32">
+Past versions of plot_biaxials-32.png
+</button>
+</p>
+<div id="fig-plot_biaxials-32" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/wmacnair/SampleQC_paper_analyses/blob/257196d4be637a09fd2980d03e250721bffbf3bd/docs/figure/qc02_distns.Rmd/plot_biaxials-32.png" target="_blank">257196d</a>
+</td>
+<td>
+markrobinsonuzh
+</td>
+<td>
+2021-08-24
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </div>
 <div id="sample39" class="section level3">
 <h3>sample39</h3>
 <p><img src="figure/qc02_distns.Rmd/plot_biaxials-33.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-plot_biaxials-33">
+Past versions of plot_biaxials-33.png
+</button>
+</p>
+<div id="fig-plot_biaxials-33" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/wmacnair/SampleQC_paper_analyses/blob/257196d4be637a09fd2980d03e250721bffbf3bd/docs/figure/qc02_distns.Rmd/plot_biaxials-33.png" target="_blank">257196d</a>
+</td>
+<td>
+markrobinsonuzh
+</td>
+<td>
+2021-08-24
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </div>
 <div id="sample41" class="section level3">
 <h3>sample41</h3>
 <p><img src="figure/qc02_distns.Rmd/plot_biaxials-34.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-plot_biaxials-34">
+Past versions of plot_biaxials-34.png
+</button>
+</p>
+<div id="fig-plot_biaxials-34" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/wmacnair/SampleQC_paper_analyses/blob/257196d4be637a09fd2980d03e250721bffbf3bd/docs/figure/qc02_distns.Rmd/plot_biaxials-34.png" target="_blank">257196d</a>
+</td>
+<td>
+markrobinsonuzh
+</td>
+<td>
+2021-08-24
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </div>
 <div id="sample57" class="section level3">
 <h3>sample57</h3>
 <p><img src="figure/qc02_distns.Rmd/plot_biaxials-35.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-plot_biaxials-35">
+Past versions of plot_biaxials-35.png
+</button>
+</p>
+<div id="fig-plot_biaxials-35" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/wmacnair/SampleQC_paper_analyses/blob/257196d4be637a09fd2980d03e250721bffbf3bd/docs/figure/qc02_distns.Rmd/plot_biaxials-35.png" target="_blank">257196d</a>
+</td>
+<td>
+markrobinsonuzh
+</td>
+<td>
+2021-08-24
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </div>
 <div id="sample58" class="section level3">
 <h3>sample58</h3>
 <p><img src="figure/qc02_distns.Rmd/plot_biaxials-36.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-plot_biaxials-36">
+Past versions of plot_biaxials-36.png
+</button>
+</p>
+<div id="fig-plot_biaxials-36" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/wmacnair/SampleQC_paper_analyses/blob/257196d4be637a09fd2980d03e250721bffbf3bd/docs/figure/qc02_distns.Rmd/plot_biaxials-36.png" target="_blank">257196d</a>
+</td>
+<td>
+markrobinsonuzh
+</td>
+<td>
+2021-08-24
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </div>
 <div id="sample60" class="section level3">
 <h3>sample60</h3>
 <p><img src="figure/qc02_distns.Rmd/plot_biaxials-37.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-plot_biaxials-37">
+Past versions of plot_biaxials-37.png
+</button>
+</p>
+<div id="fig-plot_biaxials-37" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/wmacnair/SampleQC_paper_analyses/blob/257196d4be637a09fd2980d03e250721bffbf3bd/docs/figure/qc02_distns.Rmd/plot_biaxials-37.png" target="_blank">257196d</a>
+</td>
+<td>
+markrobinsonuzh
+</td>
+<td>
+2021-08-24
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </div>
 <div id="sample63" class="section level3">
 <h3>sample63</h3>
 <p><img src="figure/qc02_distns.Rmd/plot_biaxials-38.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-plot_biaxials-38">
+Past versions of plot_biaxials-38.png
+</button>
+</p>
+<div id="fig-plot_biaxials-38" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/wmacnair/SampleQC_paper_analyses/blob/257196d4be637a09fd2980d03e250721bffbf3bd/docs/figure/qc02_distns.Rmd/plot_biaxials-38.png" target="_blank">257196d</a>
+</td>
+<td>
+markrobinsonuzh
+</td>
+<td>
+2021-08-24
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </div>
 </div>
 <div id="plot-marginals-of-qc-metrics" class="section level2 tabset">
@@ -843,26 +2330,248 @@ biax_f    = file.path(save_dir, &#39;selected_biaxials&#39;)</code></pre>
 <div id="campbell" class="section level3">
 <h3>Campbell</h3>
 <p><img src="figure/qc02_distns.Rmd/plot_marginals-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-plot_marginals-1">
+Past versions of plot_marginals-1.png
+</button>
+</p>
+<div id="fig-plot_marginals-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/wmacnair/SampleQC_paper_analyses/blob/257196d4be637a09fd2980d03e250721bffbf3bd/docs/figure/qc02_distns.Rmd/plot_marginals-1.png" target="_blank">257196d</a>
+</td>
+<td>
+markrobinsonuzh
+</td>
+<td>
+2021-08-24
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </div>
 <div id="hgsoc" class="section level3">
 <h3>HGSOC</h3>
 <p><img src="figure/qc02_distns.Rmd/plot_marginals-2.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-plot_marginals-2">
+Past versions of plot_marginals-2.png
+</button>
+</p>
+<div id="fig-plot_marginals-2" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/wmacnair/SampleQC_paper_analyses/blob/257196d4be637a09fd2980d03e250721bffbf3bd/docs/figure/qc02_distns.Rmd/plot_marginals-2.png" target="_blank">257196d</a>
+</td>
+<td>
+markrobinsonuzh
+</td>
+<td>
+2021-08-24
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </div>
 <div id="macosko" class="section level3">
 <h3>Macosko</h3>
 <p><img src="figure/qc02_distns.Rmd/plot_marginals-3.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-plot_marginals-3">
+Past versions of plot_marginals-3.png
+</button>
+</p>
+<div id="fig-plot_marginals-3" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/wmacnair/SampleQC_paper_analyses/blob/257196d4be637a09fd2980d03e250721bffbf3bd/docs/figure/qc02_distns.Rmd/plot_marginals-3.png" target="_blank">257196d</a>
+</td>
+<td>
+markrobinsonuzh
+</td>
+<td>
+2021-08-24
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </div>
 <div id="zeisel-1" class="section level3">
 <h3>Zeisel</h3>
 <p><img src="figure/qc02_distns.Rmd/plot_marginals-4.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-plot_marginals-4">
+Past versions of plot_marginals-4.png
+</button>
+</p>
+<div id="fig-plot_marginals-4" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/wmacnair/SampleQC_paper_analyses/blob/257196d4be637a09fd2980d03e250721bffbf3bd/docs/figure/qc02_distns.Rmd/plot_marginals-4.png" target="_blank">257196d</a>
+</td>
+<td>
+markrobinsonuzh
+</td>
+<td>
+2021-08-24
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </div>
 <div id="shekhar" class="section level3">
 <h3>Shekhar</h3>
 <p><img src="figure/qc02_distns.Rmd/plot_marginals-5.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-plot_marginals-5">
+Past versions of plot_marginals-5.png
+</button>
+</p>
+<div id="fig-plot_marginals-5" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/wmacnair/SampleQC_paper_analyses/blob/257196d4be637a09fd2980d03e250721bffbf3bd/docs/figure/qc02_distns.Rmd/plot_marginals-5.png" target="_blank">257196d</a>
+</td>
+<td>
+markrobinsonuzh
+</td>
+<td>
+2021-08-24
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </div>
 <div id="wang" class="section level3">
 <h3>Wang</h3>
 <p><img src="figure/qc02_distns.Rmd/plot_marginals-6.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-plot_marginals-6">
+Past versions of plot_marginals-6.png
+</button>
+</p>
+<div id="fig-plot_marginals-6" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/wmacnair/SampleQC_paper_analyses/blob/257196d4be637a09fd2980d03e250721bffbf3bd/docs/figure/qc02_distns.Rmd/plot_marginals-6.png" target="_blank">257196d</a>
+</td>
+<td>
+markrobinsonuzh
+</td>
+<td>
+2021-08-24
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </div>
 </div>
 </div>
@@ -899,26 +2608,22 @@ for (f in formats)
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
-<span class="glyphicon glyphicon-wrench" aria-hidden="true"></span> Session information
+<span class="glyphicon glyphicon-wrench" aria-hidden="true"></span>
+Session information
 </button>
 </p>
 <div id="workflowr-sessioninfo" class="collapse">
 <pre class="r"><code>sessionInfo()</code></pre>
-<pre><code>R version 4.0.0 (2020-04-24)
-Platform: x86_64-pc-linux-gnu (64-bit)
-Running under: Ubuntu 18.04.5 LTS
+<pre><code>R version 4.1.2 (2021-11-01)
+Platform: x86_64-apple-darwin17.0 (64-bit)
+Running under: macOS Big Sur 10.16
 
 Matrix products: default
-BLAS:   /usr/local/R/R-4.0.0/lib/libRblas.so
-LAPACK: /usr/local/R/R-4.0.0/lib/libRlapack.so
+BLAS:   /Library/Frameworks/R.framework/Versions/4.1/Resources/lib/libRblas.0.dylib
+LAPACK: /Library/Frameworks/R.framework/Versions/4.1/Resources/lib/libRlapack.dylib
 
 locale:
- [1] LC_CTYPE=C                 LC_NUMERIC=C              
- [3] LC_TIME=en_CA.UTF-8        LC_COLLATE=en_CA.UTF-8    
- [5] LC_MONETARY=en_CA.UTF-8    LC_MESSAGES=en_CA.UTF-8   
- [7] LC_PAPER=en_CA.UTF-8       LC_NAME=C                 
- [9] LC_ADDRESS=C               LC_TELEPHONE=C            
-[11] LC_MEASUREMENT=en_CA.UTF-8 LC_IDENTIFICATION=C       
+[1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8
 
 attached base packages:
 [1] stats     graphics  grDevices utils     datasets  methods   base     
@@ -926,58 +2631,64 @@ attached base packages:
 other attached packages:
  [1] scales_1.1.1        patchwork_1.1.1     ggplot2_3.3.5      
  [4] assertthat_0.2.1    forcats_0.5.1       stringr_1.4.0      
- [7] magrittr_2.0.1      data.table_1.14.0   SampleQC_0.6.1     
-[10] BiocStyle_2.18.1    colorout_1.2-2      BiocManager_1.30.10
-[13] workflowr_1.6.2    
+ [7] magrittr_2.0.2      data.table_1.14.2   SampleQC_0.6.4     
+[10] BiocStyle_2.22.0    BiocManager_1.30.16 colorout_1.2-2     
+[13] workflowr_1.7.0    
 
 loaded via a namespace (and not attached):
- [1] MatrixGenerics_1.2.1        Biobase_2.50.0             
- [3] mixtools_1.2.0              splines_4.0.0              
- [5] R.utils_2.10.1              gtools_3.9.2               
- [7] highr_0.9                   stats4_4.0.0               
- [9] GenomeInfoDbData_1.2.4      yaml_2.2.1                 
-[11] pillar_1.6.2                lattice_0.20-41            
-[13] glue_1.4.2                  digest_0.6.27              
-[15] GenomicRanges_1.42.0        RColorBrewer_1.1-2         
-[17] promises_1.1.1              XVector_0.30.0             
-[19] colorspace_2.0-2            R.oo_1.24.0                
-[21] htmltools_0.5.1.1           httpuv_1.5.5               
-[23] Matrix_1.3-2                pkgconfig_2.0.3            
-[25] zlibbioc_1.36.0             mvtnorm_1.1-2              
-[27] purrr_0.3.4                 whisker_0.4                
-[29] later_1.1.0.1               BiocParallel_1.24.1        
-[31] git2r_0.28.0                tibble_3.1.3               
-[33] farver_2.1.0                generics_0.1.0             
-[35] IRanges_2.24.1              ellipsis_0.3.2             
-[37] withr_2.4.2                 SummarizedExperiment_1.20.0
-[39] BiocGenerics_0.36.0         mvnfast_0.2.7              
-[41] survival_3.2-7              crayon_1.4.1               
-[43] mclust_5.4.7                evaluate_0.14              
-[45] R.methodsS3_1.8.1           fs_1.5.0                   
-[47] fansi_0.5.0                 MASS_7.3-53                
-[49] segmented_1.3-4             tools_4.0.0                
-[51] lifecycle_1.0.0             matrixStats_0.60.0         
-[53] S4Vectors_0.28.1            kernlab_0.9-29             
-[55] munsell_0.5.0               DelayedArray_0.16.2        
-[57] compiler_4.0.0              GenomeInfoDb_1.26.2        
-[59] rlang_0.4.11                grid_4.0.0                 
-[61] RCurl_1.98-1.2              SingleCellExperiment_1.12.0
-[63] igraph_1.2.6                bitops_1.0-6               
-[65] rmarkdown_2.10              codetools_0.2-18           
-[67] gtable_0.3.0                DBI_1.1.1                  
-[69] R6_2.5.0                    knitr_1.33                 
-[71] dplyr_1.0.3                 uwot_0.1.10                
-[73] utf8_1.2.2                  rprojroot_2.0.2            
-[75] stringi_1.7.3               parallel_4.0.0             
-[77] Rcpp_1.0.7                  vctrs_0.3.8                
-[79] tidyselect_1.1.0            xfun_0.25                  </code></pre>
+ [1] segmented_1.4-0             bitops_1.0-7               
+ [3] matrixStats_0.61.0          fs_1.5.2                   
+ [5] RColorBrewer_1.1-2          httr_1.4.2                 
+ [7] rprojroot_2.0.2             GenomeInfoDb_1.30.0        
+ [9] tools_4.1.2                 bslib_0.3.1                
+[11] utf8_1.2.2                  R6_2.5.1                   
+[13] uwot_0.1.11                 DBI_1.1.2                  
+[15] BiocGenerics_0.40.0         colorspace_2.0-2           
+[17] withr_2.4.3                 tidyselect_1.1.1           
+[19] processx_3.5.2              compiler_4.1.2             
+[21] git2r_0.29.0                cli_3.1.1                  
+[23] Biobase_2.54.0              DelayedArray_0.20.0        
+[25] sass_0.4.0                  mvtnorm_1.1-3              
+[27] callr_3.7.0                 mvnfast_0.2.7              
+[29] digest_0.6.29               mixtools_1.2.0             
+[31] R.utils_2.11.0              rmarkdown_2.11             
+[33] XVector_0.34.0              pkgconfig_2.0.3            
+[35] htmltools_0.5.2             MatrixGenerics_1.6.0       
+[37] fastmap_1.1.0               highr_0.9                  
+[39] rlang_1.0.0                 rstudioapi_0.13            
+[41] farver_2.1.0                jquerylib_0.1.4            
+[43] generics_0.1.1              jsonlite_1.7.3             
+[45] mclust_5.4.9                BiocParallel_1.28.3        
+[47] gtools_3.9.2                R.oo_1.24.0                
+[49] dplyr_1.0.7                 RCurl_1.98-1.5             
+[51] GenomeInfoDbData_1.2.7      Matrix_1.4-0               
+[53] Rcpp_1.0.8                  munsell_0.5.0              
+[55] S4Vectors_0.32.3            fansi_1.0.2                
+[57] R.methodsS3_1.8.1           lifecycle_1.0.1            
+[59] stringi_1.7.6               whisker_0.4                
+[61] yaml_2.2.2                  MASS_7.3-55                
+[63] SummarizedExperiment_1.24.0 zlibbioc_1.40.0            
+[65] grid_4.1.2                  parallel_4.1.2             
+[67] promises_1.2.0.1            crayon_1.4.2               
+[69] lattice_0.20-45             splines_4.1.2              
+[71] knitr_1.37                  ps_1.6.0                   
+[73] pillar_1.6.5                igraph_1.2.11              
+[75] GenomicRanges_1.46.1        codetools_0.2-18           
+[77] stats4_4.1.2                glue_1.6.1                 
+[79] evaluate_0.14               getPass_0.2-2              
+[81] vctrs_0.3.8                 httpuv_1.6.5               
+[83] gtable_0.3.0                purrr_0.3.4                
+[85] kernlab_0.9-29              xfun_0.29                  
+[87] later_1.3.0                 survival_3.2-13            
+[89] SingleCellExperiment_1.16.0 tibble_3.1.6               
+[91] IRanges_2.28.0              ellipsis_0.3.2             </code></pre>
 </div>
 </div>
 
 
 <!-- Adjust MathJax settings so that all math formulae are shown using
 TeX fonts only; see
-http://docs.mathjax.org/en/latest/configuration.html.  This will make
+https://docs.mathjax.org/en/latest/web/configuration.html. This will make
 the presentation more consistent at the cost of the webpage sometimes
 taking slightly longer to load. Note that this only works because the
 footer is added to webpages before the MathJax javascript. -->

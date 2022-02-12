@@ -1,4 +1,4 @@
-# qc01_prep_data.R
+# qc02_distns.R
 
 suppressPackageStartupMessages({
   library('data.table')
@@ -21,17 +21,18 @@ plot_marginals <- function(qc_vals_dt) {
     median  = median(qc_val),
     mad     = mad(qc_val)
     ), by = c('sample_id', 'qc_var')
-    ]
+    ] %>%
+    .[, sample_lab := sprintf("sample: %s", sample_id), by = sample_id ]
   g = ggplot(plot_dt) + 
     aes(x = qc_val, y = z) +
     geom_point(size = 0.1) +
     geom_abline(data = stats_dt, aes(intercept = -median/mad, slope = 1/mad)) +
     scale_x_continuous(breaks = pretty_breaks()) +
     scale_y_continuous(breaks = pretty_breaks()) +
-    facet_grid(sample_id ~ qc_var, scales = 'free') +
+    facet_grid(sample_lab ~ qc_var, scales = 'free') +
     theme_bw() + 
     labs(
-      y     = 'z-score', 
+      y     = 'Normal theoretical quantile', 
       x     = 'QC metric value'
       )
 
