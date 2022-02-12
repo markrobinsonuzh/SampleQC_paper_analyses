@@ -49,12 +49,20 @@ seed        = 20210302
 proj_name   = 'sims'
 figs_dir    = 'manuscript/figures'
 
+# define some parameters
+K           = 3
+df          = 5
+
 # what objects to save?
 sims_f      = sprintf('%s/sims_list_%s.rds', save_dir, date_tag)
 qc_ok_f     = sprintf('%s/qc_ok_obj_%s.rds', save_dir, date_tag)
 qc_out_f    = sprintf('%s/qc_out_obj_%s.rds', save_dir, date_tag)
-# qc_ok_f     = file.path(figs_dir, 'qc_ok_obj.rds')
-# qc_out_f    = file.path(figs_dir, 'qc_out_obj.rds')
+
+# do same for t-distributed data
+proj_name_t = 'sims_t'
+sims_t_f    = sprintf('%s/sims_list_t_%s.rds', save_dir, date_tag)
+qc_ok_t_f   = sprintf('%s/qc_ok_obj_t_%s.rds', save_dir, date_tag)
+qc_out_t_f  = sprintf('%s/qc_out_obj_t_%s.rds', save_dir, date_tag)
 
 # what formats to save?
 formats     = c('png', 'pdf')
@@ -80,14 +88,14 @@ per_celltype_bias_p   = file.path(save_dir, 'per_celltype_bias_prop.%s')
 
 # Load inputs
 
-# Processing / calculations
+# Processing / calculations for normal data
 
 ```{r calc_sims}
 if (file.exists(sims_f)) {
   sims_list   = readRDS(sims_f)
 } else {
   set.seed(seed)
-  sims_list   = simulate_qcs( K=3 )
+  sims_list   = simulate_qcs( K = K )
   print(sims_list$expt_params$sel_ks)
   saveRDS(sims_list, file = sims_f)
 }
@@ -167,6 +175,70 @@ cuts_overall    = calc_cutpoints(pr_overall, default_cuts, by_what = 'overall')
 cuts_by_modal   = calc_cutpoints(pr_by_modality, default_cuts, by_what = 'modal')
 ```
 
+# Processing / calculations for t-distributed data
+
+```{r calc_sims_t}
+if (file.exists(sims_t_f)) {
+  sims_list_t   = readRDS(sims_t_f)
+} else {
+  set.seed(seed)
+  sims_list_t   = simulate_qcs( K = K, df = df )
+  print(sims_list_t$expt_params$sel_ks)
+  saveRDS(sims_list_t, file = sims_t_f)
+}
+qc_out_t  = make_qc_dt(sims_list_t$qc_out) %>%
+  .[, true_group := factor(sims_list_t$groups) ]
+```
+
+```{r calc_SampleQC_out_t}
+if (file.exists(qc_out_t_f)) {
+  qc_out_t_obj  = readRDS(qc_out_t_f)
+} else {
+  set.seed(seed)
+  qc_out_t_obj  = calc_pairwise_mmds(qc_out_t, qc_names, 
+    annots_disc = 'true_group', n_cores = 3)
+  qc_out_t_obj  = fit_sampleqc(qc_out_t_obj, K_list = c(3, 2, 2, 1), 
+    mcd_alpha = 0.2, n_cores = 3)
+
+  make_sampleqc_report(qc_out_t_obj, save_dir, paste0(proj_name_t, '_out'))
+  saveRDS(qc_out_t_obj, file = qc_out_t_f)
+}
+```
+
+```{r calc_comparisons_t}
+# run both other methods
+scater_out_t    = calc_scater_dt(qc_out_t)
+set.seed(seed)
+miqc_out_t      = calc_miqc_dt(qc_out_t)
+```
+
+```{r calc_pr_curves_t}
+# run both other methods
+true_outliers_t = calc_true_outliers(sims_list_t)
+
+# calc values per cell for scater and sampleqc
+scater_pr_dt_t  = calc_scater_pr_dt(qc_out_t)
+miqc_pr_dt_t    = calc_miqc_pr_dt(miqc_out_t)
+sqc_pr_dt_t     = calc_sampleqc_pr_dt(qc_out_t_obj)
+pr_by_sample_t  = calc_pr_by_sample(scater_pr_dt_t, miqc_pr_dt_t, 
+  sqc_pr_dt_t, true_outliers_t)
+
+default_cuts_t  = make_default_cuts(qc_out_t_obj)
+cuts_t          = calc_cutpoints(pr_by_sample_t, default_cuts_t, 
+  by_what = 'sample_id')
+```
+
+```{r join_t_and_normal}
+prs_joined    = rbind(
+  copy(pr_by_sample) %>% .[, model := 'normal'], 
+  copy(pr_by_sample_t) %>% .[, model := sprintf('t (df = %d)', df)]
+  )
+cuts_joined   = rbind(
+  copy(cuts_by_sample) %>% .[, model := 'normal'], 
+  copy(cuts_t) %>% .[, model := sprintf('t (df = %d)', df)]
+  )
+```
+
 # Analysis
 
 ```{r what_is_the_truth}
@@ -230,13 +302,13 @@ g   = plot_sampleqc_vs_others_over_biaxials(qc_ok_obj,
   true_outliers[, .(cell_id, sample_id, outlier = FALSE)], 
   scater_ok, miqc_ok, s)
 for (f in formats)
-  ggsave(sprintf(outs_ok_uni_f, f, f), g, h = 8, w = 10)
+  ggsave(sprintf(outs_ok_uni_f, f), g, h = 8, w = 10)
 
 # with out outliers
 g   = plot_sampleqc_vs_others_over_biaxials(qc_out_obj, true_outliers, 
   scater_out, miqc_out, s)
 for (f in formats)
-  ggsave(sprintf(outs_out_uni_f, f, f), g, h = 8, w = 10)
+  ggsave(sprintf(outs_out_uni_f, f), g, h = 8, w = 10)
 ```
 
 ```{r plot_outliers_multimodal}
@@ -246,13 +318,13 @@ g   = plot_sampleqc_vs_others_over_biaxials(qc_ok_obj,
   true_outliers[, .(cell_id, sample_id, outlier = FALSE)], 
   scater_ok, miqc_ok, s)
 for (f in formats)
-  ggsave(sprintf(outs_ok_mult_f, f, f), g, h = 8, w = 10)
+  ggsave(sprintf(outs_ok_mult_f, f), g, h = 8, w = 10)
 
 # with out outliers
 g   = plot_sampleqc_vs_others_over_biaxials(qc_out_obj, true_outliers, 
   scater_out, miqc_out, s)
 for (f in formats)
-  ggsave(sprintf(outs_out_mult_f, f, f), g, h = 8, w = 10)
+  ggsave(sprintf(outs_out_mult_f, f), g, h = 8, w = 10)
 ```
 
 ## Plot Mahalanobis distances
@@ -265,33 +337,33 @@ mahas_dt      = calc_mahas_dt(qc_out_obj)
 # do plot
 g             = plot_maha_qqs(mahas_dt, sel_samples)
 for (f in formats)
-  ggsave(sprintf(maha_qqs_f, f, f), g, h = 5, w = 8)
+  ggsave(sprintf(maha_qqs_f, f), g, h = 5, w = 8)
 print(g)
 ```
 
 ## PR curves for individual samples
 
-```{r plot_pr_indiv, fig.height=8, fig.width=9}
+```{r plot_pr_by_sample, fig.height=8, fig.width=9}
 # plot subsample of samples
 set.seed(seed)
 sel_samples   = pr_by_sample$sample_id %>% unique %>% sample(16)
-g = plot_pr_by_sample(pr_by_sample, cuts_by_sample, sel_samples)
+g = plot_pr_by_sample(prs_joined, cuts_joined, sel_samples)
 for (f in formats)
-  ggsave(sprintf(pr_by_sample_f, f, f), g, h=8, w=9)
+  ggsave(sprintf(pr_by_sample_f, f), g, h=8, w=9)
 print(g)
 ```
 
-```{r plot_pr_by_sample, fig.height = 5, fig.width = 6}
+```{r plot_pr_by_overall, fig.height = 5, fig.width = 6}
 g = plot_pr_overall(pr_by_sample, pr_overall, cuts_overall)
 for (f in formats)
-  ggsave(sprintf(pr_overall_f, f, f), g, h = 5, w = 5)
+  ggsave(sprintf(pr_overall_f, f), g, h = 5, w = 5)
 print(g)
 ```
 
 ```{r plot_pr_by_modality, fig.height = 5, fig.width = 6}
 g = plot_pr_by_modality(pr_by_modality, cuts_by_modal)
 for (f in formats)
-  ggsave(sprintf(pr_modal_f, f, f), g, h = 6, w = 8)
+  ggsave(sprintf(pr_modal_f, f), g, h = 6, w = 8)
 print(g)
 ```
 
@@ -303,12 +375,12 @@ g_bars  = plot_bars_of_lost_cells_by_type(perf_by_celltype) +
 g       = g_pr / g_bars
   # + plot_layout(heights = c(3, 2))
 for (f in formats)
-  ggsave(sprintf(per_celltype_bias_abs, f, f), g, h = 10, w = 8)
+  ggsave(sprintf(per_celltype_bias_abs, f), g, h = 10, w = 8)
 ```
 
 ```{r plot_lost_cells_prop, fig.height = 8, fig.width = 8}
 g = plot_bars_of_lost_cells_by_type(perf_by_celltype, what = 'prop')
 print(g)
 for (f in formats)
-  ggsave(sprintf(per_celltype_bias_p, f, f), g, h=8, w=8)
+  ggsave(sprintf(per_celltype_bias_p, f), g, h=8, w=8)
 ```

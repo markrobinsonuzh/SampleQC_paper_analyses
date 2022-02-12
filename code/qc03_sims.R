@@ -488,16 +488,19 @@ plot_pr_by_modality <- function(pr_by_modality, cuts_by_modal) {
 
 plot_pr_by_sample <- function(pr_by_sample, cuts_by_sample, sel_samples) { 
   g = ggplot(pr_by_sample[ sample_id %in% sel_samples ]) +
-    aes( x=recall, y=precision, colour=method ) +
+    aes( x = recall, y = precision, colour = method, linetype = model ) +
     geom_path() +
     geom_point( data=cuts_by_sample[ sample_id %in% sel_samples ], size=2 ) +
     # scale_colour_brewer( palette='Set1' ) +
-    scale_colour_manual( values=method_cols ) +
-    scale_x_continuous( breaks=pretty_breaks() ) +
-    scale_y_continuous( breaks=pretty_breaks() ) +
-    coord_cartesian( ylim=c(0.8, 1) ) +
-    facet_wrap( ~ sample_id, nrow=4 ) +
-    theme_bw()
+    scale_colour_manual( values = method_cols ) +
+    scale_linetype_manual( values = c('solid', 'dashed') ) +
+    scale_x_continuous( breaks = pretty_breaks() ) +
+    scale_y_continuous( breaks = pretty_breaks() ) +
+    coord_cartesian( ylim = c(0.8, 1) ) +
+    facet_wrap( ~ sample_id, nrow = 4 ) +
+    theme_bw() + theme( panel.grid = element_blank() ) +
+    labs( linetype = 'simulation\nmodel' )
+
   return(g)
 }
 
