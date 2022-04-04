@@ -10,12 +10,12 @@
 
 
 
-<meta name="date" content="2021-08-24" />
+<meta name="date" content="2022-04-04" />
 
 <title>SampleQC: Generating plots for paper</title>
 
-<script src="site_libs/header-attrs-2.10/header-attrs.js"></script>
-<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<script src="site_libs/header-attrs-2.13/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
@@ -38,7 +38,7 @@
 <link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
 
-<link rel="icon" href="https://github.com/workflowr/workflowr-assets/raw/master/img/reproducible.png">
+<link rel="icon" href="https://github.com/workflowr/workflowr-assets/raw/main/img/reproducible.png">
 <!-- Add a small amount of space between sections. -->
 <style type="text/css">
 div.section {
@@ -75,6 +75,7 @@ if (window.hljs) {
 
 
 
+
 <style type = "text/css">
 .main-container {
   max-width: 940px;
@@ -95,6 +96,9 @@ button.code-folding-btn:focus {
 }
 summary {
   display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
 }
 pre code {
   padding: 0;
@@ -323,7 +327,7 @@ div.tocify {
 <div class="navbar navbar-default  navbar-fixed-top" role="navigation">
   <div class="container">
     <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
@@ -352,7 +356,7 @@ div.tocify {
 <div id="header">
 
 <div class="btn-group pull-right float-right">
-<button type="button" class="btn btn-default btn-xs btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
+<button type="button" class="btn btn-default btn-xs btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
 <ul class="dropdown-menu dropdown-menu-right" style="min-width: 50px;">
 <li><a id="rmd-show-all-code" href="#">Show All Code</a></li>
 <li><a id="rmd-hide-all-code" href="#">Hide All Code</a></li>
@@ -364,14 +368,18 @@ div.tocify {
 <h1 class="title toc-ignore">SampleQC: Generating plots for paper</h1>
 <h4 class="author">Will Macnair</h4>
 <address class="author_afil">
-Institute for Molecular Life Sciences, University of Zurich, SwitzerlandSwiss Institute of Bioinformatics (SIB), University of Zurich, Switzerland<br><h4 class="date">August 24, 2021</h4>
+Institute for Molecular Life Sciences, University of Zurich,
+SwitzerlandSwiss Institute of Bioinformatics (SIB), University of
+Zurich, Switzerland<br><h4 class="date">April 04, 2022</h4>
 
 </div>
 
 
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-report" data-toggle="collapse" data-target="#workflowr-report">
-<span class="glyphicon glyphicon-list" aria-hidden="true"></span> workflowr <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span>
+<span class="glyphicon glyphicon-list" aria-hidden="true"></span>
+workflowr <span class="glyphicon glyphicon-exclamation-sign text-danger"
+aria-hidden="true"></span>
 </button>
 </p>
 <div id="workflowr-report" class="collapse">
@@ -380,7 +388,9 @@ Institute for Molecular Life Sciences, University of Zurich, SwitzerlandSwiss In
 <a data-toggle="tab" href="#summary">Summary</a>
 </li>
 <li>
-<a data-toggle="tab" href="#checks"> Checks <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> </a>
+<a data-toggle="tab" href="#checks"> Checks <span
+class="glyphicon glyphicon-exclamation-sign text-danger"
+aria-hidden="true"></span> </a>
 </li>
 <li>
 <a data-toggle="tab" href="#versions">Past versions</a>
@@ -389,17 +399,27 @@ Institute for Molecular Life Sciences, University of Zurich, SwitzerlandSwiss In
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2021-08-24
+<strong>Last updated:</strong> 2022-04-04
 </p>
 <p>
-<strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 5 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 2
+<strong>Checks:</strong> <span
+class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 4
+<span class="glyphicon glyphicon-exclamation-sign text-danger"
+aria-hidden="true"></span> 3
 </p>
 <p>
-<strong>Knit directory:</strong> <code>SampleQC_analysis/</code> <span class="glyphicon glyphicon-question-sign" aria-hidden="true" title="This is the local directory in which the code in this file was executed."> </span>
+<strong>Knit directory:</strong> <code>SampleQC_paper_analyses/</code>
+<span class="glyphicon glyphicon-question-sign" aria-hidden="true"
+title="This is the local directory in which the code in this file was executed.">
+</span>
 </p>
 <p>
-This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis was created with <a
-  href="https://github.com/jdblischak/workflowr">workflowr</a> (version 1.6.2). The <em>Checks</em> tab describes the reproducibility checks that were applied when the results were created. The <em>Past versions</em> tab lists the development history.
+This reproducible <a href="https://rmarkdown.rstudio.com">R Markdown</a>
+analysis was created with <a
+  href="https://github.com/workflowr/workflowr">workflowr</a> (version
+1.7.0). The <em>Checks</em> tab describes the reproducibility checks
+that were applied when the results were created. The <em>Past
+versions</em> tab lists the development history.
 </p>
 <hr>
 </div>
@@ -408,28 +428,47 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguncommittedchanges"> <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> <strong>R Markdown file:</strong> uncommitted changes </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguncommittedchanges">
+<span class="glyphicon glyphicon-exclamation-sign text-danger"
+aria-hidden="true"></span> <strong>R Markdown file:</strong> uncommitted
+changes </a>
 </p>
 </div>
-<div id="strongRMarkdownfilestronguncommittedchanges" class="panel-collapse collapse">
+<div id="strongRMarkdownfilestronguncommittedchanges"
+class="panel-collapse collapse">
 <div class="panel-body">
-<p>The R Markdown file has unstaged changes. To know which version of the R Markdown file created these results, you’ll want to first commit it to the Git repo. If you’re still working on the analysis, you can ignore this warning. When you’re finished, you can run <code>wflow_publish</code> to commit the R Markdown file and build the HTML.</p>
+<p>The R Markdown file has unstaged changes. To know which version of
+the R Markdown file created these results, you’ll want to first commit
+it to the Git repo. If you’re still working on the analysis, you can
+ignore this warning. When you’re finished, you can run
+<code>wflow_publish</code> to commit the R Markdown file and build the
+HTML.</p>
 </div>
 </div>
 </div>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongEnvironmentstrongobjectspresent"> <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> <strong>Environment:</strong> objects present </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongEnvironmentstrongobjectspresent">
+<span class="glyphicon glyphicon-exclamation-sign text-danger"
+aria-hidden="true"></span> <strong>Environment:</strong> objects present
+</a>
 </p>
 </div>
-<div id="strongEnvironmentstrongobjectspresent" class="panel-collapse collapse">
+<div id="strongEnvironmentstrongobjectspresent"
+class="panel-collapse collapse">
 <div class="panel-body">
 <p>
-The global environment had objects present when the code in the R Markdown file was run. These objects can affect the analysis in your R Markdown file in unknown ways. For reproduciblity it’s best to always run the code in an empty environment. Use <code>wflow_publish</code> or <code>wflow_build</code> to ensure that the code is always run in an empty environment.
+The global environment had objects present when the code in the R
+Markdown file was run. These objects can affect the analysis in your R
+Markdown file in unknown ways. For reproduciblity it’s best to always
+run the code in an empty environment. Use <code>wflow_publish</code> or
+<code>wflow_build</code> to ensure that the code is always run in an
+empty environment.
 </p>
 <p>
-The following objects were defined in the global environment when these results were created:
+The following objects were defined in the global environment when these
+results were created:
 </p>
 <table class="table table-condensed table-hover">
 <thead>
@@ -465,125 +504,191 @@ function
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSeedstrongcodesetseed20210311code"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Seed:</strong> <code>set.seed(20210311)</code> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSeedstrongcodesetseed20210311code">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Seed:</strong>
+<code>set.seed(20210311)</code> </a>
 </p>
 </div>
-<div id="strongSeedstrongcodesetseed20210311code" class="panel-collapse collapse">
+<div id="strongSeedstrongcodesetseed20210311code"
+class="panel-collapse collapse">
 <div class="panel-body">
-<p>The command <code>set.seed(20210311)</code> was run prior to running the code in the R Markdown file. Setting a seed ensures that any results that rely on randomness, e.g. subsampling or permutations, are reproducible.</p>
+<p>The command <code>set.seed(20210311)</code> was run prior to running
+the code in the R Markdown file. Setting a seed ensures that any results
+that rely on randomness, e.g. subsampling or permutations, are
+reproducible.</p>
 </div>
 </div>
 </div>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSessioninformationstrongrecorded"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Session information:</strong> recorded </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSessioninformationstrongrecorded">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Session information:</strong>
+recorded </a>
 </p>
 </div>
-<div id="strongSessioninformationstrongrecorded" class="panel-collapse collapse">
+<div id="strongSessioninformationstrongrecorded"
+class="panel-collapse collapse">
 <div class="panel-body">
-<p>Great job! Recording the operating system, R version, and package versions is critical for reproducibility.</p>
+<p>Great job! Recording the operating system, R version, and package
+versions is critical for reproducibility.</p>
 </div>
 </div>
 </div>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongCachestrongnone"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Cache:</strong> none </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongCachestrongdetected">
+<span class="glyphicon glyphicon-exclamation-sign text-danger"
+aria-hidden="true"></span> <strong>Cache:</strong> detected </a>
 </p>
 </div>
-<div id="strongCachestrongnone" class="panel-collapse collapse">
+<div id="strongCachestrongdetected" class="panel-collapse collapse">
 <div class="panel-body">
-<p>Nice! There were no cached chunks for this analysis, so you can be confident that you successfully produced the results during this run.</p>
+The following chunks had caches available:
+<ul>
+<li>
+calc_outliers_dt
+</li>
+<li>
+calc_scater_miqc
+</li>
+<li>
+join_all_outliers
+</li>
+<li>
+load_celltypes
+</li>
+<li>
+load_qc
+</li>
+<li>
+plot_histograms_split
+</li>
+<li>
+plot_maha_qq
+</li>
+<li>
+plot_outlier_bias
+</li>
+<li>
+plot_outlier_metric_distributions
+</li>
+<li>
+plot_outliers
+</li>
+<li>
+run_SampleQC
+</li>
+<li>
+session-info-chunk-inserted-by-workflowr
+</li>
+<li>
+setup_input
+</li>
+<li>
+setup_output
+</li>
+</ul>
+<p>To ensure reproducibility of the results, delete the cache directory
+<code>qc04_real_cache</code> and re-run the analysis. To have workflowr
+automatically delete the cache directory prior to building the file, set
+<code>delete_cache = TRUE</code> when running <code>wflow_build()</code>
+or <code>wflow_publish()</code>.</p>
 </div>
 </div>
 </div>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongFilepathsstrongrelative"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>File paths:</strong> relative </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongFilepathsstrongrelative">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>File paths:</strong> relative </a>
 </p>
 </div>
 <div id="strongFilepathsstrongrelative" class="panel-collapse collapse">
 <div class="panel-body">
-<p>Great job! Using relative paths to the files within your workflowr project makes it easier to run your code on other machines.</p>
+<p>Great job! Using relative paths to the files within your workflowr
+project makes it easier to run your code on other machines.</p>
 </div>
 </div>
 </div>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomwmacnairSampleQCanalysistree0192172cb2a1bf18ec01ce2f3527b3c82a3da80btargetblank0192172a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/wmacnair/SampleQC_analysis/tree/0192172cb2a1bf18ec01ce2f3527b3c82a3da80b" target="_blank">0192172</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomwmacnairSampleQCpaperanalysestree546cb1a6e38b3e61e3b63be3912b97aac142138etargetblank546cb1aa">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Repository version:</strong>
+<a href="https://github.com/wmacnair/SampleQC_paper_analyses/tree/546cb1a6e38b3e61e3b63be3912b97aac142138e" target="_blank">546cb1a</a>
+</a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomwmacnairSampleQCanalysistree0192172cb2a1bf18ec01ce2f3527b3c82a3da80btargetblank0192172a" class="panel-collapse collapse">
+<div
+id="strongRepositoryversionstrongahrefhttpsgithubcomwmacnairSampleQCpaperanalysestree546cb1a6e38b3e61e3b63be3912b97aac142138etargetblank546cb1aa"
+class="panel-collapse collapse">
 <div class="panel-body">
 <p>
-Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
+Great! You are using Git for version control. Tracking code development
+and connecting the code version to the results is critical for
+reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/wmacnair/SampleQC_analysis/tree/0192172cb2a1bf18ec01ce2f3527b3c82a3da80b" target="_blank">0192172</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version
+<a href="https://github.com/wmacnair/SampleQC_paper_analyses/tree/546cb1a6e38b3e61e3b63be3912b97aac142138e" target="_blank">546cb1a</a>.
+See the <em>Past versions</em> tab to see a history of the changes made
+to the R Markdown and HTML files.
 </p>
 <p>
-Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
+Note that you need to be careful to ensure that all relevant files for
+the analysis have been committed to Git prior to generating the results
+(you can use <code>wflow_publish</code> or
+<code>wflow_git_commit</code>). workflowr only checks the R Markdown
+file, but you know if there are other scripts or data files that it
+depends on. Below is the status of the Git repository when the results
+were generated:
 </p>
 <pre><code>
 Ignored files:
     Ignored:    .Rprofile
-    Ignored:    analysis/qc01_prep_data_cache/
+    Ignored:    analysis/.DS_Store
     Ignored:    analysis/qc02_distns_cache/
     Ignored:    analysis/qc03_sims_cache/
-    Ignored:    data/miqc/
-    Ignored:    output/qc07_comparisons/
+    Ignored:    analysis/qc03_sims_t_cache/
+    Ignored:    analysis/qc04_real_cache/
+    Ignored:    data/.DS_Store
+    Ignored:    output/qc02_distns/.DS_Store
 
 Untracked files:
-    Untracked:  _workflowr.yml
-    Untracked:  analysis/.qc04_real.Rmd.swp
-    Untracked:  analysis/.qc05_citeseq.Rmd.swp
-    Untracked:  analysis/.qc06_ks.Rmd.swp
-    Untracked:  analysis/.qc07_comparisons.Rmd.swp
     Untracked:  analysis/figure/
-    Untracked:  output/qc03_sims/mahalanobis_qq_plot_sim.pdf
-    Untracked:  output/qc03_sims/mahalanobis_qq_plot_sim.png
+    Untracked:  bias.png
+    Untracked:  code/qc04_real.R
+    Untracked:  data/snRNAseq/sn_types_dt_2021-07-25.txt.gz
+    Untracked:  help.png
+    Untracked:  output/qc02_distns/combined_umap_qc_plots_16030X4.pdf
+    Untracked:  output/qc02_distns/combined_umap_qc_plots_16030X4.png
+    Untracked:  output/qc04_real/outlier_qcs_bio.pdf
+    Untracked:  output/qc04_real/outlier_qcs_bio.png
 
 Unstaged changes:
-    Modified:   analysis/qc01_prep_data.Rmd
     Modified:   analysis/qc02_distns.Rmd
-    Modified:   analysis/qc03_sims.Rmd
     Modified:   analysis/qc04_real.Rmd
-    Modified:   code/qc03_sims.R
-    Modified:   output/qc01_prep_data/Campbell_qc_dt.txt.gz
-    Modified:   output/qc01_prep_data/HGSOC_qc_dt.txt.gz
-    Modified:   output/qc01_prep_data/Macosko_qc_dt.txt.gz
-    Modified:   output/qc01_prep_data/Shekhar_qc_dt.txt.gz
-    Modified:   output/qc01_prep_data/Wang_qc_dt.txt.gz
-    Modified:   output/qc01_prep_data/Zeisel_qc_dt.txt.gz
+    Modified:   code/qc02_distns.R
     Modified:   output/qc02_distns/selected_biaxials.pdf
-    Modified:   output/qc02_distns/selected_biaxials.png
     Modified:   output/qc02_distns/selected_marginals.pdf
-    Modified:   output/qc02_distns/selected_marginals.png
-    Modified:   output/qc03_sims/outs_scater_sim_ok_multimodal.pdf
-    Modified:   output/qc03_sims/outs_scater_sim_ok_multimodal.png
-    Modified:   output/qc03_sims/outs_scater_sim_ok_unimodal.pdf
-    Modified:   output/qc03_sims/outs_scater_sim_ok_unimodal.png
-    Modified:   output/qc03_sims/outs_scater_sim_out_multimodal.pdf
-    Modified:   output/qc03_sims/outs_scater_sim_out_multimodal.png
-    Modified:   output/qc03_sims/outs_scater_sim_out_unimodal.pdf
-    Modified:   output/qc03_sims/outs_scater_sim_out_unimodal.png
-    Modified:   output/qc03_sims/per_celltype_bias_abs.pdf
-    Modified:   output/qc03_sims/per_celltype_bias_abs.png
-    Modified:   output/qc03_sims/per_celltype_bias_prop.pdf
-    Modified:   output/qc03_sims/per_celltype_bias_prop.png
-    Modified:   output/qc03_sims/pr_curves_by_modality.pdf
-    Modified:   output/qc03_sims/pr_curves_by_modality.png
-    Modified:   output/qc03_sims/pr_curves_by_sample.pdf
-    Modified:   output/qc03_sims/pr_curves_by_sample.png
-    Modified:   output/qc03_sims/pr_curves_overall.pdf
-    Modified:   output/qc03_sims/pr_curves_overall.png
+    Modified:   output/qc04_real/mahalanobis_qq_plot_bio.pdf
+    Modified:   output/qc04_real/mahalanobis_qq_plot_bio.png
+    Modified:   output/qc04_real/outs_scater_bio.pdf
+    Modified:   output/qc04_real/outs_scater_bio.png
+    Modified:   output/qc04_real/real_qc_embed_disc_MDS.png
+    Modified:   output/qc04_real/real_qc_embed_disc_UMAP.png
 
 </code></pre>
 <p>
-Note that any generated files, e.g. HTML, png, CSS, etc., are not included in this status report because it is ok for generated content to have uncommitted changes.
+Note that any generated files, e.g. HTML, png, CSS, etc., are not
+included in this status report because it is ok for generated content to
+have uncommitted changes.
 </p>
 </div>
 </div>
@@ -594,7 +699,12 @@ Note that any generated files, e.g. HTML, png, CSS, etc., are not included in t
 <div id="versions" class="tab-pane fade">
 
 <p>
-These are the previous versions of the repository in which changes were made to the R Markdown (<code>analysis/qc04_real.Rmd</code>) and HTML (<code>docs/qc04_real.html</code>) files. If you’ve configured a remote Git repository (see <code>?wflow_git_remote</code>), click on the hyperlinks in the table below to view the files as they were in that past version.
+These are the previous versions of the repository in which changes were
+made to the R Markdown (<code>analysis/qc04_real.Rmd</code>) and HTML
+(<code>docs/qc04_real.html</code>) files. If you’ve configured a remote
+Git repository (see <code>?wflow_git_remote</code>), click on the
+hyperlinks in the table below to view the files as they were in that
+past version.
 </p>
 <div class="table-responsive">
 <table class="table table-condensed table-hover">
@@ -623,16 +733,67 @@ Message
 Rmd
 </td>
 <td>
-<a href="https://github.com/wmacnair/SampleQC_analysis/blob/86834a17ef4cf47ae44e2be6a49b75fd445c5855/analysis/qc04_real.Rmd" target="_blank">86834a1</a>
+<a href="https://github.com/wmacnair/SampleQC_paper_analyses/blob/5bbeff5be2762fb87ffa7f28da59b33e1f9982dc/analysis/qc04_real.Rmd" target="_blank">5bbeff5</a>
 </td>
 <td>
 wmacnair
 </td>
 <td>
-2021-08-10
+2022-01-30
 </td>
 <td>
-First commit of everything
+Fix minor errors
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/wmacnair/SampleQC_paper_analyses/blob/02b38dac5cdae7cd3fe2d17902f669348c31293a/analysis/qc04_real.Rmd" target="_blank">02b38da</a>
+</td>
+<td>
+wmacnair
+</td>
+<td>
+2022-01-30
+</td>
+<td>
+Fix errors in Rmd files
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/wmacnair/SampleQC_paper_analyses/blob/257196d4be637a09fd2980d03e250721bffbf3bd/analysis/qc04_real.Rmd" target="_blank">257196d</a>
+</td>
+<td>
+markrobinsonuzh
+</td>
+<td>
+2021-08-24
+</td>
+<td>
+burn down first, then commit
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/wmacnair/SampleQC_paper_analyses/257196d4be637a09fd2980d03e250721bffbf3bd/docs/qc04_real.html" target="_blank">257196d</a>
+</td>
+<td>
+markrobinsonuzh
+</td>
+<td>
+2021-08-24
+</td>
+<td>
+burn down first, then commit
 </td>
 </tr>
 </tbody>
@@ -646,23 +807,13 @@ First commit of everything
 <h1>Setup / definitions</h1>
 <div id="libraries" class="section level2">
 <h2>Libraries</h2>
-<pre class="r"><code>library(&#39;SampleQC&#39;)
-
-library(&#39;assertthat&#39;)
-library(&#39;ggplot2&#39;)
-library(&#39;patchwork&#39;)
-library(&#39;scales&#39;)
-library(&#39;stringr&#39;)
-library(&#39;forcats&#39;)
-library(&#39;data.table&#39;)
-library(&#39;magrittr&#39;)
-seed    = 20200725
-set.seed(seed)</code></pre>
+<pre class="r"><code>library(&#39;SampleQC&#39;)</code></pre>
 </div>
 <div id="inputs" class="section level2">
 <h2>Inputs</h2>
 <pre class="r"><code># where is snRNAseq file?
 qc_f        = &#39;data/snRNAseq/sn_qc_dt_anon_2021-07-25.txt.gz&#39;
+types_f     = &#39;data/snRNAseq/sn_types_dt_2021-07-25.txt.gz&#39;
 qc_obj_f    = &#39;data/snRNAseq/sampleQC_obj_2021-07-25.rds&#39;
 
 qc_names    = c(&#39;log_counts&#39;, &#39;logit_mito&#39;, &#39;splice_ratio&#39;)
@@ -671,7 +822,8 @@ annots_cont = c(&#39;med_splice&#39;)</code></pre>
 </div>
 <div id="helper-functions" class="section level2">
 <h2>Helper functions</h2>
-<pre class="r"><code>source(&#39;code/qc03_sims.R&#39;)</code></pre>
+<pre class="r"><code>source(&#39;code/qc03_sims.R&#39;)
+source(&#39;code/qc04_real.R&#39;)</code></pre>
 </div>
 <div id="outputs" class="section level2">
 <h2>Outputs</h2>
@@ -693,7 +845,11 @@ formats         = c(&#39;png&#39;, &#39;pdf&#39;)
 outs_scater_f   = file.path(save_dir, &#39;outs_scater_bio.%s&#39;)
 outs_distns_f   = file.path(save_dir, &#39;outs_distns_bio.%s&#39;)
 kept_distns_f   = file.path(save_dir, &#39;kept_distns_bio.%s&#39;)
-maha_qqs_f      = file.path(save_dir, &#39;mahalanobis_qq_plot_bio.%s&#39;)</code></pre>
+maha_qqs_f      = file.path(save_dir, &#39;mahalanobis_qq_plot_bio.%s&#39;)
+outlier_qcs_f   = file.path(save_dir, &#39;outlier_qcs_bio.%s&#39;)
+
+seed            = 20200725
+set.seed(seed)</code></pre>
 </div>
 </div>
 <div id="load-inputs" class="section level1">
@@ -701,9 +857,13 @@ maha_qqs_f      = file.path(save_dir, &#39;mahalanobis_qq_plot_bio.%s&#39;)</cod
 </div>
 <div id="processing-calculations" class="section level1">
 <h1>Processing / calculations</h1>
-<pre class="r"><code>qc_dt       = qc_f %&gt;% fread %&gt;%
-  .[, med_splice := median(splice_ratio), by=sample_id] %&gt;%
-  make_qc_dt(qc_names = qc_names)</code></pre>
+<pre class="r"><code># original QC variables
+qc_all      = qc_f %&gt;% fread %&gt;%
+  .[, mito_prop := plogis(logit_mito) ]
+# variables selected for SampleQC, plus annotations
+qc_dt       = make_qc_dt(qc_all, qc_names = qc_names) %&gt;%
+  .[, med_splice := median(splice_ratio), by=sample_id]</code></pre>
+<pre class="r"><code>types_dt    = fread(types_f)</code></pre>
 <pre class="r"><code># K_list    = c(4, 4, 3, 2, 1, 3, 4, 4, 4)
 K_list    = c(3, 4, 1, 4, 2, 1, 3, 4)
 # K_list    = c(1, 1, 1, 1, 1, 1, 1, 1)
@@ -748,10 +908,17 @@ exc_clusters  = exc_clusters[ sapply(exc_clusters, function(x) length(x) &gt; 0)
 # get outliers
 outliers_dt   = get_outliers(qc_obj, exc_clusters = exc_clusters)</code></pre>
 <pre class="r"><code># calc scater outliers
-scater_dt = calc_scater_dt(qc_dt)
+scater_dt = calc_scater_dt(qc_all)
 set.seed(123)
-miqc_dt   = calc_miqc_dt(qc_dt)</code></pre>
+miqc_dt   = calc_miqc_dt(qc_all)</code></pre>
 <pre><code>(only one component identified)</code></pre>
+<pre class="r"><code>all_outliers  = make_all_outliers(outliers_dt, scater_dt, miqc_dt)
+outlier_qcs   = make_outlier_qcs(outliers_dt, scater_dt, miqc_dt, qc_all)
+# join outliers to types
+outlier_bias  = all_outliers %&gt;%
+  merge(types_dt, by = c(&#39;sample_id&#39;, &#39;cell_id&#39;)) %&gt;%
+  .[, .N, by = .(sample_id, type_broad, method, outlier)] %&gt;%
+  .[, prop := N / sum(N), by = .(sample_id, type_broad, method)]</code></pre>
 </div>
 <div id="analysis" class="section level1">
 <h1>Analysis</h1>
@@ -774,14 +941,92 @@ miqc_dt   = calc_miqc_dt(qc_dt)</code></pre>
 <div id="umap" class="section level3">
 <h3>UMAP</h3>
 <p><img src="figure/qc04_real.Rmd/plot_embeddings_disc-1.png" width="768" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-plot_embeddings_disc-1">
+Past versions of plot_embeddings_disc-1.png
+</button>
+</p>
+<div id="fig-plot_embeddings_disc-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/wmacnair/SampleQC_paper_analyses/blob/257196d4be637a09fd2980d03e250721bffbf3bd/docs/figure/qc04_real.Rmd/plot_embeddings_disc-1.png" target="_blank">257196d</a>
+</td>
+<td>
+markrobinsonuzh
+</td>
+<td>
+2021-08-24
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </div>
 <div id="mds" class="section level3">
 <h3>MDS</h3>
 <p><img src="figure/qc04_real.Rmd/plot_embeddings_disc-2.png" width="768" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-plot_embeddings_disc-2">
+Past versions of plot_embeddings_disc-2.png
+</button>
+</p>
+<div id="fig-plot_embeddings_disc-2" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/wmacnair/SampleQC_paper_analyses/blob/257196d4be637a09fd2980d03e250721bffbf3bd/docs/figure/qc04_real.Rmd/plot_embeddings_disc-2.png" target="_blank">257196d</a>
+</td>
+<td>
+markrobinsonuzh
+</td>
+<td>
+2021-08-24
+</td>
+</tr>
+</tbody>
+</table>
 </div>
 </div>
-<div id="plot-sampleqc-model-fits-and-outliers-over-qc-biaxials" class="section level2">
-<h2>Plot <code>SampleQC</code> model fits and outliers over QC biaxials</h2>
+</div>
+</div>
+<div id="plot-sampleqc-model-fits-and-outliers-over-qc-biaxials"
+class="section level2">
+<h2>Plot <code>SampleQC</code> model fits and outliers over QC
+biaxials</h2>
+<p>This takes a while to render, so for speed I’ve set <code>eval =
+FALSE</code> - feel free to remove that call.</p>
 <pre class="r"><code>group_list  = levels(qc_obj$group_id)
 for (g in group_list) {
   cat(&#39;### &#39;, g, &#39;{.tabset}\n&#39;)
@@ -823,106 +1068,213 @@ for (f in formats)
 # plot
 print(g)</code></pre>
 <p><img src="figure/qc04_real.Rmd/plot_outliers-1.png" width="960" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-plot_outliers-1">
+Past versions of plot_outliers-1.png
+</button>
+</p>
+<div id="fig-plot_outliers-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/wmacnair/SampleQC_paper_analyses/blob/257196d4be637a09fd2980d03e250721bffbf3bd/docs/figure/qc04_real.Rmd/plot_outliers-1.png" target="_blank">257196d</a>
+</td>
+<td>
+markrobinsonuzh
+</td>
+<td>
+2021-08-24
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </div>
 <div id="plot-mahalanobis-distances" class="section level2">
 <h2>Plot Mahalanobis distances</h2>
 <pre class="r"><code>set.seed(seed)
-sel_samples   = qc_obj$sample_id %&gt;% sample(6)
+sel_samples   = qc_obj$sample_id %&gt;% sample(6) %&gt;% sort
 mahas_dt      = calc_mahas_dt(qc_obj)
 
 # do plot
 g             = plot_maha_qqs(mahas_dt, sel_samples)
 for (f in formats)
-  ggsave(sprintf(maha_qqs_f, f, f), g, h = 5, w = 8)
+  ggsave(sprintf(maha_qqs_f, f), g, h = 5, w = 8)
 print(g)</code></pre>
 <p><img src="figure/qc04_real.Rmd/plot_maha_qq-1.png" width="576" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-plot_maha_qq-1">
+Past versions of plot_maha_qq-1.png
+</button>
+</p>
+<div id="fig-plot_maha_qq-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/wmacnair/SampleQC_paper_analyses/blob/257196d4be637a09fd2980d03e250721bffbf3bd/docs/figure/qc04_real.Rmd/plot_maha_qq-1.png" target="_blank">257196d</a>
+</td>
+<td>
+markrobinsonuzh
+</td>
+<td>
+2021-08-24
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div id="plot-qc-metrics-for-outliers-under-each-method"
+class="section level2">
+<h2>Plot QC metrics for outliers under each method</h2>
+<pre class="r"><code># do plot
+set.seed(seed)
+sel_samples   = qc_obj$sample_id %&gt;% sample(6) %&gt;% sort
+for (f in formats)
+  ggsave(sprintf(outlier_qcs_f, f), g, h = 8, w = 7)
+print(g)</code></pre>
+<p><img src="figure/qc04_real.Rmd/plot_outlier_metric_distributions-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="plot-exclusions-under-alternative-methods"
+class="section level2">
+<h2>Plot exclusions under alternative methods</h2>
+<pre class="r"><code>g = ggplot(outlier_bias[ outlier == TRUE ]) +
+  aes( x = prop, colour = method, fill = method ) +
+  # aes( x = type_broad, y = prop, colour = method, fill = method ) +
+  # stat_ecdf() +
+  geom_density( alpha = 0.5 ) +
+  # coord_flip() +
+  # scale_y_continuous( breaks = pretty_breaks() ) +
+  scale_x_continuous( breaks = pretty_breaks() ) +
+  scale_colour_manual( values = method_cols ) +
+  scale_fill_manual( values = method_cols ) +
+  facet_grid( type_broad ~ ., scales = &#39;free_y&#39; ) +
+  # facet_wrap( ~ type_broad ) +
+  theme_bw() + theme( panel.grid = element_blank() )
+print(g)</code></pre>
+<p><img src="figure/qc04_real.Rmd/plot_outlier_bias-1.png" width="576" style="display: block; margin: auto;" /></p>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
-<span class="glyphicon glyphicon-wrench" aria-hidden="true"></span> Session information
+<span class="glyphicon glyphicon-wrench" aria-hidden="true"></span>
+Session information
 </button>
 </p>
 <div id="workflowr-sessioninfo" class="collapse">
 <pre class="r"><code>sessionInfo()</code></pre>
-<pre><code>R version 4.0.0 (2020-04-24)
-Platform: x86_64-pc-linux-gnu (64-bit)
-Running under: Ubuntu 18.04.5 LTS
+<pre><code>R version 4.1.2 (2021-11-01)
+Platform: x86_64-apple-darwin17.0 (64-bit)
+Running under: macOS Big Sur 10.16
 
 Matrix products: default
-BLAS:   /usr/local/R/R-4.0.0/lib/libRblas.so
-LAPACK: /usr/local/R/R-4.0.0/lib/libRlapack.so
+BLAS:   /Library/Frameworks/R.framework/Versions/4.1/Resources/lib/libRblas.0.dylib
+LAPACK: /Library/Frameworks/R.framework/Versions/4.1/Resources/lib/libRlapack.dylib
 
 locale:
- [1] LC_CTYPE=C                 LC_NUMERIC=C              
- [3] LC_TIME=en_CA.UTF-8        LC_COLLATE=en_CA.UTF-8    
- [5] LC_MONETARY=en_CA.UTF-8    LC_MESSAGES=en_CA.UTF-8   
- [7] LC_PAPER=en_CA.UTF-8       LC_NAME=C                 
- [9] LC_ADDRESS=C               LC_TELEPHONE=C            
-[11] LC_MEASUREMENT=en_CA.UTF-8 LC_IDENTIFICATION=C       
+[1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8
 
 attached base packages:
-[1] parallel  stats4    stats     graphics  grDevices utils     datasets 
-[8] methods   base     
+[1] stats4    stats     graphics  grDevices utils     datasets  methods  
+[8] base     
 
 other attached packages:
- [1] flexmix_2.3-17              lattice_0.20-41            
- [3] scater_1.18.3               SingleCellExperiment_1.12.0
- [5] SummarizedExperiment_1.20.0 Biobase_2.50.0             
- [7] GenomicRanges_1.42.0        GenomeInfoDb_1.26.2        
- [9] IRanges_2.24.1              S4Vectors_0.28.1           
-[11] BiocGenerics_0.36.0         MatrixGenerics_1.2.1       
-[13] matrixStats_0.60.0          viridis_0.5.1              
-[15] viridisLite_0.4.0           RColorBrewer_1.1-2         
-[17] magrittr_2.0.1              data.table_1.14.0          
-[19] forcats_0.5.1               stringr_1.4.0              
-[21] scales_1.1.1                patchwork_1.1.1            
+ [1] ggbeeswarm_0.6.0            flexmix_2.3-17             
+ [3] lattice_0.20-45             scater_1.22.0              
+ [5] scuttle_1.4.0               SingleCellExperiment_1.16.0
+ [7] SummarizedExperiment_1.24.0 Biobase_2.54.0             
+ [9] GenomicRanges_1.46.1        GenomeInfoDb_1.30.0        
+[11] IRanges_2.28.0              S4Vectors_0.32.3           
+[13] BiocGenerics_0.40.0         MatrixGenerics_1.6.0       
+[15] matrixStats_0.61.0          viridis_0.6.2              
+[17] viridisLite_0.4.0           stringr_1.4.0              
+[19] scales_1.1.1                patchwork_1.1.1            
+[21] magrittr_2.0.2              RColorBrewer_1.1-2         
 [23] ggplot2_3.3.5               assertthat_0.2.1           
-[25] SampleQC_0.6.1              BiocStyle_2.18.1           
-[27] colorout_1.2-2              BiocManager_1.30.10        
-[29] workflowr_1.6.2            
+[25] forcats_0.5.1               data.table_1.14.2          
+[27] SampleQC_0.6.5              BiocStyle_2.22.0           
+[29] BiocManager_1.30.16         colorout_1.2-2             
+[31] workflowr_1.7.0            
 
 loaded via a namespace (and not attached):
- [1] segmented_1.3-4           bitops_1.0-6             
- [3] fs_1.5.0                  rprojroot_2.0.2          
- [5] tools_4.0.0               irlba_2.3.3              
- [7] utf8_1.2.2                R6_2.5.0                 
- [9] vipor_0.4.5               uwot_0.1.10              
-[11] DBI_1.1.1                 colorspace_2.0-2         
-[13] nnet_7.3-14               withr_2.4.2              
-[15] tidyselect_1.1.0          gridExtra_2.3            
-[17] compiler_4.0.0            git2r_0.28.0             
-[19] BiocNeighbors_1.8.2       DelayedArray_0.16.2      
-[21] labeling_0.4.2            mvtnorm_1.1-2            
-[23] mvnfast_0.2.7             digest_0.6.27            
-[25] mixtools_1.2.0            R.utils_2.10.1           
-[27] rmarkdown_2.10            XVector_0.30.0           
-[29] pkgconfig_2.0.3           htmltools_0.5.1.1        
-[31] sparseMatrixStats_1.2.0   highr_0.9                
-[33] rlang_0.4.11              DelayedMatrixStats_1.12.2
-[35] farver_2.1.0              generics_0.1.0           
-[37] mclust_5.4.7              BiocParallel_1.24.1      
-[39] gtools_3.9.2              R.oo_1.24.0              
-[41] dplyr_1.0.3               BiocSingular_1.6.0       
-[43] RCurl_1.98-1.2            modeltools_0.2-23        
-[45] GenomeInfoDbData_1.2.4    scuttle_1.0.4            
-[47] Matrix_1.3-2              ggbeeswarm_0.6.0         
-[49] Rcpp_1.0.7                munsell_0.5.0            
-[51] fansi_0.5.0               R.methodsS3_1.8.1        
-[53] lifecycle_1.0.0           stringi_1.7.3            
-[55] whisker_0.4               yaml_2.2.1               
-[57] MASS_7.3-53               zlibbioc_1.36.0          
-[59] grid_4.0.0                promises_1.1.1           
-[61] crayon_1.4.1              beachmat_2.6.4           
-[63] splines_4.0.0             knitr_1.33               
-[65] pillar_1.6.2              igraph_1.2.6             
-[67] codetools_0.2-18          glue_1.4.2               
-[69] evaluate_0.14             vctrs_0.3.8              
-[71] httpuv_1.5.5              gtable_0.3.0             
-[73] purrr_0.3.4               kernlab_0.9-29           
-[75] xfun_0.25                 rsvd_1.0.3               
-[77] later_1.1.0.1             survival_3.2-7           
-[79] tibble_3.1.3              beeswarm_0.2.3           
-[81] ellipsis_0.3.2           </code></pre>
+ [1] colorspace_2.0-2          modeltools_0.2-23        
+ [3] ellipsis_0.3.2            mclust_5.4.9             
+ [5] rprojroot_2.0.2           XVector_0.34.0           
+ [7] BiocNeighbors_1.12.0      fs_1.5.2                 
+ [9] rstudioapi_0.13           farver_2.1.0             
+[11] ggrepel_0.9.1             fansi_1.0.2              
+[13] mvtnorm_1.1-3             R.methodsS3_1.8.1        
+[15] codetools_0.2-18          splines_4.1.2            
+[17] sparseMatrixStats_1.6.0   knitr_1.37               
+[19] jsonlite_1.7.3            kernlab_0.9-29           
+[21] R.oo_1.24.0               uwot_0.1.11              
+[23] compiler_4.1.2            httr_1.4.2               
+[25] Matrix_1.4-0              fastmap_1.1.0            
+[27] cli_3.1.1                 later_1.3.0              
+[29] BiocSingular_1.10.0       htmltools_0.5.2          
+[31] tools_4.1.2               rsvd_1.0.5               
+[33] igraph_1.2.11             gtable_0.3.0             
+[35] glue_1.6.1                GenomeInfoDbData_1.2.7   
+[37] dplyr_1.0.7               Rcpp_1.0.8               
+[39] jquerylib_0.1.4           vctrs_0.3.8              
+[41] DelayedMatrixStats_1.16.0 xfun_0.29                
+[43] ps_1.6.0                  beachmat_2.10.0          
+[45] lifecycle_1.0.1           irlba_2.3.5              
+[47] gtools_3.9.2              getPass_0.2-2            
+[49] zlibbioc_1.40.0           MASS_7.3-55              
+[51] promises_1.2.0.1          parallel_4.1.2           
+[53] yaml_2.2.2                mvnfast_0.2.7            
+[55] gridExtra_2.3             sass_0.4.0               
+[57] segmented_1.4-0           stringi_1.7.6            
+[59] highr_0.9                 ScaledMatrix_1.2.0       
+[61] BiocParallel_1.28.3       rlang_1.0.1              
+[63] pkgconfig_2.0.3           bitops_1.0-7             
+[65] evaluate_0.14             purrr_0.3.4              
+[67] labeling_0.4.2            processx_3.5.2           
+[69] tidyselect_1.1.1          R6_2.5.1                 
+[71] generics_0.1.1            DelayedArray_0.20.0      
+[73] DBI_1.1.2                 pillar_1.7.0             
+[75] whisker_0.4               withr_2.4.3              
+[77] mixtools_1.2.0            nnet_7.3-17              
+[79] survival_3.2-13           RCurl_1.98-1.5           
+[81] tibble_3.1.6              crayon_1.4.2             
+[83] utf8_1.2.2                rmarkdown_2.11           
+[85] grid_4.1.2                callr_3.7.0              
+[87] git2r_0.29.0              digest_0.6.29            
+[89] httpuv_1.6.5              R.utils_2.11.0           
+[91] munsell_0.5.0             beeswarm_0.4.0           
+[93] vipor_0.4.5               bslib_0.3.1              </code></pre>
 </div>
 </div>
 </div>
@@ -930,7 +1282,7 @@ loaded via a namespace (and not attached):
 
 <!-- Adjust MathJax settings so that all math formulae are shown using
 TeX fonts only; see
-http://docs.mathjax.org/en/latest/configuration.html.  This will make
+https://docs.mathjax.org/en/latest/web/configuration.html. This will make
 the presentation more consistent at the cost of the webpage sometimes
 taking slightly longer to load. Note that this only works because the
 footer is added to webpages before the MathJax javascript. -->

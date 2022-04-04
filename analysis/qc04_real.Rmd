@@ -33,6 +33,7 @@ library('SampleQC')
 ```{r setup_input}
 # where is snRNAseq file?
 qc_f        = 'data/snRNAseq/sn_qc_dt_anon_2021-07-25.txt.gz'
+types_f     = 'data/snRNAseq/sn_types_dt_2021-07-25.txt.gz'
 qc_obj_f    = 'data/snRNAseq/sampleQC_obj_2021-07-25.rds'
 
 qc_names    = c('log_counts', 'logit_mito', 'splice_ratio')
@@ -44,6 +45,7 @@ annots_cont = c('med_splice')
 
 ```{r setup_helpers, cache=FALSE}
 source('code/qc03_sims.R')
+source('code/qc04_real.R')
 ```
 
 ## Outputs
@@ -68,6 +70,7 @@ outs_scater_f   = file.path(save_dir, 'outs_scater_bio.%s')
 outs_distns_f   = file.path(save_dir, 'outs_distns_bio.%s')
 kept_distns_f   = file.path(save_dir, 'kept_distns_bio.%s')
 maha_qqs_f      = file.path(save_dir, 'mahalanobis_qq_plot_bio.%s')
+outlier_qcs_f   = file.path(save_dir, 'outlier_qcs_bio.%s')
 
 seed            = 20200725
 set.seed(seed)
@@ -84,6 +87,10 @@ qc_all      = qc_f %>% fread %>%
 # variables selected for SampleQC, plus annotations
 qc_dt       = make_qc_dt(qc_all, qc_names = qc_names) %>%
   .[, med_splice := median(splice_ratio), by=sample_id]
+```
+
+```{r load_celltypes}
+types_dt    = fread(types_f)
 ```
 
 ```{r run_SampleQC}
@@ -140,6 +147,16 @@ outliers_dt   = get_outliers(qc_obj, exc_clusters = exc_clusters)
 scater_dt = calc_scater_dt(qc_all)
 set.seed(123)
 miqc_dt   = calc_miqc_dt(qc_all)
+```
+
+```{r join_all_outliers}
+all_outliers  = make_all_outliers(outliers_dt, scater_dt, miqc_dt)
+outlier_qcs   = make_outlier_qcs(outliers_dt, scater_dt, miqc_dt, qc_all)
+# join outliers to types
+outlier_bias  = all_outliers %>%
+  merge(types_dt, by = c('sample_id', 'cell_id')) %>%
+  .[, .N, by = .(sample_id, type_broad, method, outlier)] %>%
+  .[, prop := N / sum(N), by = .(sample_id, type_broad, method)]
 ```
 
 # Analysis
@@ -216,12 +233,42 @@ print(g)
 
 ```{r plot_maha_qq, fig.height = 5, fig.width = 6}
 set.seed(seed)
-sel_samples   = qc_obj$sample_id %>% sample(6)
+sel_samples   = qc_obj$sample_id %>% sample(6) %>% sort
 mahas_dt      = calc_mahas_dt(qc_obj)
 
 # do plot
 g             = plot_maha_qqs(mahas_dt, sel_samples)
 for (f in formats)
   ggsave(sprintf(maha_qqs_f, f), g, h = 5, w = 8)
+print(g)
+```
+
+## Plot QC metrics for outliers under each method
+
+```{r plot_outlier_metric_distributions, fig.height = 8, fig.width = 7}
+# do plot
+set.seed(seed)
+sel_samples   = qc_obj$sample_id %>% sample(6) %>% sort
+for (f in formats)
+  ggsave(sprintf(outlier_qcs_f, f), g, h = 8, w = 7)
+print(g)
+```
+
+## Plot exclusions under alternative methods
+
+```{r plot_outlier_bias, fig.height = 5, fig.width = 6}
+g = ggplot(outlier_bias[ outlier == TRUE ]) +
+  aes( x = prop, colour = method, fill = method ) +
+  # aes( x = type_broad, y = prop, colour = method, fill = method ) +
+  # stat_ecdf() +
+  geom_density( alpha = 0.5 ) +
+  # coord_flip() +
+  # scale_y_continuous( breaks = pretty_breaks() ) +
+  scale_x_continuous( breaks = pretty_breaks() ) +
+  scale_colour_manual( values = method_cols ) +
+  scale_fill_manual( values = method_cols ) +
+  facet_grid( type_broad ~ ., scales = 'free_y' ) +
+  # facet_wrap( ~ type_broad ) +
+  theme_bw() + theme( panel.grid = element_blank() )
 print(g)
 ```
