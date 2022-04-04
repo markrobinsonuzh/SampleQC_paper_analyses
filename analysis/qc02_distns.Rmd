@@ -25,13 +25,20 @@ knitr::opts_chunk$set( autodep=TRUE, cache=TRUE, dev='png' )
 
 ```{r setup_libs, collapse=FALSE, message=FALSE, warning=FALSE, cache=FALSE}
 library('SampleQC')
+library('scran')
+library('scales')
 ```
 
 ## Inputs
 
 ```{r setup_input}
-prep_dir    = 'output/qc01_prep_data'
-datasets    = c('Campbell', 'HGSOC', 'Macosko', 'Zeisel', 'Shekhar', 'Wang')
+prep_dir  = 'output/qc01_prep_data'
+datasets  = c('Campbell', 'HGSOC', 'Macosko', 'Zeisel', 'Shekhar', 'Wang')
+```
+
+```{r setup_umap_chk}
+data_dir  = 'data/miqc/'
+hgsoc_fs  = c('16030X2', '16030X3', '16030X4')
 ```
 
 ## Helper functions
@@ -62,6 +69,10 @@ sel_marg  = c('arc1', 'Refed', 'r6', 'p1', 'Bipolar1', 'Bipolar2',
   'sample29', 'sample57')
 marg_f    = file.path(save_dir, 'selected_marginals')
 biax_f    = file.path(save_dir, 'selected_biaxials')
+
+# define which sample to use for clustering analysis
+sel_f       = '16030X4'
+patch_f     = sprintf('%s/combined_umap_qc_plots_%s', save_dir, sel_f)
 ```
 
 # Load inputs
@@ -79,6 +90,12 @@ datasets_dt = lapply(datasets,
     .[, dataset := d]) %>% rbindlist
 ```
 
+```{r load_hgsoc_sce}
+sce_f       = sel_f %>% sprintf('%s/%s.rds', data_dir, .)
+set.seed(20220216)
+hgsoc_sce   = load_and_prep_sce_file(sce_f)
+```
+
 # Processing / calculations
 
 ```{r calc_stats}
@@ -87,9 +104,13 @@ qc_vals_dt  = datasets_dt %>%
     variable.name = 'qc_var', value.name = 'qc_val')
 ```
 
+```{r make_dt_for_umap_plots}
+plot_dt     = make_plot_dt_for_umap(hgsoc_sce, datasets_dt, sel_f, qc_names)
+```
+
 # Analysis
 
-## Plot biaxials of QC metrics{.tabset}
+## Biaxials of QC metrics{.tabset}
 
 ```{r plot_biaxials, fig.height = 6, fig.width = 7, results = 'asis'}
 for (s in unique(datasets_dt$sample_id)) {
@@ -99,7 +120,7 @@ for (s in unique(datasets_dt$sample_id)) {
 }
 ```
 
-## Plot marginals of QC metrics{.tabset}
+## Marginals of QC metrics{.tabset}
 
 ```{r plot_marginals, fig.height = 8, fig.width = 7, results = 'asis'}
 for (d in unique(qc_vals_dt$dataset)) {
@@ -107,6 +128,33 @@ for (d in unique(qc_vals_dt$dataset)) {
   print(plot_marginals(qc_vals_dt[dataset == d]))
   cat('\n\n')
 }
+```
+
+## Clusters over `UMAP` of selected sample
+
+```{r plot_umap_clusters, fig.height = 5, fig.width = 6}
+(plot_umap_clusters(plot_dt))
+```
+
+## QC metrics over `UMAP` of selected sample
+
+```{r plot_umap_qc_metrics, fig.height = 3, fig.width = 11}
+(plot_qc_metrics_over_umap(plot_dt, nrow = 1))
+```
+
+## QC metrics of clusters of selected sample
+
+```{r plot_violins_qc_metrics, fig.height = 3, fig.width = 8}
+(plot_violins_qc_metrics(plot_dt))
+```
+
+## Assemble fancy patchwork plot
+
+```{r make_patchwork_plot, fig.height = 11, fig.width = 10, cache = FALSE}
+g = make_patchwork_plot(plot_dt)
+for (f in formats)
+  ggsave(file = paste0(patch_f, f), g, h = 11, w = 10)
+print(g)
 ```
 
 # Outputs

@@ -10,7 +10,7 @@
 
 
 
-<meta name="date" content="2022-02-05" />
+<meta name="date" content="2022-02-16" />
 
 <title>SampleQC: Plotting observed QC metric distributions</title>
 
@@ -367,7 +367,7 @@ distributions</h1>
 <address class="author_afil">
 Institute for Molecular Life Sciences, University of Zurich,
 SwitzerlandSwiss Institute of Bioinformatics (SIB), University of
-Zurich, Switzerland<br><h4 class="date">February 05, 2022</h4>
+Zurich, Switzerland<br><h4 class="date">February 16, 2022</h4>
 
 </div>
 
@@ -396,13 +396,13 @@ aria-hidden="true"></span> </a>
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2022-02-05
+<strong>Last updated:</strong> 2022-02-16
 </p>
 <p>
 <strong>Checks:</strong> <span
-class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 6
+class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 5
 <span class="glyphicon glyphicon-exclamation-sign text-danger"
-aria-hidden="true"></span> 1
+aria-hidden="true"></span> 2
 </p>
 <p>
 <strong>Knit directory:</strong> <code>SampleQC_paper_analyses/</code>
@@ -425,18 +425,21 @@ versions</em> tab lists the development history.
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguptodate">
-<span class="glyphicon glyphicon-ok text-success"
-aria-hidden="true"></span> <strong>R Markdown file:</strong> up-to-date
-</a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguncommittedchanges">
+<span class="glyphicon glyphicon-exclamation-sign text-danger"
+aria-hidden="true"></span> <strong>R Markdown file:</strong> uncommitted
+changes </a>
 </p>
 </div>
-<div id="strongRMarkdownfilestronguptodate"
+<div id="strongRMarkdownfilestronguncommittedchanges"
 class="panel-collapse collapse">
 <div class="panel-body">
-<p>Great! Since the R Markdown file has been committed to the Git
-repository, you know the exact version of the code that produced these
-results.</p>
+<p>The R Markdown file has unstaged changes. To know which version of
+the R Markdown file created these results, you’ll want to first commit
+it to the Git repo. If you’re still working on the analysis, you can
+ignore this warning. When you’re finished, you can run
+<code>wflow_publish</code> to commit the R Markdown file and build the
+HTML.</p>
 </div>
 </div>
 </div>
@@ -565,15 +568,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomwmacnairSampleQCpaperanalysestree5bbeff5be2762fb87ffa7f28da59b33e1f9982dctargetblank5bbeff5a">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomwmacnairSampleQCpaperanalysestree546cb1a6e38b3e61e3b63be3912b97aac142138etargetblank546cb1aa">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/wmacnair/SampleQC_paper_analyses/tree/5bbeff5be2762fb87ffa7f28da59b33e1f9982dc" target="_blank">5bbeff5</a>
+<a href="https://github.com/wmacnair/SampleQC_paper_analyses/tree/546cb1a6e38b3e61e3b63be3912b97aac142138e" target="_blank">546cb1a</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomwmacnairSampleQCpaperanalysestree5bbeff5be2762fb87ffa7f28da59b33e1f9982dctargetblank5bbeff5a"
+id="strongRepositoryversionstrongahrefhttpsgithubcomwmacnairSampleQCpaperanalysestree546cb1a6e38b3e61e3b63be3912b97aac142138etargetblank546cb1aa"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -583,7 +586,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/wmacnair/SampleQC_paper_analyses/tree/5bbeff5be2762fb87ffa7f28da59b33e1f9982dc" target="_blank">5bbeff5</a>.
+<a href="https://github.com/wmacnair/SampleQC_paper_analyses/tree/546cb1a6e38b3e61e3b63be3912b97aac142138e" target="_blank">546cb1a</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -599,16 +602,21 @@ were generated:
 <pre><code>
 Ignored files:
     Ignored:    .Rprofile
+    Ignored:    analysis/.DS_Store
+    Ignored:    analysis/qc03_sims_cache/
+    Ignored:    analysis/qc03_sims_t_cache/
+    Ignored:    output/qc02_distns/.DS_Store
 
 Untracked files:
     Untracked:  analysis/figure/
+    Untracked:  output/qc02_distns/combined_umap_qc_plots_16030X4.pdf
+    Untracked:  output/qc02_distns/combined_umap_qc_plots_16030X4.png
 
 Unstaged changes:
+    Modified:   analysis/qc02_distns.Rmd
     Modified:   code/qc02_distns.R
     Modified:   output/qc02_distns/selected_biaxials.pdf
-    Modified:   output/qc02_distns/selected_biaxials.png
     Modified:   output/qc02_distns/selected_marginals.pdf
-    Modified:   output/qc02_distns/selected_marginals.png
 
 </code></pre>
 <p>
@@ -656,6 +664,23 @@ Message
 <tbody>
 <tr>
 <td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/wmacnair/SampleQC_paper_analyses/a3cc174da3bb0e79b244442d7d55756f3d880ae3/docs/qc02_distns.html" target="_blank">a3cc174</a>
+</td>
+<td>
+wmacnair
+</td>
+<td>
+2022-02-12
+</td>
+<td>
+Tweak how marginal distributions are plotted
+</td>
+</tr>
+<tr>
+<td>
 Rmd
 </td>
 <td>
@@ -699,12 +724,16 @@ burn down first, then commit
 <h1>Setup / definitions</h1>
 <div id="libraries" class="section level2">
 <h2>Libraries</h2>
-<pre class="r"><code>library(&#39;SampleQC&#39;)</code></pre>
+<pre class="r"><code>library(&#39;SampleQC&#39;)
+library(&#39;scran&#39;)
+library(&#39;scales&#39;)</code></pre>
 </div>
 <div id="inputs" class="section level2">
 <h2>Inputs</h2>
-<pre class="r"><code>prep_dir    = &#39;output/qc01_prep_data&#39;
-datasets    = c(&#39;Campbell&#39;, &#39;HGSOC&#39;, &#39;Macosko&#39;, &#39;Zeisel&#39;, &#39;Shekhar&#39;, &#39;Wang&#39;)</code></pre>
+<pre class="r"><code>prep_dir  = &#39;output/qc01_prep_data&#39;
+datasets  = c(&#39;Campbell&#39;, &#39;HGSOC&#39;, &#39;Macosko&#39;, &#39;Zeisel&#39;, &#39;Shekhar&#39;, &#39;Wang&#39;)</code></pre>
+<pre class="r"><code>data_dir  = &#39;data/miqc/&#39;
+hgsoc_fs  = c(&#39;16030X2&#39;, &#39;16030X3&#39;, &#39;16030X4&#39;)</code></pre>
 </div>
 <div id="helper-functions" class="section level2">
 <h2>Helper functions</h2>
@@ -730,7 +759,11 @@ sel_biax  = c(&#39;Bipolar5&#39;, &#39;Bipolar6&#39;, &#39;sample19&#39;, &#39;s
 sel_marg  = c(&#39;arc1&#39;, &#39;Refed&#39;, &#39;r6&#39;, &#39;p1&#39;, &#39;Bipolar1&#39;, &#39;Bipolar2&#39;, 
   &#39;sample29&#39;, &#39;sample57&#39;)
 marg_f    = file.path(save_dir, &#39;selected_marginals&#39;)
-biax_f    = file.path(save_dir, &#39;selected_biaxials&#39;)</code></pre>
+biax_f    = file.path(save_dir, &#39;selected_biaxials&#39;)
+
+# define which sample to use for clustering analysis
+sel_f       = &#39;16030X4&#39;
+patch_f     = sprintf(&#39;%s/combined_umap_qc_plots_%s&#39;, save_dir, sel_f)</code></pre>
 </div>
 </div>
 <div id="load-inputs" class="section level1">
@@ -745,17 +778,29 @@ biax_f    = file.path(save_dir, &#39;selected_biaxials&#39;)</code></pre>
       log_counts, log_feats, logit_mito, 
       log_mito_prop = log10(subsets_mito_percent / 100))] %&gt;%
     .[, dataset := d]) %&gt;% rbindlist</code></pre>
+<pre class="r"><code>sce_f       = sel_f %&gt;% sprintf(&#39;%s/%s.rds&#39;, data_dir, .)
+set.seed(20220216)
+hgsoc_sce   = load_and_prep_sce_file(sce_f)</code></pre>
+<pre><code>loading 16030X4</code></pre>
+<pre><code>  finding HVGs</code></pre>
+<pre><code>Warning in regularize.values(x, y, ties, missing(ties), na.rm = na.rm):
+collapsing to unique &#39;x&#39; values</code></pre>
+<pre><code>  running PCA</code></pre>
+<pre><code>  clustering</code></pre>
+<pre><code>  running UMAP</code></pre>
+<pre><code>done!</code></pre>
 </div>
 <div id="processing-calculations" class="section level1">
 <h1>Processing / calculations</h1>
 <pre class="r"><code>qc_vals_dt  = datasets_dt %&gt;% 
   melt(id = c(&#39;dataset&#39;, &#39;sample_id&#39;, &#39;cell_id&#39;), measure = vars_all, 
     variable.name = &#39;qc_var&#39;, value.name = &#39;qc_val&#39;)</code></pre>
+<pre class="r"><code>plot_dt     = make_plot_dt_for_umap(hgsoc_sce, datasets_dt, sel_f, qc_names)</code></pre>
 </div>
 <div id="analysis" class="section level1">
 <h1>Analysis</h1>
-<div id="plot-biaxials-of-qc-metrics" class="section level2 tabset">
-<h2 class="tabset">Plot biaxials of QC metrics</h2>
+<div id="biaxials-of-qc-metrics" class="section level2 tabset">
+<h2 class="tabset">Biaxials of QC metrics</h2>
 <pre class="r"><code>for (s in unique(datasets_dt$sample_id)) {
   cat(&#39;### &#39;, s, &#39;\n&#39;)
   print(plot_biaxials_one_sample(datasets_dt[sample_id == s], qc_names))
@@ -786,6 +831,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/wmacnair/SampleQC_paper_analyses/blob/a3cc174da3bb0e79b244442d7d55756f3d880ae3/docs/figure/qc02_distns.Rmd/plot_biaxials-1.png" target="_blank">a3cc174</a>
+</td>
+<td>
+wmacnair
+</td>
+<td>
+2022-02-12
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/wmacnair/SampleQC_paper_analyses/blob/257196d4be637a09fd2980d03e250721bffbf3bd/docs/figure/qc02_distns.Rmd/plot_biaxials-1.png" target="_blank">257196d</a>
@@ -829,6 +885,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/wmacnair/SampleQC_paper_analyses/blob/a3cc174da3bb0e79b244442d7d55756f3d880ae3/docs/figure/qc02_distns.Rmd/plot_biaxials-2.png" target="_blank">a3cc174</a>
+</td>
+<td>
+wmacnair
+</td>
+<td>
+2022-02-12
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/wmacnair/SampleQC_paper_analyses/blob/257196d4be637a09fd2980d03e250721bffbf3bd/docs/figure/qc02_distns.Rmd/plot_biaxials-2.png" target="_blank">257196d</a>
 </td>
 <td>
@@ -868,6 +935,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/wmacnair/SampleQC_paper_analyses/blob/a3cc174da3bb0e79b244442d7d55756f3d880ae3/docs/figure/qc02_distns.Rmd/plot_biaxials-3.png" target="_blank">a3cc174</a>
+</td>
+<td>
+wmacnair
+</td>
+<td>
+2022-02-12
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/wmacnair/SampleQC_paper_analyses/blob/257196d4be637a09fd2980d03e250721bffbf3bd/docs/figure/qc02_distns.Rmd/plot_biaxials-3.png" target="_blank">257196d</a>
@@ -911,6 +989,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/wmacnair/SampleQC_paper_analyses/blob/a3cc174da3bb0e79b244442d7d55756f3d880ae3/docs/figure/qc02_distns.Rmd/plot_biaxials-4.png" target="_blank">a3cc174</a>
+</td>
+<td>
+wmacnair
+</td>
+<td>
+2022-02-12
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/wmacnair/SampleQC_paper_analyses/blob/257196d4be637a09fd2980d03e250721bffbf3bd/docs/figure/qc02_distns.Rmd/plot_biaxials-4.png" target="_blank">257196d</a>
 </td>
 <td>
@@ -950,6 +1039,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/wmacnair/SampleQC_paper_analyses/blob/a3cc174da3bb0e79b244442d7d55756f3d880ae3/docs/figure/qc02_distns.Rmd/plot_biaxials-5.png" target="_blank">a3cc174</a>
+</td>
+<td>
+wmacnair
+</td>
+<td>
+2022-02-12
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/wmacnair/SampleQC_paper_analyses/blob/257196d4be637a09fd2980d03e250721bffbf3bd/docs/figure/qc02_distns.Rmd/plot_biaxials-5.png" target="_blank">257196d</a>
@@ -993,6 +1093,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/wmacnair/SampleQC_paper_analyses/blob/a3cc174da3bb0e79b244442d7d55756f3d880ae3/docs/figure/qc02_distns.Rmd/plot_biaxials-6.png" target="_blank">a3cc174</a>
+</td>
+<td>
+wmacnair
+</td>
+<td>
+2022-02-12
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/wmacnair/SampleQC_paper_analyses/blob/257196d4be637a09fd2980d03e250721bffbf3bd/docs/figure/qc02_distns.Rmd/plot_biaxials-6.png" target="_blank">257196d</a>
 </td>
 <td>
@@ -1032,6 +1143,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/wmacnair/SampleQC_paper_analyses/blob/a3cc174da3bb0e79b244442d7d55756f3d880ae3/docs/figure/qc02_distns.Rmd/plot_biaxials-7.png" target="_blank">a3cc174</a>
+</td>
+<td>
+wmacnair
+</td>
+<td>
+2022-02-12
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/wmacnair/SampleQC_paper_analyses/blob/257196d4be637a09fd2980d03e250721bffbf3bd/docs/figure/qc02_distns.Rmd/plot_biaxials-7.png" target="_blank">257196d</a>
@@ -1075,6 +1197,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/wmacnair/SampleQC_paper_analyses/blob/a3cc174da3bb0e79b244442d7d55756f3d880ae3/docs/figure/qc02_distns.Rmd/plot_biaxials-8.png" target="_blank">a3cc174</a>
+</td>
+<td>
+wmacnair
+</td>
+<td>
+2022-02-12
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/wmacnair/SampleQC_paper_analyses/blob/257196d4be637a09fd2980d03e250721bffbf3bd/docs/figure/qc02_distns.Rmd/plot_biaxials-8.png" target="_blank">257196d</a>
 </td>
 <td>
@@ -1114,6 +1247,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/wmacnair/SampleQC_paper_analyses/blob/a3cc174da3bb0e79b244442d7d55756f3d880ae3/docs/figure/qc02_distns.Rmd/plot_biaxials-9.png" target="_blank">a3cc174</a>
+</td>
+<td>
+wmacnair
+</td>
+<td>
+2022-02-12
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/wmacnair/SampleQC_paper_analyses/blob/257196d4be637a09fd2980d03e250721bffbf3bd/docs/figure/qc02_distns.Rmd/plot_biaxials-9.png" target="_blank">257196d</a>
@@ -1157,6 +1301,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/wmacnair/SampleQC_paper_analyses/blob/a3cc174da3bb0e79b244442d7d55756f3d880ae3/docs/figure/qc02_distns.Rmd/plot_biaxials-10.png" target="_blank">a3cc174</a>
+</td>
+<td>
+wmacnair
+</td>
+<td>
+2022-02-12
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/wmacnair/SampleQC_paper_analyses/blob/257196d4be637a09fd2980d03e250721bffbf3bd/docs/figure/qc02_distns.Rmd/plot_biaxials-10.png" target="_blank">257196d</a>
 </td>
 <td>
@@ -1196,6 +1351,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/wmacnair/SampleQC_paper_analyses/blob/a3cc174da3bb0e79b244442d7d55756f3d880ae3/docs/figure/qc02_distns.Rmd/plot_biaxials-11.png" target="_blank">a3cc174</a>
+</td>
+<td>
+wmacnair
+</td>
+<td>
+2022-02-12
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/wmacnair/SampleQC_paper_analyses/blob/257196d4be637a09fd2980d03e250721bffbf3bd/docs/figure/qc02_distns.Rmd/plot_biaxials-11.png" target="_blank">257196d</a>
@@ -1239,6 +1405,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/wmacnair/SampleQC_paper_analyses/blob/a3cc174da3bb0e79b244442d7d55756f3d880ae3/docs/figure/qc02_distns.Rmd/plot_biaxials-12.png" target="_blank">a3cc174</a>
+</td>
+<td>
+wmacnair
+</td>
+<td>
+2022-02-12
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/wmacnair/SampleQC_paper_analyses/blob/257196d4be637a09fd2980d03e250721bffbf3bd/docs/figure/qc02_distns.Rmd/plot_biaxials-12.png" target="_blank">257196d</a>
 </td>
 <td>
@@ -1278,6 +1455,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/wmacnair/SampleQC_paper_analyses/blob/a3cc174da3bb0e79b244442d7d55756f3d880ae3/docs/figure/qc02_distns.Rmd/plot_biaxials-13.png" target="_blank">a3cc174</a>
+</td>
+<td>
+wmacnair
+</td>
+<td>
+2022-02-12
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/wmacnair/SampleQC_paper_analyses/blob/257196d4be637a09fd2980d03e250721bffbf3bd/docs/figure/qc02_distns.Rmd/plot_biaxials-13.png" target="_blank">257196d</a>
@@ -1321,6 +1509,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/wmacnair/SampleQC_paper_analyses/blob/a3cc174da3bb0e79b244442d7d55756f3d880ae3/docs/figure/qc02_distns.Rmd/plot_biaxials-14.png" target="_blank">a3cc174</a>
+</td>
+<td>
+wmacnair
+</td>
+<td>
+2022-02-12
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/wmacnair/SampleQC_paper_analyses/blob/257196d4be637a09fd2980d03e250721bffbf3bd/docs/figure/qc02_distns.Rmd/plot_biaxials-14.png" target="_blank">257196d</a>
 </td>
 <td>
@@ -1360,6 +1559,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/wmacnair/SampleQC_paper_analyses/blob/a3cc174da3bb0e79b244442d7d55756f3d880ae3/docs/figure/qc02_distns.Rmd/plot_biaxials-15.png" target="_blank">a3cc174</a>
+</td>
+<td>
+wmacnair
+</td>
+<td>
+2022-02-12
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/wmacnair/SampleQC_paper_analyses/blob/257196d4be637a09fd2980d03e250721bffbf3bd/docs/figure/qc02_distns.Rmd/plot_biaxials-15.png" target="_blank">257196d</a>
@@ -1403,6 +1613,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/wmacnair/SampleQC_paper_analyses/blob/a3cc174da3bb0e79b244442d7d55756f3d880ae3/docs/figure/qc02_distns.Rmd/plot_biaxials-16.png" target="_blank">a3cc174</a>
+</td>
+<td>
+wmacnair
+</td>
+<td>
+2022-02-12
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/wmacnair/SampleQC_paper_analyses/blob/257196d4be637a09fd2980d03e250721bffbf3bd/docs/figure/qc02_distns.Rmd/plot_biaxials-16.png" target="_blank">257196d</a>
 </td>
 <td>
@@ -1442,6 +1663,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/wmacnair/SampleQC_paper_analyses/blob/a3cc174da3bb0e79b244442d7d55756f3d880ae3/docs/figure/qc02_distns.Rmd/plot_biaxials-17.png" target="_blank">a3cc174</a>
+</td>
+<td>
+wmacnair
+</td>
+<td>
+2022-02-12
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/wmacnair/SampleQC_paper_analyses/blob/257196d4be637a09fd2980d03e250721bffbf3bd/docs/figure/qc02_distns.Rmd/plot_biaxials-17.png" target="_blank">257196d</a>
@@ -1485,6 +1717,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/wmacnair/SampleQC_paper_analyses/blob/a3cc174da3bb0e79b244442d7d55756f3d880ae3/docs/figure/qc02_distns.Rmd/plot_biaxials-18.png" target="_blank">a3cc174</a>
+</td>
+<td>
+wmacnair
+</td>
+<td>
+2022-02-12
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/wmacnair/SampleQC_paper_analyses/blob/257196d4be637a09fd2980d03e250721bffbf3bd/docs/figure/qc02_distns.Rmd/plot_biaxials-18.png" target="_blank">257196d</a>
 </td>
 <td>
@@ -1524,6 +1767,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/wmacnair/SampleQC_paper_analyses/blob/a3cc174da3bb0e79b244442d7d55756f3d880ae3/docs/figure/qc02_distns.Rmd/plot_biaxials-19.png" target="_blank">a3cc174</a>
+</td>
+<td>
+wmacnair
+</td>
+<td>
+2022-02-12
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/wmacnair/SampleQC_paper_analyses/blob/257196d4be637a09fd2980d03e250721bffbf3bd/docs/figure/qc02_distns.Rmd/plot_biaxials-19.png" target="_blank">257196d</a>
@@ -1567,6 +1821,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/wmacnair/SampleQC_paper_analyses/blob/a3cc174da3bb0e79b244442d7d55756f3d880ae3/docs/figure/qc02_distns.Rmd/plot_biaxials-20.png" target="_blank">a3cc174</a>
+</td>
+<td>
+wmacnair
+</td>
+<td>
+2022-02-12
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/wmacnair/SampleQC_paper_analyses/blob/257196d4be637a09fd2980d03e250721bffbf3bd/docs/figure/qc02_distns.Rmd/plot_biaxials-20.png" target="_blank">257196d</a>
 </td>
 <td>
@@ -1606,6 +1871,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/wmacnair/SampleQC_paper_analyses/blob/a3cc174da3bb0e79b244442d7d55756f3d880ae3/docs/figure/qc02_distns.Rmd/plot_biaxials-21.png" target="_blank">a3cc174</a>
+</td>
+<td>
+wmacnair
+</td>
+<td>
+2022-02-12
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/wmacnair/SampleQC_paper_analyses/blob/257196d4be637a09fd2980d03e250721bffbf3bd/docs/figure/qc02_distns.Rmd/plot_biaxials-21.png" target="_blank">257196d</a>
@@ -1649,6 +1925,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/wmacnair/SampleQC_paper_analyses/blob/a3cc174da3bb0e79b244442d7d55756f3d880ae3/docs/figure/qc02_distns.Rmd/plot_biaxials-22.png" target="_blank">a3cc174</a>
+</td>
+<td>
+wmacnair
+</td>
+<td>
+2022-02-12
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/wmacnair/SampleQC_paper_analyses/blob/257196d4be637a09fd2980d03e250721bffbf3bd/docs/figure/qc02_distns.Rmd/plot_biaxials-22.png" target="_blank">257196d</a>
 </td>
 <td>
@@ -1688,6 +1975,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/wmacnair/SampleQC_paper_analyses/blob/a3cc174da3bb0e79b244442d7d55756f3d880ae3/docs/figure/qc02_distns.Rmd/plot_biaxials-23.png" target="_blank">a3cc174</a>
+</td>
+<td>
+wmacnair
+</td>
+<td>
+2022-02-12
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/wmacnair/SampleQC_paper_analyses/blob/257196d4be637a09fd2980d03e250721bffbf3bd/docs/figure/qc02_distns.Rmd/plot_biaxials-23.png" target="_blank">257196d</a>
@@ -1731,6 +2029,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/wmacnair/SampleQC_paper_analyses/blob/a3cc174da3bb0e79b244442d7d55756f3d880ae3/docs/figure/qc02_distns.Rmd/plot_biaxials-24.png" target="_blank">a3cc174</a>
+</td>
+<td>
+wmacnair
+</td>
+<td>
+2022-02-12
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/wmacnair/SampleQC_paper_analyses/blob/257196d4be637a09fd2980d03e250721bffbf3bd/docs/figure/qc02_distns.Rmd/plot_biaxials-24.png" target="_blank">257196d</a>
 </td>
 <td>
@@ -1770,6 +2079,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/wmacnair/SampleQC_paper_analyses/blob/a3cc174da3bb0e79b244442d7d55756f3d880ae3/docs/figure/qc02_distns.Rmd/plot_biaxials-25.png" target="_blank">a3cc174</a>
+</td>
+<td>
+wmacnair
+</td>
+<td>
+2022-02-12
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/wmacnair/SampleQC_paper_analyses/blob/257196d4be637a09fd2980d03e250721bffbf3bd/docs/figure/qc02_distns.Rmd/plot_biaxials-25.png" target="_blank">257196d</a>
@@ -1813,6 +2133,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/wmacnair/SampleQC_paper_analyses/blob/a3cc174da3bb0e79b244442d7d55756f3d880ae3/docs/figure/qc02_distns.Rmd/plot_biaxials-26.png" target="_blank">a3cc174</a>
+</td>
+<td>
+wmacnair
+</td>
+<td>
+2022-02-12
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/wmacnair/SampleQC_paper_analyses/blob/257196d4be637a09fd2980d03e250721bffbf3bd/docs/figure/qc02_distns.Rmd/plot_biaxials-26.png" target="_blank">257196d</a>
 </td>
 <td>
@@ -1852,6 +2183,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/wmacnair/SampleQC_paper_analyses/blob/a3cc174da3bb0e79b244442d7d55756f3d880ae3/docs/figure/qc02_distns.Rmd/plot_biaxials-27.png" target="_blank">a3cc174</a>
+</td>
+<td>
+wmacnair
+</td>
+<td>
+2022-02-12
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/wmacnair/SampleQC_paper_analyses/blob/257196d4be637a09fd2980d03e250721bffbf3bd/docs/figure/qc02_distns.Rmd/plot_biaxials-27.png" target="_blank">257196d</a>
@@ -1895,6 +2237,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/wmacnair/SampleQC_paper_analyses/blob/a3cc174da3bb0e79b244442d7d55756f3d880ae3/docs/figure/qc02_distns.Rmd/plot_biaxials-28.png" target="_blank">a3cc174</a>
+</td>
+<td>
+wmacnair
+</td>
+<td>
+2022-02-12
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/wmacnair/SampleQC_paper_analyses/blob/257196d4be637a09fd2980d03e250721bffbf3bd/docs/figure/qc02_distns.Rmd/plot_biaxials-28.png" target="_blank">257196d</a>
 </td>
 <td>
@@ -1934,6 +2287,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/wmacnair/SampleQC_paper_analyses/blob/a3cc174da3bb0e79b244442d7d55756f3d880ae3/docs/figure/qc02_distns.Rmd/plot_biaxials-29.png" target="_blank">a3cc174</a>
+</td>
+<td>
+wmacnair
+</td>
+<td>
+2022-02-12
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/wmacnair/SampleQC_paper_analyses/blob/257196d4be637a09fd2980d03e250721bffbf3bd/docs/figure/qc02_distns.Rmd/plot_biaxials-29.png" target="_blank">257196d</a>
@@ -1977,6 +2341,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/wmacnair/SampleQC_paper_analyses/blob/a3cc174da3bb0e79b244442d7d55756f3d880ae3/docs/figure/qc02_distns.Rmd/plot_biaxials-30.png" target="_blank">a3cc174</a>
+</td>
+<td>
+wmacnair
+</td>
+<td>
+2022-02-12
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/wmacnair/SampleQC_paper_analyses/blob/257196d4be637a09fd2980d03e250721bffbf3bd/docs/figure/qc02_distns.Rmd/plot_biaxials-30.png" target="_blank">257196d</a>
 </td>
 <td>
@@ -2016,6 +2391,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/wmacnair/SampleQC_paper_analyses/blob/a3cc174da3bb0e79b244442d7d55756f3d880ae3/docs/figure/qc02_distns.Rmd/plot_biaxials-31.png" target="_blank">a3cc174</a>
+</td>
+<td>
+wmacnair
+</td>
+<td>
+2022-02-12
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/wmacnair/SampleQC_paper_analyses/blob/257196d4be637a09fd2980d03e250721bffbf3bd/docs/figure/qc02_distns.Rmd/plot_biaxials-31.png" target="_blank">257196d</a>
@@ -2059,6 +2445,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/wmacnair/SampleQC_paper_analyses/blob/a3cc174da3bb0e79b244442d7d55756f3d880ae3/docs/figure/qc02_distns.Rmd/plot_biaxials-32.png" target="_blank">a3cc174</a>
+</td>
+<td>
+wmacnair
+</td>
+<td>
+2022-02-12
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/wmacnair/SampleQC_paper_analyses/blob/257196d4be637a09fd2980d03e250721bffbf3bd/docs/figure/qc02_distns.Rmd/plot_biaxials-32.png" target="_blank">257196d</a>
 </td>
 <td>
@@ -2098,6 +2495,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/wmacnair/SampleQC_paper_analyses/blob/a3cc174da3bb0e79b244442d7d55756f3d880ae3/docs/figure/qc02_distns.Rmd/plot_biaxials-33.png" target="_blank">a3cc174</a>
+</td>
+<td>
+wmacnair
+</td>
+<td>
+2022-02-12
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/wmacnair/SampleQC_paper_analyses/blob/257196d4be637a09fd2980d03e250721bffbf3bd/docs/figure/qc02_distns.Rmd/plot_biaxials-33.png" target="_blank">257196d</a>
@@ -2141,6 +2549,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/wmacnair/SampleQC_paper_analyses/blob/a3cc174da3bb0e79b244442d7d55756f3d880ae3/docs/figure/qc02_distns.Rmd/plot_biaxials-34.png" target="_blank">a3cc174</a>
+</td>
+<td>
+wmacnair
+</td>
+<td>
+2022-02-12
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/wmacnair/SampleQC_paper_analyses/blob/257196d4be637a09fd2980d03e250721bffbf3bd/docs/figure/qc02_distns.Rmd/plot_biaxials-34.png" target="_blank">257196d</a>
 </td>
 <td>
@@ -2180,6 +2599,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/wmacnair/SampleQC_paper_analyses/blob/a3cc174da3bb0e79b244442d7d55756f3d880ae3/docs/figure/qc02_distns.Rmd/plot_biaxials-35.png" target="_blank">a3cc174</a>
+</td>
+<td>
+wmacnair
+</td>
+<td>
+2022-02-12
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/wmacnair/SampleQC_paper_analyses/blob/257196d4be637a09fd2980d03e250721bffbf3bd/docs/figure/qc02_distns.Rmd/plot_biaxials-35.png" target="_blank">257196d</a>
@@ -2223,6 +2653,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/wmacnair/SampleQC_paper_analyses/blob/a3cc174da3bb0e79b244442d7d55756f3d880ae3/docs/figure/qc02_distns.Rmd/plot_biaxials-36.png" target="_blank">a3cc174</a>
+</td>
+<td>
+wmacnair
+</td>
+<td>
+2022-02-12
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/wmacnair/SampleQC_paper_analyses/blob/257196d4be637a09fd2980d03e250721bffbf3bd/docs/figure/qc02_distns.Rmd/plot_biaxials-36.png" target="_blank">257196d</a>
 </td>
 <td>
@@ -2262,6 +2703,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/wmacnair/SampleQC_paper_analyses/blob/a3cc174da3bb0e79b244442d7d55756f3d880ae3/docs/figure/qc02_distns.Rmd/plot_biaxials-37.png" target="_blank">a3cc174</a>
+</td>
+<td>
+wmacnair
+</td>
+<td>
+2022-02-12
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/wmacnair/SampleQC_paper_analyses/blob/257196d4be637a09fd2980d03e250721bffbf3bd/docs/figure/qc02_distns.Rmd/plot_biaxials-37.png" target="_blank">257196d</a>
@@ -2305,6 +2757,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/wmacnair/SampleQC_paper_analyses/blob/a3cc174da3bb0e79b244442d7d55756f3d880ae3/docs/figure/qc02_distns.Rmd/plot_biaxials-38.png" target="_blank">a3cc174</a>
+</td>
+<td>
+wmacnair
+</td>
+<td>
+2022-02-12
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/wmacnair/SampleQC_paper_analyses/blob/257196d4be637a09fd2980d03e250721bffbf3bd/docs/figure/qc02_distns.Rmd/plot_biaxials-38.png" target="_blank">257196d</a>
 </td>
 <td>
@@ -2320,8 +2783,8 @@ markrobinsonuzh
 </div>
 </div>
 </div>
-<div id="plot-marginals-of-qc-metrics" class="section level2 tabset">
-<h2 class="tabset">Plot marginals of QC metrics</h2>
+<div id="marginals-of-qc-metrics" class="section level2 tabset">
+<h2 class="tabset">Marginals of QC metrics</h2>
 <pre class="r"><code>for (d in unique(qc_vals_dt$dataset)) {
   cat(&#39;### &#39;, d, &#39;\n&#39;)
   print(plot_marginals(qc_vals_dt[dataset == d]))
@@ -2352,6 +2815,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/wmacnair/SampleQC_paper_analyses/blob/a3cc174da3bb0e79b244442d7d55756f3d880ae3/docs/figure/qc02_distns.Rmd/plot_marginals-1.png" target="_blank">a3cc174</a>
+</td>
+<td>
+wmacnair
+</td>
+<td>
+2022-02-12
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/wmacnair/SampleQC_paper_analyses/blob/257196d4be637a09fd2980d03e250721bffbf3bd/docs/figure/qc02_distns.Rmd/plot_marginals-1.png" target="_blank">257196d</a>
@@ -2395,6 +2869,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/wmacnair/SampleQC_paper_analyses/blob/a3cc174da3bb0e79b244442d7d55756f3d880ae3/docs/figure/qc02_distns.Rmd/plot_marginals-2.png" target="_blank">a3cc174</a>
+</td>
+<td>
+wmacnair
+</td>
+<td>
+2022-02-12
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/wmacnair/SampleQC_paper_analyses/blob/257196d4be637a09fd2980d03e250721bffbf3bd/docs/figure/qc02_distns.Rmd/plot_marginals-2.png" target="_blank">257196d</a>
 </td>
 <td>
@@ -2434,6 +2919,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/wmacnair/SampleQC_paper_analyses/blob/a3cc174da3bb0e79b244442d7d55756f3d880ae3/docs/figure/qc02_distns.Rmd/plot_marginals-3.png" target="_blank">a3cc174</a>
+</td>
+<td>
+wmacnair
+</td>
+<td>
+2022-02-12
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/wmacnair/SampleQC_paper_analyses/blob/257196d4be637a09fd2980d03e250721bffbf3bd/docs/figure/qc02_distns.Rmd/plot_marginals-3.png" target="_blank">257196d</a>
@@ -2477,6 +2973,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/wmacnair/SampleQC_paper_analyses/blob/a3cc174da3bb0e79b244442d7d55756f3d880ae3/docs/figure/qc02_distns.Rmd/plot_marginals-4.png" target="_blank">a3cc174</a>
+</td>
+<td>
+wmacnair
+</td>
+<td>
+2022-02-12
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/wmacnair/SampleQC_paper_analyses/blob/257196d4be637a09fd2980d03e250721bffbf3bd/docs/figure/qc02_distns.Rmd/plot_marginals-4.png" target="_blank">257196d</a>
 </td>
 <td>
@@ -2516,6 +3023,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/wmacnair/SampleQC_paper_analyses/blob/a3cc174da3bb0e79b244442d7d55756f3d880ae3/docs/figure/qc02_distns.Rmd/plot_marginals-5.png" target="_blank">a3cc174</a>
+</td>
+<td>
+wmacnair
+</td>
+<td>
+2022-02-12
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/wmacnair/SampleQC_paper_analyses/blob/257196d4be637a09fd2980d03e250721bffbf3bd/docs/figure/qc02_distns.Rmd/plot_marginals-5.png" target="_blank">257196d</a>
@@ -2559,6 +3077,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/wmacnair/SampleQC_paper_analyses/blob/a3cc174da3bb0e79b244442d7d55756f3d880ae3/docs/figure/qc02_distns.Rmd/plot_marginals-6.png" target="_blank">a3cc174</a>
+</td>
+<td>
+wmacnair
+</td>
+<td>
+2022-02-12
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/wmacnair/SampleQC_paper_analyses/blob/257196d4be637a09fd2980d03e250721bffbf3bd/docs/figure/qc02_distns.Rmd/plot_marginals-6.png" target="_blank">257196d</a>
 </td>
 <td>
@@ -2573,6 +3102,31 @@ markrobinsonuzh
 </div>
 </div>
 </div>
+</div>
+<div id="clusters-over-umap-of-selected-sample" class="section level2">
+<h2>Clusters over <code>UMAP</code> of selected sample</h2>
+<pre class="r"><code>(plot_umap_clusters(plot_dt))</code></pre>
+<p><img src="figure/qc02_distns.Rmd/plot_umap_clusters-1.png" width="576" style="display: block; margin: auto;" /></p>
+</div>
+<div id="qc-metrics-over-umap-of-selected-sample"
+class="section level2">
+<h2>QC metrics over <code>UMAP</code> of selected sample</h2>
+<pre class="r"><code>(plot_qc_metrics_over_umap(plot_dt, nrow = 1))</code></pre>
+<p><img src="figure/qc02_distns.Rmd/plot_umap_qc_metrics-1.png" width="1056" style="display: block; margin: auto;" /></p>
+</div>
+<div id="qc-metrics-of-clusters-of-selected-sample"
+class="section level2">
+<h2>QC metrics of clusters of selected sample</h2>
+<pre class="r"><code>(plot_violins_qc_metrics(plot_dt))</code></pre>
+<p><img src="figure/qc02_distns.Rmd/plot_violins_qc_metrics-1.png" width="768" style="display: block; margin: auto;" /></p>
+</div>
+<div id="assemble-fancy-patchwork-plot" class="section level2">
+<h2>Assemble fancy patchwork plot</h2>
+<pre class="r"><code>g = make_patchwork_plot(plot_dt)
+for (f in formats)
+  ggsave(file = paste0(patch_f, f), g, h = 11, w = 10)
+print(g)</code></pre>
+<p><img src="figure/qc02_distns.Rmd/make_patchwork_plot-1.png" width="960" style="display: block; margin: auto;" /></p>
 </div>
 </div>
 <div id="outputs-1" class="section level1">
@@ -2626,62 +3180,78 @@ locale:
 [1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8
 
 attached base packages:
-[1] stats     graphics  grDevices utils     datasets  methods   base     
+[1] stats4    stats     graphics  grDevices utils     datasets  methods  
+[8] base     
 
 other attached packages:
- [1] scales_1.1.1        patchwork_1.1.1     ggplot2_3.3.5      
- [4] assertthat_0.2.1    forcats_0.5.1       stringr_1.4.0      
- [7] magrittr_2.0.2      data.table_1.14.2   SampleQC_0.6.4     
-[10] BiocStyle_2.22.0    BiocManager_1.30.16 colorout_1.2-2     
-[13] workflowr_1.7.0    
+ [1] scater_1.22.0               patchwork_1.1.1            
+ [3] ggplot2_3.3.5               assertthat_0.2.1           
+ [5] forcats_0.5.1               stringr_1.4.0              
+ [7] magrittr_2.0.2              data.table_1.14.2          
+ [9] scales_1.1.1                scran_1.22.1               
+[11] scuttle_1.4.0               SingleCellExperiment_1.16.0
+[13] SummarizedExperiment_1.24.0 Biobase_2.54.0             
+[15] GenomicRanges_1.46.1        GenomeInfoDb_1.30.0        
+[17] IRanges_2.28.0              S4Vectors_0.32.3           
+[19] BiocGenerics_0.40.0         MatrixGenerics_1.6.0       
+[21] matrixStats_0.61.0          SampleQC_0.6.5             
+[23] BiocStyle_2.22.0            BiocManager_1.30.16        
+[25] colorout_1.2-2              workflowr_1.7.0            
 
 loaded via a namespace (and not attached):
- [1] segmented_1.4-0             bitops_1.0-7               
- [3] matrixStats_0.61.0          fs_1.5.2                   
- [5] RColorBrewer_1.1-2          httr_1.4.2                 
- [7] rprojroot_2.0.2             GenomeInfoDb_1.30.0        
- [9] tools_4.1.2                 bslib_0.3.1                
-[11] utf8_1.2.2                  R6_2.5.1                   
-[13] uwot_0.1.11                 DBI_1.1.2                  
-[15] BiocGenerics_0.40.0         colorspace_2.0-2           
-[17] withr_2.4.3                 tidyselect_1.1.1           
-[19] processx_3.5.2              compiler_4.1.2             
-[21] git2r_0.29.0                cli_3.1.1                  
-[23] Biobase_2.54.0              DelayedArray_0.20.0        
-[25] sass_0.4.0                  mvtnorm_1.1-3              
-[27] callr_3.7.0                 mvnfast_0.2.7              
-[29] digest_0.6.29               mixtools_1.2.0             
-[31] R.utils_2.11.0              rmarkdown_2.11             
-[33] XVector_0.34.0              pkgconfig_2.0.3            
-[35] htmltools_0.5.2             MatrixGenerics_1.6.0       
-[37] fastmap_1.1.0               highr_0.9                  
-[39] rlang_1.0.0                 rstudioapi_0.13            
-[41] farver_2.1.0                jquerylib_0.1.4            
-[43] generics_0.1.1              jsonlite_1.7.3             
-[45] mclust_5.4.9                BiocParallel_1.28.3        
-[47] gtools_3.9.2                R.oo_1.24.0                
-[49] dplyr_1.0.7                 RCurl_1.98-1.5             
-[51] GenomeInfoDbData_1.2.7      Matrix_1.4-0               
-[53] Rcpp_1.0.8                  munsell_0.5.0              
-[55] S4Vectors_0.32.3            fansi_1.0.2                
-[57] R.methodsS3_1.8.1           lifecycle_1.0.1            
-[59] stringi_1.7.6               whisker_0.4                
-[61] yaml_2.2.2                  MASS_7.3-55                
-[63] SummarizedExperiment_1.24.0 zlibbioc_1.40.0            
-[65] grid_4.1.2                  parallel_4.1.2             
-[67] promises_1.2.0.1            crayon_1.4.2               
-[69] lattice_0.20-45             splines_4.1.2              
-[71] knitr_1.37                  ps_1.6.0                   
-[73] pillar_1.6.5                igraph_1.2.11              
-[75] GenomicRanges_1.46.1        codetools_0.2-18           
-[77] stats4_4.1.2                glue_1.6.1                 
-[79] evaluate_0.14               getPass_0.2-2              
-[81] vctrs_0.3.8                 httpuv_1.6.5               
-[83] gtable_0.3.0                purrr_0.3.4                
-[85] kernlab_0.9-29              xfun_0.29                  
-[87] later_1.3.0                 survival_3.2-13            
-[89] SingleCellExperiment_1.16.0 tibble_3.1.6               
-[91] IRanges_2.28.0              ellipsis_0.3.2             </code></pre>
+  [1] ggbeeswarm_0.6.0          colorspace_2.0-2         
+  [3] ellipsis_0.3.2            mclust_5.4.9             
+  [5] rprojroot_2.0.2           bluster_1.4.0            
+  [7] XVector_0.34.0            BiocNeighbors_1.12.0     
+  [9] fs_1.5.2                  rstudioapi_0.13          
+ [11] farver_2.1.0              ggrepel_0.9.1            
+ [13] RSpectra_0.16-0           fansi_1.0.2              
+ [15] mvtnorm_1.1-3             R.methodsS3_1.8.1        
+ [17] codetools_0.2-18          splines_4.1.2            
+ [19] sparseMatrixStats_1.6.0   knitr_1.37               
+ [21] jsonlite_1.7.3            cluster_2.1.2            
+ [23] kernlab_0.9-29            R.oo_1.24.0              
+ [25] uwot_0.1.11               compiler_4.1.2           
+ [27] httr_1.4.2                dqrng_0.3.0              
+ [29] Matrix_1.4-0              fastmap_1.1.0            
+ [31] limma_3.50.0              cli_3.1.1                
+ [33] later_1.3.0               BiocSingular_1.10.0      
+ [35] htmltools_0.5.2           tools_4.1.2              
+ [37] rsvd_1.0.5                igraph_1.2.11            
+ [39] gtable_0.3.0              glue_1.6.1               
+ [41] GenomeInfoDbData_1.2.7    dplyr_1.0.7              
+ [43] Rcpp_1.0.8                jquerylib_0.1.4          
+ [45] vctrs_0.3.8               DelayedMatrixStats_1.16.0
+ [47] xfun_0.29                 ps_1.6.0                 
+ [49] beachmat_2.10.0           lifecycle_1.0.1          
+ [51] irlba_2.3.5               gtools_3.9.2             
+ [53] statmod_1.4.36            edgeR_3.36.0             
+ [55] getPass_0.2-2             zlibbioc_1.40.0          
+ [57] MASS_7.3-55               promises_1.2.0.1         
+ [59] parallel_4.1.2            RColorBrewer_1.1-2       
+ [61] yaml_2.2.2                mvnfast_0.2.7            
+ [63] gridExtra_2.3             sass_0.4.0               
+ [65] segmented_1.4-0           stringi_1.7.6            
+ [67] highr_0.9                 ScaledMatrix_1.2.0       
+ [69] BiocParallel_1.28.3       rlang_1.0.1              
+ [71] pkgconfig_2.0.3           bitops_1.0-7             
+ [73] evaluate_0.14             lattice_0.20-45          
+ [75] purrr_0.3.4               processx_3.5.2           
+ [77] tidyselect_1.1.1          RcppAnnoy_0.0.19         
+ [79] R6_2.5.1                  generics_0.1.1           
+ [81] metapod_1.2.0             DelayedArray_0.20.0      
+ [83] DBI_1.1.2                 pillar_1.7.0             
+ [85] whisker_0.4               withr_2.4.3              
+ [87] mixtools_1.2.0            survival_3.2-13          
+ [89] RCurl_1.98-1.5            tibble_3.1.6             
+ [91] crayon_1.4.2              utf8_1.2.2               
+ [93] rmarkdown_2.11            viridis_0.6.2            
+ [95] locfit_1.5-9.4            grid_4.1.2               
+ [97] callr_3.7.0               git2r_0.29.0             
+ [99] digest_0.6.29             httpuv_1.6.5             
+[101] R.utils_2.11.0            munsell_0.5.0            
+[103] viridisLite_0.4.0         beeswarm_0.4.0           
+[105] vipor_0.4.5               bslib_0.3.1              </code></pre>
 </div>
 </div>
 
